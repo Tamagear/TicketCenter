@@ -9,9 +9,9 @@ namespace Ticketautomat.Classes
     class MoneyManager
     {
         /// <summary>
-        /// Attribute der Klasse MoneyManager
+        /// Attribut moneyFillState, welches als Dictionary dargestellt wird
         /// </summary>
-        private IEnumerable<Money> m_moneyFillState;
+        private IEnumerable<Money> m_moneyFillState = new Dictionary<int, int>;
 
         private int m_ticketPaperLeft;
 
