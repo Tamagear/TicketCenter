@@ -63,7 +63,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\EMoneyType.cs" />
+    <Compile Include="Classes\EStationZone.cs" />
+    <Compile Include="Classes\EStatisticDisplay.cs" />
+    <Compile Include="Classes\EStatisticTimeType.cs" />
+    <Compile Include="Classes\ETariffLevel.cs" />
+    <Compile Include="Classes\EAgeType.cs" />
     <Compile Include="Classes\LogEntry.cs" />
+    <Compile Include="Classes\Manager.cs" />
     <Compile Include="Classes\Station.cs" />
     <Compile Include="Classes\Ticket.cs" />
     <Compile Include="MainWindow.xaml.cs">
