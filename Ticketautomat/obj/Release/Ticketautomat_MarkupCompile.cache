@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\Malte\source\repos\ticketcenter\Ticketautomat\obj\Debug\
+C:\Users\Malte\source\repos\ticketcenter\Ticketautomat\obj\Release\
 Ticketautomat
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Malte\source\repos\ticketcenter\Ticketautomat\App.xaml
 11151548125
 

@@ -1,36 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ticketautomat.Classes
+﻿namespace Ticketautomat.Classes
 {
     class MoneyManager
     {
         /// <summary>
         /// Attribut moneyFillState, welches als Dictionary dargestellt wird
         /// </summary>
-        private IEnumerable<Money> m_moneyFillState = new Dictionary<int, int>;
+        private Dictionary<Money, int> m_moneyFillState = new Dictionary<Money, int>();
 
         private int m_ticketPaperLeft;
 
-        private IEnumerable<Money> m_currentlyInsertedMoney;
+        private List<Money> m_currentlyInsertedMoney;
 
-        /// <summary>
+        public void SetMoneyFillState(Dictionary<Money, int> p_moneyFillState)
+        {
+            m_moneyFillState = p_moneyFillState;
+        }
+        public void GetMoneyFillState()
+        {
+            return m_moneyFillState;
+        }
+        public int ticketPaperLeft { get => m_ticketPaperLeft; set => m_ticketPaperLeft = value; }
+
+
         /// Methoden der Klasse MoneyManager
         /// </summary>
-        public InsertMoney(p_money)
+        public InsertMoney(Dictionary<Money, int> p_insertMoney)
         {
-            return m_currentlyInsterdMoney += p_money;
+
         }
         public GetChange()
         {
-            return p_money;
+
         }
         public void CancelMoneyInsertion()
         {
-            
+
         }
     }
 }
