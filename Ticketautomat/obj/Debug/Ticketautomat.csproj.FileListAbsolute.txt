@@ -1,0 +1,5 @@
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csprojAssemblyReference.cache
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\MainWindow.g.cs
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\App.g.cs
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.cache
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.lref
