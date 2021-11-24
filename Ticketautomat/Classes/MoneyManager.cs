@@ -8,13 +8,18 @@ namespace Ticketautomat.Classes
 {
     class MoneyManager
     {
+        /// <summary>
+        /// Attribute der Klasse MoneyManager
+        /// </summary>
         private IEnumerable<Money> m_moneyFillState;
 
         private int m_ticketPaperLeft;
 
         private IEnumerable<Money> m_currentlyInsertedMoney;
 
-
+        /// <summary>
+        /// Methoden der Klasse MoneyManager
+        /// </summary>
         public InsertMoney(p_money)
         {
             return p_wert;
