@@ -22,7 +22,7 @@ namespace Ticketautomat.Classes
         /// </summary>
         public InsertMoney(p_money)
         {
-            return p_wert;
+            return m_currentlyInsterdMoney += p_money;
         }
         public GetChange()
         {
