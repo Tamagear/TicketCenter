@@ -8,37 +8,37 @@ namespace Ticketautomat.Classes
 {
     class EnumCollection
     {
-        enum EAgeType
+        public enum EAgeType
         {
             CHILD,
             REDUCED,
             ADULT,
             PENSIONER
         }
-        enum EMoneyType
+        public enum EMoneyType
         {
             COIN,
             BILL
         }
-        enum EStationZone
+        public enum EStationZone
         {
             ZONE_A,
             ZONE_B,
             ZONE_C
         }
-        enum EStatisticDisplay
+        public enum EStatisticDisplay
         {
             TABLE,
             GRAPH
         }
-        enum EStatisticTimeType
+        public enum EStatisticTimeType
         {
             DAY,
             WEEK,
             MONTH,
             COMPLETE
         }
-        enum ETariffLevel
+        public enum ETariffLevel
         {
             TARIFF_A,
             TARIFF_B,
