@@ -70,7 +70,9 @@
     <Compile Include="Classes\ETariffLevel.cs" />
     <Compile Include="Classes\EAgeType.cs" />
     <Compile Include="Classes\LogEntry.cs" />
+    <Compile Include="Classes\MaintenanceProfile.cs" />
     <Compile Include="Classes\Manager.cs" />
+    <Compile Include="Classes\Profile.cs" />
     <Compile Include="Classes\Station.cs" />
     <Compile Include="Classes\Ticket.cs" />
     <Compile Include="MainWindow.xaml.cs">

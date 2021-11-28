@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    enum EStatisticDisplay
+    public enum EStatisticDisplay
     {
         TABLE,
         GRAPH

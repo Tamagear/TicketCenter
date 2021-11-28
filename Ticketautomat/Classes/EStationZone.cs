@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    enum EStationZone
+    public enum EStationZone
     {
         ZONE_A,
         ZONE_B,

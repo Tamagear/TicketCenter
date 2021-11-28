@@ -2,7 +2,7 @@
 
 namespace Ticketautomat.Classes
 {
-    class LogEntry
+    public class LogEntry
     {
         private DateTime m_date;
         private string m_author;

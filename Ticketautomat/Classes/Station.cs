@@ -1,7 +1,7 @@
 ﻿
 namespace Ticketautomat.Classes
 {
-    class Station
+    public class Station
     {
         private string m_stationName;
         private EStationZone m_stationZone;

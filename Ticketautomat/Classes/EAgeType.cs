@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    enum EAgeType
+    public enum EAgeType
     {
-        CHILD,
-        REDUCED,
-        ADULT,
-        PENSIONER
+        CHILD, REDUCED 
     }
 }

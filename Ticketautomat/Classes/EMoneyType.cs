@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    enum EMoneyType
+    public enum EMoneyType
     {
         COIN,
         BILL

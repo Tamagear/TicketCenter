@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    enum EStatisticTimeType
+    public enum EStatisticTimeType
     {
         DAY,
         WEEK,

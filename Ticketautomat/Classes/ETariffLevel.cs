@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    enum ETariffLevel
+    public enum ETariffLevel
     {
         TARIFF_A,
         TARIFF_B,

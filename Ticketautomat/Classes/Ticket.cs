@@ -1,7 +1,7 @@
 ﻿
 namespace Ticketautomat.Classes
 {
-    class Ticket
+    public class Ticket
     {
         private DateTime m_date;
         private Profile m_customer;

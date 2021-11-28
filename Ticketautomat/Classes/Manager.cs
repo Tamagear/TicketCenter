@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    class Manager
+    public class Manager
     {
         /// <summary>
         /// Das Profil welches mormentan an den Automaten ist.
@@ -20,6 +20,14 @@ namespace Ticketautomat.Classes
         /// Zeit bis der Automat resettet
         /// </summary>
         private float m_timeUntilTimeout = TIMEOUT_THRESHOLD;
+
+        private List<PriceEntry> m_priceEntries = new List<PriceEntry>();
+
+        public List<PriceEntry> PriceEntries
+        {
+            get { return m_priceEntries; }
+            set { m_priceEntries = value; }
+        }
         private IEnumerable<LogEntry> m_logEntries;
         /// <summary>
         /// Wie lange der Automat braucht um zu resetten, nachdem eine Aktion gemacht wurde
