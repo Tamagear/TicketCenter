@@ -6,113 +6,95 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    public class Manager
+    class Manager
     {
-        /// <summary>
-        /// Das Profil welches mormentan an den Automaten ist.
-        /// </summary>
-        private Profile m_currentUser;
-        /// <summary>
-        /// Ob der Automat zur Verfügung steht
-        /// </summary>
+        private Profile m_currentUser = null;
         private bool m_enabled = true;
-        /// <summary>
-        /// Zeit bis der Automat resettet
-        /// </summary>
-        private float m_timeUntilTimeout = TIMEOUT_THRESHOLD;
-
+        private float m_timeUntilTimeout = 0;
+        private List<LogEntry> m_logEntries = new List<LogEntry>();
         private List<PriceEntry> m_priceEntries = new List<PriceEntry>();
 
-        public List<PriceEntry> PriceEntries
-        {
-            get { return m_priceEntries; }
-            set { m_priceEntries = value; }
-        }
-        private IEnumerable<LogEntry> m_logEntries;
-        /// <summary>
-        /// Wie lange der Automat braucht um zu resetten, nachdem eine Aktion gemacht wurde
-        /// </summary>
         private const float TIMEOUT_THRESHOLD = 10f;
+
+        public Profile CurrentUser { get => m_currentUser; set => m_currentUser = value; }
+        public bool Enabled { get => m_enabled; set => m_enabled = value; }
+        public float TimeUntilTimeout { get => m_timeUntilTimeout; set => m_timeUntilTimeout = value; }
+        public List<LogEntry> LogEntries { get => m_logEntries; set => m_logEntries = value; }
+        public List<PriceEntry> PriceEntries { get => m_priceEntries; set => m_priceEntries = value; }
+
+
         /// <summary>
         /// Erstellt eine Managerklasse mit einen Nutzer
         /// </summary>
         /// <param name="p_currentUser">Der Nutzer welcher am Automaten ist</param>
         public Manager(Profile p_currentUser)
         {
-            m_currentUser = p_currentUser;
+            CurrentUser = p_currentUser;
+            Initialize();
         }
+
         /// <summary>
-        /// 
+        /// Lädt die gespeicherten Daten
         /// </summary>
+        /// 
         private void Initialize()
         {
-
+            LoadSavedData();
         }
+
         /// <summary>
         /// Setzt die Zeit bis zum Timeout zum Maximum
         /// </summary>
         private void ResetTimeUntilTimeout()
         {
-            m_timeUntilTimeout = TIMEOUT_THRESHOLD;
+            TimeUntilTimeout = TIMEOUT_THRESHOLD;
         }
 
 
         /// <summary>
-        /// 
+        /// W.I.P
         /// </summary>
         public void LoadSavedData()
         {
 
         }
 
-
         /// <summary>
-        /// 
+        /// Logt den Maintanance benutzer aus und resettet den ShoppingCart
         /// </summary>
         public void CancelAndResetTransactions()
         {
-            m_currentUser.ResetShoppingCart();
+            if (CurrentUser.IsMaintenance)
+            {
+                ((MaintenanceProfile)CurrentUser).Logout();
+            }
+            CurrentUser.ResetShoppingCart();
         }
 
-
         /// <summary>
-        /// 
+        /// W.I.P
         /// </summary>
         /// <param name="p_customer"></param>
         /// <param name="p_ticket"></param>
         /// <returns></returns>
-        public bool ConfirmPurchase(Customer p_customer, Ticket p_ticket)
+        public bool ConfirmPurchase(Profile p_customer, Ticket p_ticket)
         {
             return true;
         }
 
-
         /// <summary>
-        /// Erstellt ein Ticket und fügt es zum ShoppingCart hinzu
+        /// W.I.P
         /// </summary>
         /// <param name="p_ticket">Das Hinzuzufügende Ticket</param>
         public void CreateTicketInstance(Ticket p_ticket)
         {
-            m_currentUser.AddToShoppingCart(p_ticket);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public void GoToCheckout()
-        {
-            float preis = m_currentUser.GetFinalPrice();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public void FinalizeTransaction()
-        {
 
         }
+
         /// <summary>
-        /// 
+        /// W.I.P
         /// </summary>
-        public void ReturnToMain()
+        public void FinalizeTransaction()
         {
 
         }
