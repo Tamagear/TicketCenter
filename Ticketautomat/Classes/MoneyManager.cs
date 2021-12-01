@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Ticketautomat.Classes
 {
-    class MoneyManager
+    public class MoneyManager
     {
         private Dictionary<Money, int> m_moneyFillState = new Dictionary<Money, int>();
         private int m_ticketPaperLeft;
