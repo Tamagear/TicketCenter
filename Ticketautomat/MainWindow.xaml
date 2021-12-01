@@ -7,10 +7,44 @@
         mc:Ignorable="d"
         Icon="Resources/Images/softwareIcon.png"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         ResizeMode="NoResize"
         Title="TicketCenter" Height="900" Width="1600">
-    <Grid>
-        
+    <Grid x:Name="Parent">
+        <Grid x:Name="Overlay">
+            <Rectangle x:Name="Rectangle_TopBarBackground" Fill="DarkSlateGray" Height="25" Width="1600" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <!--Wird später mit einer Grafik ersetzt-->
+            <Button x:Name="Button_Close" Content="X" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="25, 0" Click="Button_Close_Click"/>
+            <Button x:Name="Button_Version" Content="i" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="75, 0" Click="Button_Version_Click"/>
+            <Button x:Name="Button_MaintenanceLogin" Content="Mitarbeiterlogin" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0" Click="Button_MaintenanceLogin_Click"/>
+            <Label x:Name="Label_TimeLeft" Content="Zeit bis zum Abbruch: {00:00}" Height="25" Width="200" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="200, 0"/>
+            <Label x:Name="Label_SoftwareTitleAndVersion" Content="TicketCenter Version 0.0.1-SNAPSHOT" Height="25" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25, 0" FontWeight="Bold"/>
+            <Label x:Name="Label_DateTime" Content="01.01.1970, 00:00 Uhr" Height="25" Width="Auto" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0"/>
+        </Grid>
+        <Grid x:Name="MainMenu" Visibility="Visible">
+            <!--Später: Fester Background; spart Performance und viel Code-->
+            <Image x:Name="Image_MainMenu_Map" Source="Resources/Images/map_full.jpg" Height="500" Width="500" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,-30"/>
+            <Label x:Name="Label_MainMenu_MOTD" Content="MESSAGE OF THE DAY" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Label x:Name="Label_MainMenu_TicketSpotlight" Content="Ticket-Spotlight" Height="60" Width="500" FontSize="36" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,715,20,0"/>
+            <Button x:Name="Button_MainMenu_GoToCart" Content="Warenkorb&#x0a;anzeigen" Height="60" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="40, 60" Click="Button_MainMenu_GoToCart_Click"/>
+            <Button x:Name="Button_MainMenu_ShowPriceTable" Content="Preistabelle einsehen" Height="60" Width="300" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="190,0,0,125" Click="Button_MainMenu_ShowPriceTable_Click"/>
+            <Grid x:Name="MainMenu_BuyButtonsGrid" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350px"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="Button_MainMenu_BuyButton_Adult" Content="Erwachsener&#x0a;Ab {00,00€}" Width="300" Height="200" FontSize="40" Grid.Column="0" Grid.Row="0" Margin="0" Click="MainMenu_BuyButton_Adult_Click"/>
+                <Button x:Name="Button_MainMenu_BuyButton_Child" Content="Kind&#x0a;Ab {00,00€}" Width="300" Height="200" FontSize="40" Grid.Column="1" Grid.Row="0" Margin="0" Click="MainMenu_BuyButton_Child_Click"/>
+                <Button x:Name="Button_MainMenu_BuyButton_Pensioner" Content="Senior&#x0a;Ab {00,00€}" Width="300" Height="200" FontSize="40" Grid.Column="0" Grid.Row="1" Margin="0" Click="MainMenu_BuyButton_Pensioner_Click"/>
+                <Button x:Name="Button_MainMenu_BuyButton_Reduced" Content="Ermäßigt&#x0a;Ab {00,00€}" Width="300" Height="200" FontSize="40" Grid.Column="1" Grid.Row="1" Margin="0" Click="MainMenu_BuyButton_Reduced_Click"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="PriceTable" Visibility="Collapsed">
+            
+        </Grid>
     </Grid>
 </Window>
