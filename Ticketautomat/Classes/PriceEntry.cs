@@ -7,7 +7,7 @@ using static Ticketautomat.Classes.EnumCollection;
 
 namespace Ticketautomat.Classes
 {
-    class PriceEntry
+    public class PriceEntry
     {
         /// <summary>
         /// Preisklasse der Altersgruppe
@@ -25,6 +25,13 @@ namespace Ticketautomat.Classes
         public EAgeType AgeType { get => m_ageType; set => m_ageType = value; }
         public ETariffLevel TariffLevel { get => m_tariffLevel; set => m_tariffLevel = value; }
         public float Price { get => m_price; set => m_price = value; }
+
+        public PriceEntry(EAgeType p_ageType, ETariffLevel p_tariffLevel, float p_Price)
+        {
+            m_ageType = p_ageType;
+            m_tariffLevel = p_tariffLevel;
+            m_price = p_Price;
+        }
 
         /// <summary>
         /// Ändert den Preis eines Tickets

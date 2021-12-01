@@ -8,7 +8,7 @@ namespace Ticketautomat.Classes
         private Profile m_customer;
         private Station m_startStation;
         private Station m_targetDestination;
-        private PriceEntry m_priceEntry;
+        private PriceEntry m_priceEntry = null;
 
         public DateTime Date
         {
@@ -31,8 +31,7 @@ namespace Ticketautomat.Classes
             set { this.m_targetDestination = value; }
         }
 
-        PriceEntry PriceEntry { get => m_priceEntry; set => m_priceEntry = value; }
-
+        public PriceEntry PriceEntry { get { return this.m_priceEntry; } set { this.m_priceEntry = value;} }
         public void ToPDF(string p_Text ) { }
 
     }

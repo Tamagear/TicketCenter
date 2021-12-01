@@ -90,9 +90,10 @@ namespace Ticketautomat.Classes
         public float GetFinalPrice()
         {
             float price = 0;
+            
             foreach (KeyValuePair<Ticket, int> t in m_shoppingCart)
             {
-                price = price + (t.Key.PriceEntry * t.Value);
+                price += (t.Key.PriceEntry.Price * t.Value);
             }
 
             return price;

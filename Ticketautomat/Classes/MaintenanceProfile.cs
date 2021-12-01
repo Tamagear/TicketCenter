@@ -7,7 +7,7 @@ using static Ticketautomat.Classes.EnumCollection;
 
 namespace Ticketautomat.Classes
 {
-    class MaintenanceProfile : Profile
+    public class MaintenanceProfile : Profile
     {
         private String m_password = "";
         private DateTime m_lastLogin;

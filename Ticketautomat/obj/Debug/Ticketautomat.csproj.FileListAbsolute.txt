@@ -14,3 +14,13 @@ D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\MainWi
 D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\App.g.cs
 D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.cache
 D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.lref
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\bin\Debug\Ticketautomat.exe.config
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\bin\Debug\Ticketautomat.exe
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\bin\Debug\Ticketautomat.pdb
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\MainWindow.baml
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.g.resources
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.Properties.Resources.resources
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.GenerateResource.cache
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.CoreCompileInputs.cache
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.exe
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.pdb

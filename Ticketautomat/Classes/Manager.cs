@@ -30,6 +30,10 @@ namespace Ticketautomat.Classes
         public Manager(Profile p_currentUser)
         {
             CurrentUser = p_currentUser;
+            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.ADULT, EnumCollection.ETariffLevel.TARIFF_A, 2.5f));
+            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.CHILD, EnumCollection.ETariffLevel.TARIFF_A, 1.5f));
+            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.PENSIONER, EnumCollection.ETariffLevel.TARIFF_A, 1.0f));
+            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.REDUCED, EnumCollection.ETariffLevel.TARIFF_A, 7.3f));
             Initialize();
         }
 

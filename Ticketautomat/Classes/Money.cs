@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ticketautomat.Classes
 {
-    class Money
+    public class Money
     {
         /// <summary>
         /// Geldbetrag

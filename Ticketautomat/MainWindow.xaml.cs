@@ -62,10 +62,10 @@ namespace Ticketautomat
         private void UpdateTexts()
         {
             Label_SoftwareTitleAndVersion.Content = $"{softwareName} Version {version}-{versionStatus}";
-            Button_MainMenu_BuyButton_Adult.Content = $"Erwachsener\nAb {manager.PriceEntries.ToArray()[0].GetFinalPrice()}€";
-            Button_MainMenu_BuyButton_Child.Content = $"Kind\nAb {manager.PriceEntries.ToArray()[1].GetFinalPrice()}€";
-            Button_MainMenu_BuyButton_Child.Content = $"Senior\nAb {manager.PriceEntries.ToArray()[2].GetFinalPrice()}€";
-            Button_MainMenu_BuyButton_Reduced.Content = $"Ermäßigt\nAb {manager.PriceEntries.ToArray()[3].GetFinalPrice()}€";
+            Button_MainMenu_BuyButton_Adult.Content = $"Erwachsener\nAb {manager.PriceEntries.ToArray()[0].Price}€";
+            Button_MainMenu_BuyButton_Child.Content = $"Kind\nAb {manager.PriceEntries.ToArray()[1].Price}€";
+            Button_MainMenu_BuyButton_Pensioner.Content = $"Senior\nAb {manager.PriceEntries.ToArray()[2].Price}€";
+            Button_MainMenu_BuyButton_Reduced.Content = $"Ermäßigt\nAb {manager.PriceEntries.ToArray()[3].Price}€";
 
             if (!string.IsNullOrEmpty(dir_versionHints) && File.Exists(dir_versionHints))
                 versionHints = File.ReadAllText(dir_versionHints);
@@ -84,7 +84,7 @@ namespace Ticketautomat
 
         private void Button_Version_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(versionHints);
+            MessageBox.Show(versionHints + "Drücken Sie den Knopf, um Ihre Seele an Georg Hoever zu verkaufen.", "Rhetorische Frage", MessageBoxButton.OK, MessageBoxImage.Hand);
         }
 
         private void Button_MainMenu_GoToCart_Click(object sender, RoutedEventArgs e)
@@ -125,8 +125,8 @@ namespace Ticketautomat
         private void OnTimerElapsed()
         {
             DateTime now = DateTime.Now;
-            Label_TimeLeft.Content = $"Zeit bis zum Abbruch: {string.Format("{0}:{1:00}", manager.TimeUntilTimeout / timeDivider, Math.Abs(manager.TimeUntilTimeout % timeDivider))}";
-            Label_DateTime.Content = now.ToString("g");
+            //Label_TimeLeft.Content = $"Zeit bis zum Abbruch: {string.Format("{0}:{1:00}", manager.TimeUntilTimeout / timeDivider, Math.Abs(manager.TimeUntilTimeout % timeDivider))}";
+            //Label_DateTime.Content = now.ToString("g");
         }
     }
 

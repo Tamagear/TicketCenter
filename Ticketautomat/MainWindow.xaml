@@ -10,7 +10,7 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         Title="TicketCenter" Height="900" Width="1600">
-    <Grid x:Name="Parent">
+    <Grid x:Name="ParentGrid">
         <Grid x:Name="Overlay">
             <Rectangle x:Name="Rectangle_TopBarBackground" Fill="DarkSlateGray" Height="25" Width="1600" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <!--Wird später mit einer Grafik ersetzt-->
