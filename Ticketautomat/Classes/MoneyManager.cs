@@ -1,4 +1,8 @@
-﻿namespace Ticketautomat.Classes
+﻿using System;
+using System.Collections.Generic;
+
+
+namespace Ticketautomat.Classes
 {
     class MoneyManager
     {

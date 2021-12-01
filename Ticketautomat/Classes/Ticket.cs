@@ -30,14 +30,8 @@ namespace Ticketautomat.Classes
             get { return this.m_targetDestination; }
             set { this.m_targetDestination = value; }
         }
-        public PriceEntry PriceEntry
-        {
-            get { return this.m_priceEntry; }
-            set { this.m_priceEntry = value; }
-        }
 
-
-
+        PriceEntry PriceEntry { get => m_priceEntry; set => m_priceEntry = value; }
 
         public void ToPDF(string p_Text ) { }
 
