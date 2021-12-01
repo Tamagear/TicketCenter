@@ -1,60 +1,29 @@
-﻿namespace Ticketautomat.Classes
+﻿using System.Collections.Generic;
+
+namespace Ticketautomat.Classes
 {
     class MoneyManager
     {
-
         private Dictionary<Money, int> m_moneyFillState = new Dictionary<Money, int>();
-
         private int m_ticketPaperLeft;
-
         private List<Money> m_currentlyInsertedMoney;
 
-        /// <summary>
-        /// Setter MoneyFillState
-        /// </summary>
-        /// <param name="p_moneyFillState"></param>
-        public void SetMoneyFillState(Dictionary<Money, int> p_moneyFillState)
-        {
-            m_moneyFillState = p_moneyFillState;
-        }
+        private const int TICKET_PAPER_PER_ROLL = 1000;
 
-        /// <summary>
-        /// Getter MoneyFillState
-        /// </summary>
-        public void GetMoneyFillState()
-        {
-            return m_moneyFillState;
-        }
-
-        /// <summary>
-        ///  Getter & Setter ticketPaperLeft
-        /// </summary>
-        public int ticketPaperLeft { get => m_ticketPaperLeft; set => m_ticketPaperLeft = value; }
-
-        /// <summary>
-        /// Setter CurrentlyInsertedMoney
-        /// </summary>
-        /// <param name="p_currentlyInsertedMoney"></param>
-        public void SetCurrentlyInsertedMoney(List<Money> p_currentlyInsertedMoney)
-        {
-            m_currentlyInsertedMoney = p_currentlyInsertedMoney;
-        }
-
-        /// <summary>
-        /// Getter CurrentlyInsertedMoney
-        /// </summary>
-        public void GetCurrentlyInsertedMoney()
-        {
-            return m_currentlyInsertedMoney;
-        }
+        public Dictionary<Money, int> MoneyFillState { get { return m_moneyFillState; } set { m_moneyFillState = value; } }
+        public int TicketPaperLeft { get => m_ticketPaperLeft; set => m_ticketPaperLeft = value; }
+        public List<Money> MoneyFillStateList { get { return m_currentlyInsertedMoney; } set { m_currentlyInsertedMoney = value; } }
 
         /// <summary>
         /// Methode zum Geld einzahlen
         /// </summary>
         /// <param name="p_insertMoney"></param>
-        public InsertMoney(Dictionary<Money, int> p_insertMoney)
+        public void InsertMoney(Money p_money, int p_count)
         {
-            m_moneyFillState += p_insertMoney;
+            if (m_moneyFillState.ContainsKey(p_money))
+                m_moneyFillState[p_money] += p_count;
+            else
+                m_moneyFillState.Add(p_money, p_count);
         }
 
         /// <summary>
@@ -64,6 +33,9 @@
         public List<Money> GetChange()
         {
             //missing
+            //was fehlt: Wie viel Geld muss denn überhaupt eingeworfen werden?
+            m_currentlyInsertedMoney.Clear();
+            return null;
         }
 
         /// <summary>
@@ -71,8 +43,8 @@
         /// </summary>
         public void CancelMoneyInsertion()
         {
-            //gebe m_currentlyInsertedMoney zurück
-            this.m_currentlyInsertedMoney = null;
+            //Wie viel Geld muss eingeworfen werden => 0
+            GetChange();
         }
 
         /// <summary>
@@ -85,7 +57,7 @@
         /// <param name="p_zahl">Anzahl zum auffüllen</param>
         public void Refill(Money p_money, int p_zahl)
         {
-            this.m_moneyFillState.add(p_money, p_zahl);
+            m_moneyFillState.Add(p_money, p_zahl);
         }
 
         /// <summary>
@@ -94,7 +66,7 @@
         /// </summary>
         public void RefillTicketPaper()
         {
-            this.ticketPaperLeft.set(1000);
+            TicketPaperLeft = TICKET_PAPER_PER_ROLL;
         }
     }
 }

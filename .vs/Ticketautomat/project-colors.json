@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "fe030c50-48f5-49f5-a960-b4ea31aa6d07": {
+      "ProjectGuid": "fe030c50-48f5-49f5-a960-b4ea31aa6d07",
+      "DisplayName": "Ticketautomat",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
