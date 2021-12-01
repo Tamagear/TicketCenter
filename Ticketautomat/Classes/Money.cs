@@ -15,9 +15,9 @@ namespace Ticketautomat.Classes
         /// <summary>
         /// Art des Geldes (Scheine oder Münzen)
         /// </summary>
-        private EMoneyType m_moneyType;
+        private EnumCollection.EMoneyType m_moneyType;
         
-        public EMoneyType MoneyType { get => m_moneyType; set => m_moneyType = value; }
+        public EnumCollection.EMoneyType MoneyType { get => m_moneyType; set => m_moneyType = value; }
         public float Value { get => m_value; set => m_value = value; }
     }
 }
