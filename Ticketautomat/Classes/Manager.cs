@@ -14,7 +14,7 @@ namespace Ticketautomat.Classes
         private List<LogEntry> m_logEntries = new List<LogEntry>();
         private List<PriceEntry> m_priceEntries = new List<PriceEntry>();
 
-        private const float TIMEOUT_THRESHOLD = 10f;
+        private const float TIMEOUT_THRESHOLD = 180f;
 
         public Profile CurrentUser { get => m_currentUser; set => m_currentUser = value; }
         public bool Enabled { get => m_enabled; set => m_enabled = value; }
@@ -49,7 +49,7 @@ namespace Ticketautomat.Classes
         /// <summary>
         /// Setzt die Zeit bis zum Timeout zum Maximum
         /// </summary>
-        private void ResetTimeUntilTimeout()
+        public void ResetTimeUntilTimeout()
         {
             TimeUntilTimeout = TIMEOUT_THRESHOLD;
         }
