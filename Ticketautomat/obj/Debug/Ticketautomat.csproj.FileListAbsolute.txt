@@ -8,3 +8,9 @@ C:\Users\Furk\source\repos\ticketcenter\Ticketautomat\obj\Debug\MainWindow.g.cs
 C:\Users\Furk\source\repos\ticketcenter\Ticketautomat\obj\Debug\App.g.cs
 C:\Users\Furk\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.cache
 C:\Users\Furk\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.lref
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.AssemblyReference.cache
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.SuggestedBindingRedirects.cache
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\MainWindow.g.cs
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\App.g.cs
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.cache
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat_MarkupCompile.lref
