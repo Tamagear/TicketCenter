@@ -73,6 +73,7 @@
     <Compile Include="Classes\Profile.cs" />
     <Compile Include="Classes\Station.cs" />
     <Compile Include="Classes\StationGraph.cs" />
+    <Compile Include="Classes\StringHelpers.cs" />
     <Compile Include="Classes\Ticket.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

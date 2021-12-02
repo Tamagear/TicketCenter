@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows;
 using System.Windows.Threading;
 using Ticketautomat.Classes;
@@ -35,8 +33,6 @@ namespace Ticketautomat
         public MainWindow()
         {
             InitializeComponent();
-
-            //Erstelle Systemdaten: Existieren sie noch nicht, zeige eine Willkommensnachricht
 
             currentProfile = new Profile();
             manager = new Manager(currentProfile);
@@ -86,7 +82,7 @@ namespace Ticketautomat
             string tempFilePath = $"{fileDirectory}/temp_{RandomString(10)}.txt";
             string saveFilePath = $"{fileDirectory}/{dir_saveFile}";
 
-            File.WriteAllText(tempFilePath, "Dies ist ein Test. Ob du's willst oder nicht.");  //Hier dann die Daten richtig serialisieren!          
+            File.WriteAllText(tempFilePath, SerializeSaveFile());  
             EncryptFile(tempFilePath, saveFilePath);
             File.Delete(tempFilePath);
         }
@@ -100,6 +96,7 @@ namespace Ticketautomat
             if (!File.Exists(saveFilePath)) return;
 
             DecryptFile(saveFilePath, tempFilePath);
+            manager.LoadSavedData(File.ReadAllText(tempFilePath));
             File.Delete(tempFilePath);
         }
 
@@ -140,6 +137,7 @@ namespace Ticketautomat
 
         private void Button_Close_Click(object sender, RoutedEventArgs e)
         {
+            SaveFile();
             Application.Current.Shutdown();
         }
 
@@ -221,12 +219,24 @@ namespace Ticketautomat
             File.WriteAllText(outputFile, outputText);
         }
 
-        public static string RandomString(int length)
+        private string RandomString(int length)
         {
             Random random = new Random();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private string SerializeSaveFile()
+        {
+            string result = string.Empty;
+            foreach (LogEntry log in manager.LogEntries)
+                result += $"<log><date>{log.Date.ToString("g")}</date><author>{log.Author}</author><content>{log.Content}</content></log>";
+
+            foreach (PriceEntry priceEntry in manager.PriceEntries)
+                result += $"<priceEntry><agetype>{(int)priceEntry.AgeType}</agetype><tarifflevel>{(int)priceEntry.TariffLevel}</tarifflevel><price>{priceEntry.Price}</price></priceEntry>";
+
+            return result;
         }
     }
 
