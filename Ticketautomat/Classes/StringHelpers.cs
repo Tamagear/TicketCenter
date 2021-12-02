@@ -15,7 +15,8 @@ namespace Ticketautomat.Classes
 
         public static string XML_GetSingle(string input, string separatorTag)
         {
-            return input.Split(new string[] { $"<{separatorTag}>", $"</{separatorTag}>" }, StringSplitOptions.RemoveEmptyEntries)[0];
+            string[] s = input.Split(new string[] { $"<{separatorTag}>", $"</{separatorTag}>" }, StringSplitOptions.RemoveEmptyEntries);
+            return s.Length > 1 ? s[1] : s != null ? s[0] : string.Empty;
         }
     }
 }

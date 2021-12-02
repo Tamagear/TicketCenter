@@ -49,9 +49,10 @@ namespace Ticketautomat
         {
             base.OnContentRendered(e);
 
-            UpdateTexts();
             HandleSystemData();
             LoadFile();
+
+            UpdateTexts();
         }
 
         private void HandleSystemData()
@@ -59,6 +60,7 @@ namespace Ticketautomat
             string fileDirectory = $"{Directory.GetCurrentDirectory()}/{dir_savedata}";
             string motdPath = $"{fileDirectory}/{dir_messageOfTheDay}";
             string spotlightPath = $"{fileDirectory}/{dir_ticketSpotlight}";
+            string saveFilePath = $"{fileDirectory}/{dir_saveFile}";
             bool hasDirectory = true;
             if (!Directory.Exists(fileDirectory))
             {
@@ -71,6 +73,12 @@ namespace Ticketautomat
 
             if (!File.Exists(spotlightPath))
                 File.WriteAllText(spotlightPath, "TICKET-SPOTLIGHT");
+
+            if (!File.Exists(saveFilePath))
+            {
+                manager.WriteDefaultPriceEntries();
+                SaveFile();
+            }
 
             if (!hasDirectory)
                 MessageBox.Show(WELCOME_MESSAGE, "Willkommen beim TicketCenter!");
@@ -119,10 +127,10 @@ namespace Ticketautomat
         private void UpdateTexts()
         {
             Label_SoftwareTitleAndVersion.Content = $"{SOFTWARE_NAME} Version {version}-{VERSION_STATUS}";
-            Button_MainMenu_BuyButton_Adult.Content = $"Erwachsener\nAb {manager.PriceEntries.ToArray()[0].Price.ToString("F2")}€";
-            Button_MainMenu_BuyButton_Child.Content = $"Kind\nAb {manager.PriceEntries.ToArray()[1].Price.ToString("F2")}€";
-            Button_MainMenu_BuyButton_Pensioner.Content = $"Senior\nAb {manager.PriceEntries.ToArray()[2].Price.ToString("F2")}€";
-            Button_MainMenu_BuyButton_Reduced.Content = $"Ermäßigt\nAb {manager.PriceEntries.ToArray()[3].Price.ToString("F2")}€";
+            Button_MainMenu_BuyButton_Adult.Content = $"Erwachsener\nAb {manager.PriceEntries[2,0].Price.ToString("F2")}€";
+            Button_MainMenu_BuyButton_Child.Content = $"Kind\nAb {manager.PriceEntries[0, 0].Price.ToString("F2")}€";
+            Button_MainMenu_BuyButton_Pensioner.Content = $"Senior\nAb {manager.PriceEntries[3, 0].Price.ToString("F2")}€";
+            Button_MainMenu_BuyButton_Reduced.Content = $"Ermäßigt\nAb {manager.PriceEntries[1, 0].Price.ToString("F2")}€";
 
             string fileDirectory = $"{Directory.GetCurrentDirectory()}/{dir_savedata}";
             string motdPath = $"{fileDirectory}/{dir_messageOfTheDay}";
@@ -231,7 +239,7 @@ namespace Ticketautomat
         {
             string result = string.Empty;
             foreach (LogEntry log in manager.LogEntries)
-                result += $"<log><date>{log.Date.ToString("g")}</date><author>{log.Author}</author><content>{log.Content}</content></log>";
+                result += $"<log><date>{log.Date}</date><author>{log.Author}</author><content>{log.Content}</content></log>";
 
             foreach (PriceEntry priceEntry in manager.PriceEntries)
                 result += $"<priceEntry><agetype>{(int)priceEntry.AgeType}</agetype><tarifflevel>{(int)priceEntry.TariffLevel}</tarifflevel><price>{priceEntry.Price}</price></priceEntry>";

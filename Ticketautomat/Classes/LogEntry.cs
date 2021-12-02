@@ -4,18 +4,18 @@ namespace Ticketautomat.Classes
 {
     public class LogEntry
     {
-        private DateTime m_date;
+        private string m_date;
         private string m_author;
         private string m_content; 
 
-        public LogEntry(DateTime p_date , string p_author , string p_content)
+        public LogEntry(string p_date , string p_author , string p_content)
         {
             this.m_author = p_author;
             this.m_content = p_content;
             this.m_date = p_date;
         }
 
-        public DateTime Date
+        public string Date
         {
             get { return this.m_date; }
             set { this.m_date = value; }

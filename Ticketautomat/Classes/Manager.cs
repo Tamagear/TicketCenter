@@ -22,6 +22,14 @@ namespace Ticketautomat.Classes
         public List<LogEntry> LogEntries { get => m_logEntries; set => m_logEntries = value; }
         public PriceEntry[,] PriceEntries { get => m_priceEntries; set => m_priceEntries = value; }
 
+        /// <summary>
+        /// Erstellt eine Managerklasse mit einen Nutzer
+        /// </summary>
+        public Manager()
+        {
+            CurrentUser = new Profile();
+            Initialize();
+        }
 
         /// <summary>
         /// Erstellt eine Managerklasse mit einen Nutzer
@@ -30,20 +38,16 @@ namespace Ticketautomat.Classes
         public Manager(Profile p_currentUser)
         {
             CurrentUser = p_currentUser;
-            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.ADULT, EnumCollection.ETariffLevel.TARIFF_A, 2.5f));
-            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.CHILD, EnumCollection.ETariffLevel.TARIFF_A, 1.5f));
-            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.PENSIONER, EnumCollection.ETariffLevel.TARIFF_A, 1.0f));
-            PriceEntries.Add(new PriceEntry(EnumCollection.EAgeType.REDUCED, EnumCollection.ETariffLevel.TARIFF_A, 7.3f));
             Initialize();
         }
 
         /// <summary>
-        /// Lädt die gespeicherten Daten
+        /// Platz für Initialisierungen
         /// </summary>
         /// 
         private void Initialize()
         {
-            LoadSavedData();
+
         }
 
         /// <summary>
@@ -57,33 +61,33 @@ namespace Ticketautomat.Classes
         /// <summary>
         /// Lädt LogEntries und PriceEntries aus der Speicherdatei ein.
         /// </summary>
-        public void LoadSavedData(string input)
+        public void LoadSavedData(string p_input)
         {
             //Lade Logs
             LogEntries.Clear();
-            List<string> logs = StringHelpers.XML_Get(input, "log");
+            List<string> logs = StringHelpers.XML_Get(p_input, "log");
             foreach (string line in logs)
             {
                 if (!string.IsNullOrEmpty(line))
                 {
-                    DateTime dateTime = DateTime.ParseExact(StringHelpers.XML_GetSingle(line, "datetime"), "g", null);
+                    string date = StringHelpers.XML_GetSingle(line, "datetime");
                     string author = StringHelpers.XML_GetSingle(line, "author");
                     string content = StringHelpers.XML_GetSingle(line, "content");
-                    LogEntry log = new LogEntry(dateTime, author, content);
+                    LogEntry log = new LogEntry(date, author, content);
                     LogEntries.Add(log);
                 }
             }
 
             //Lade PriceEntries
             PriceEntries = new PriceEntry[4,3];
-            List<string> priceEntriesInput = StringHelpers.XML_Get(input, "priceEntry");
+            List<string> priceEntriesInput = StringHelpers.XML_Get(p_input, "priceEntry");
 
             if (priceEntriesInput.Count > 0)
             {
                 foreach (string line in priceEntriesInput)
                 {
                     if (!string.IsNullOrEmpty(line) &&
-                        int.TryParse(StringHelpers.XML_GetSingle(line, "agetype"), out int ageType) &&
+                        int.TryParse(StringHelpers.XML_Get(line, "agetype")[0], out int ageType) &&   //https://www.youtube.com/watch?v=q6FOh1N6V5A
                         int.TryParse(StringHelpers.XML_GetSingle(line, "tarifflevel"), out int tarifflevel) &&
                         float.TryParse(StringHelpers.XML_GetSingle(line, "price"), out float price))
                     {
@@ -93,19 +97,7 @@ namespace Ticketautomat.Classes
             }
             else
             {
-                //Standardwerte
-                PriceEntries[0, 0] = new PriceEntry((EnumCollection.EAgeType)0, (EnumCollection.ETariffLevel)0, 1.3f);
-                PriceEntries[1, 0] = new PriceEntry((EnumCollection.EAgeType)1, (EnumCollection.ETariffLevel)0, 1.5f);
-                PriceEntries[2, 0] = new PriceEntry((EnumCollection.EAgeType)2, (EnumCollection.ETariffLevel)0, 2f);
-                PriceEntries[3, 0] = new PriceEntry((EnumCollection.EAgeType)3, (EnumCollection.ETariffLevel)0, 1.8f);
-                PriceEntries[0, 1] = new PriceEntry((EnumCollection.EAgeType)0, (EnumCollection.ETariffLevel)1, 1.6f);
-                PriceEntries[1, 1] = new PriceEntry((EnumCollection.EAgeType)1, (EnumCollection.ETariffLevel)1, 1.9f);
-                PriceEntries[2, 1] = new PriceEntry((EnumCollection.EAgeType)2, (EnumCollection.ETariffLevel)1, 2.5f);
-                PriceEntries[3, 1] = new PriceEntry((EnumCollection.EAgeType)3, (EnumCollection.ETariffLevel)1, 2.2f);
-                PriceEntries[0, 2] = new PriceEntry((EnumCollection.EAgeType)0, (EnumCollection.ETariffLevel)2, 1.9f);
-                PriceEntries[1, 2] = new PriceEntry((EnumCollection.EAgeType)1, (EnumCollection.ETariffLevel)2, 2.3f);
-                PriceEntries[2, 2] = new PriceEntry((EnumCollection.EAgeType)2, (EnumCollection.ETariffLevel)2, 3f);
-                PriceEntries[3, 2] = new PriceEntry((EnumCollection.EAgeType)3, (EnumCollection.ETariffLevel)2, 2.6f);
+                WriteDefaultPriceEntries();
             }
         }
 
@@ -147,6 +139,26 @@ namespace Ticketautomat.Classes
         public void FinalizeTransaction()
         {
 
+        }
+
+        /// <summary>
+        /// Schreibt die Standardwerte in die Preistabelle.
+        /// </summary>
+        public void WriteDefaultPriceEntries()
+        {
+            //Standardwerte, siehe Tabelle vom Kunden
+            PriceEntries[0, 0] = new PriceEntry((EnumCollection.EAgeType)0, (EnumCollection.ETariffLevel)0, 1.3f);
+            PriceEntries[1, 0] = new PriceEntry((EnumCollection.EAgeType)1, (EnumCollection.ETariffLevel)0, 1.5f);
+            PriceEntries[2, 0] = new PriceEntry((EnumCollection.EAgeType)2, (EnumCollection.ETariffLevel)0, 2f);
+            PriceEntries[3, 0] = new PriceEntry((EnumCollection.EAgeType)3, (EnumCollection.ETariffLevel)0, 1.8f);
+            PriceEntries[0, 1] = new PriceEntry((EnumCollection.EAgeType)0, (EnumCollection.ETariffLevel)1, 1.6f);
+            PriceEntries[1, 1] = new PriceEntry((EnumCollection.EAgeType)1, (EnumCollection.ETariffLevel)1, 1.9f);
+            PriceEntries[2, 1] = new PriceEntry((EnumCollection.EAgeType)2, (EnumCollection.ETariffLevel)1, 2.5f);
+            PriceEntries[3, 1] = new PriceEntry((EnumCollection.EAgeType)3, (EnumCollection.ETariffLevel)1, 2.2f);
+            PriceEntries[0, 2] = new PriceEntry((EnumCollection.EAgeType)0, (EnumCollection.ETariffLevel)2, 1.9f);
+            PriceEntries[1, 2] = new PriceEntry((EnumCollection.EAgeType)1, (EnumCollection.ETariffLevel)2, 2.3f);
+            PriceEntries[2, 2] = new PriceEntry((EnumCollection.EAgeType)2, (EnumCollection.ETariffLevel)2, 3f);
+            PriceEntries[3, 2] = new PriceEntry((EnumCollection.EAgeType)3, (EnumCollection.ETariffLevel)2, 2.6f);
         }
     }
 }
