@@ -51,8 +51,7 @@ namespace Ticketautomat
 
             HandleSystemData();
             LoadFile();
-
-            UpdateTexts();
+            UpdateTexts();            
         }
 
         private void HandleSystemData()
@@ -141,6 +140,8 @@ namespace Ticketautomat
 
             if (!string.IsNullOrEmpty(spotlightPath) && File.Exists(spotlightPath))
                 Label_MainMenu_TicketSpotlight.Content = File.ReadAllText(spotlightPath);
+
+            UpdatePriceTableTexts();
         }
 
         private void Button_Close_Click(object sender, RoutedEventArgs e)
@@ -158,36 +159,53 @@ namespace Ticketautomat
         private void Button_MainMenu_GoToCart_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            ShowError("Diese Funktion ist noch nicht implementiert.");
         }
 
         private void MainMenu_BuyButton_Adult_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            ShowError("Diese Funktion ist noch nicht implementiert.");
         }
 
         private void MainMenu_BuyButton_Child_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            ShowError("Diese Funktion ist noch nicht implementiert.");
         }
 
         private void MainMenu_BuyButton_Pensioner_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            ShowError("Diese Funktion ist noch nicht implementiert.");
         }
 
         private void MainMenu_BuyButton_Reduced_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            ShowError("Diese Funktion ist noch nicht implementiert.");
         }
 
         private void Button_MainMenu_ShowPriceTable_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            GoTo_PriceTable();
         }
 
         private void Button_MaintenanceLogin_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            ShowError("Diese Funktion ist noch nicht implementiert.");
+        }
+
+        private void Button_PriceTable_GoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            GoTo_MainMenu();
+        }
+
+        private void Button_ErrorWindow_CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            ErrorWindow.Visibility = Visibility.Collapsed;
         }
 
         private void UpdateTimeTexts()
@@ -199,9 +217,27 @@ namespace Ticketautomat
             Label_DateTime.Content = $"{now.ToString("g")} Uhr";
         }
 
+        private void UpdatePriceTableTexts()
+        {
+            Label_PriceTable_AsOfToday.Content = $"Stand: {Label_DateTime.Content}";
+            Label_PriceTable_Table_Child_A.Content = $"{manager.PriceEntries[0, 0].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Child_B.Content = $"{manager.PriceEntries[0, 1].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Child_C.Content = $"{manager.PriceEntries[0, 2].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Reduced_A.Content = $"{manager.PriceEntries[1, 0].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Reduced_B.Content = $"{manager.PriceEntries[1, 1].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Reduced_C.Content = $"{manager.PriceEntries[1, 2].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Adult_A.Content = $"{manager.PriceEntries[2, 0].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Adult_B.Content = $"{manager.PriceEntries[2, 1].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Adult_C.Content = $"{manager.PriceEntries[2, 2].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Pensioner_A.Content = $"{manager.PriceEntries[3, 0].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Pensioner_B.Content = $"{manager.PriceEntries[3, 1].Price.ToString("F2")}€";
+            Label_PriceTable_Table_Pensioner_C.Content = $"{manager.PriceEntries[3, 2].Price.ToString("F2")}€";
+        }
+
         private void EncryptFile(string inputFile, string outputFile)
         {
             string inputText = File.ReadAllText(inputFile);
+            Console.WriteLine(inputText);
             string outputText = string.Empty;
             int encryptionIndex = 0;
             foreach(char ch in inputText)
@@ -245,6 +281,27 @@ namespace Ticketautomat
                 result += $"<priceEntry><agetype>{(int)priceEntry.AgeType}</agetype><tarifflevel>{(int)priceEntry.TariffLevel}</tarifflevel><price>{priceEntry.Price}</price></priceEntry>";
 
             return result;
+        }
+
+        private void GoTo_MainMenu()
+        {
+            MainMenu.Visibility = Visibility.Visible;
+            PriceTable.Visibility = Visibility.Collapsed;
+        }
+
+        private void GoTo_PriceTable()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Visible;
+        }
+
+       
+
+        private void ShowError(string content, string caption = "FEHLER")
+        {
+            Label_ErrorWindow_Title.Content = caption;
+            Label_ErrorWindow_Content.Content = content;
+            ErrorWindow.Visibility = Visibility.Visible;
         }
     }
 
