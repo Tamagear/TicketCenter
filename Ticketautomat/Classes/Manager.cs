@@ -68,7 +68,7 @@ namespace Ticketautomat.Classes
             List<string> logs = StringHelpers.XML_Get(p_input, "log");
             foreach (string line in logs)
             {
-                if (!string.IsNullOrEmpty(line))
+                if (!string.IsNullOrEmpty(line) && StringHelpers.XML_IsValid(line, "log"))
                 {
                     string date = StringHelpers.XML_GetSingle(line, "datetime");
                     string author = StringHelpers.XML_GetSingle(line, "author");

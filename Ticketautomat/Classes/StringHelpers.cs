@@ -18,5 +18,10 @@ namespace Ticketautomat.Classes
             string[] s = input.Split(new string[] { $"<{separatorTag}>", $"</{separatorTag}>" }, StringSplitOptions.RemoveEmptyEntries);
             return s.Length > 1 ? s[1] : s != null ? s[0] : string.Empty;
         }
+
+        public static bool XML_IsValid(string input, string separatorTag)
+        {
+            return input.StartsWith($"<{separatorTag}>") && input.EndsWith($"</{separatorTag}>");
+        }
     }
 }

@@ -234,10 +234,10 @@ namespace Ticketautomat
             Label_PriceTable_Table_Pensioner_C.Content = $"{manager.PriceEntries[3, 2].Price.ToString("F2")}€";
         }
 
+        //temp => save
         private void EncryptFile(string inputFile, string outputFile)
         {
             string inputText = File.ReadAllText(inputFile);
-            Console.WriteLine(inputText);
             string outputText = string.Empty;
             int encryptionIndex = 0;
             foreach(char ch in inputText)
@@ -249,6 +249,7 @@ namespace Ticketautomat
             File.WriteAllText(outputFile, outputText);
         }
 
+        //save-> temp
         private void DecryptFile(string inputFile, string outputFile)
         {
             string inputText = File.ReadAllText(inputFile);
@@ -274,11 +275,22 @@ namespace Ticketautomat
         private string SerializeSaveFile()
         {
             string result = string.Empty;
-            foreach (LogEntry log in manager.LogEntries)
+            //foreach (LogEntry log in manager.LogEntries)
+            for (int i = 0; i < manager.LogEntries.Count; i++)
+            {
+                LogEntry log = manager.LogEntries[i];
                 result += $"<log><date>{log.Date}</date><author>{log.Author}</author><content>{log.Content}</content></log>";
+            }
 
-            foreach (PriceEntry priceEntry in manager.PriceEntries)
-                result += $"<priceEntry><agetype>{(int)priceEntry.AgeType}</agetype><tarifflevel>{(int)priceEntry.TariffLevel}</tarifflevel><price>{priceEntry.Price}</price></priceEntry>";
+            //foreach (PriceEntry priceEntry in manager.PriceEntries)
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    PriceEntry priceEntry = manager.PriceEntries[i, j];
+                    result += $"<priceEntry><agetype>{(int)priceEntry.AgeType}</agetype><tarifflevel>{(int)priceEntry.TariffLevel}</tarifflevel><price>{priceEntry.Price}</price></priceEntry>";
+                }
+            }
 
             return result;
         }
