@@ -24,3 +24,6 @@ D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticket
 D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.CoreCompileInputs.cache
 D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.exe
 D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.pdb
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\bin\Debug\ceTe.DynamicPDF.40.dll
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\bin\Debug\ceTe.DynamicPDF.40.xml
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.CopyComplete

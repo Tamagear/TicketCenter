@@ -12,7 +12,7 @@ namespace Ticketautomat
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Version version = new Version(0,0,1);
+        private Version version = new Version(0,0,2);
 
         private Profile currentProfile = null;
         private Manager manager = null;
@@ -165,25 +165,25 @@ namespace Ticketautomat
         private void MainMenu_BuyButton_Adult_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            ShowError("Diese Funktion ist noch nicht implementiert.");
+            GoTo_BuyMenu();
         }
 
         private void MainMenu_BuyButton_Child_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            ShowError("Diese Funktion ist noch nicht implementiert.");
+            GoTo_BuyMenu();
         }
 
         private void MainMenu_BuyButton_Pensioner_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            ShowError("Diese Funktion ist noch nicht implementiert.");
+            GoTo_BuyMenu();
         }
 
         private void MainMenu_BuyButton_Reduced_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            ShowError("Diese Funktion ist noch nicht implementiert.");
+            GoTo_BuyMenu();
         }
 
         private void Button_MainMenu_ShowPriceTable_Click(object sender, RoutedEventArgs e)
@@ -299,21 +299,78 @@ namespace Ticketautomat
         {
             MainMenu.Visibility = Visibility.Visible;
             PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
         }
 
         private void GoTo_PriceTable()
-        {
+        {            
             MainMenu.Visibility = Visibility.Collapsed;
             PriceTable.Visibility = Visibility.Visible;
+            BuyMenu.Visibility = Visibility.Collapsed;
+        }  
+        
+        private void GoTo_BuyMenu()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Visible;
         }
-
-       
 
         private void ShowError(string content, string caption = "FEHLER")
         {
             Label_ErrorWindow_Title.Content = caption;
             Label_ErrorWindow_Content.Content = content;
             ErrorWindow.Visibility = Visibility.Visible;
+        }
+
+        private void Button_BuyMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            GoTo_MainMenu();
+        }
+
+        private void Button_BuyMenu_TicketOptions_TariffOption_Adult_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketOptions_TariffOption_Child_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketOptions_TariffOption_Pensioner_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketOptions_TariffOption_Reduced_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketOptions_StartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketOptions_DestinationButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketOptions_DisplayRoutes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketSelection_Cheapest_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_BuyMenu_TicketSelection_Fastest_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

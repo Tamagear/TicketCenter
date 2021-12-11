@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/text%20files/version_hints.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/background_table.png")]
 
 

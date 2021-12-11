@@ -116,5 +116,8 @@
   <ItemGroup>
     <Resource Include="Resources\Images\map_full.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\background_table.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
