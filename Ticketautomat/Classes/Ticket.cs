@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ceTe.DynamicPDF;
+using ceTe.DynamicPDF.PageElements;
+using ceTe.DynamicPDF.PageElements.BarCoding;
+using System;
 
 namespace Ticketautomat.Classes
 {
@@ -32,7 +35,29 @@ namespace Ticketautomat.Classes
         }
 
         public PriceEntry PriceEntry { get { return this.m_priceEntry; } set { this.m_priceEntry = value;} }
-        public void ToPDF(string p_Text ) { }
+        public void ToPDF(string p_Text ) {
+            
+
+            Document document = new Document();
+            Page page = new Page(PageSize.Letter, PageOrientation.Portrait, 54.0f);
+            document.Pages.Add(page);
+            Label datumtext = new Label("Datum: " + Date, 0, 200, 504, 100, Font.Helvetica, 18, TextAlign.Left);
+            page.Elements.Add(datumtext);
+            Label Namenstext = new Label("Name: " + Customer.Name, 300, 200, 504, 100, Font.Helvetica, 18, TextAlign.Left);
+            page.Elements.Add(Namenstext);
+            Label Starttext = new Label("Startstation: " + StartStation.StationName, 0, 250, 504, 100, Font.Helvetica, 18, TextAlign.Left);
+            page.Elements.Add(Starttext);
+            Label Endtext = new Label("Endstation: " + TargetDestination.StationName, 300, 250, 504, 100, Font.Helvetica, 18, TextAlign.Left);
+            page.Elements.Add(Endtext);
+            Label Preisstufe = new Label("Preisstufe: " + PriceEntry, 0, 300, 504, 100, Font.Helvetica, 18, TextAlign.Left);
+            page.Elements.Add(Preisstufe);
+            Image image = new Image("Resources/Images/softwareIcon.png", 0, 0, 0.2f);
+            page.Elements.Add(image);
+            QrCode qrCode = new QrCode("Datum:" + Date + ", Name:" + Customer.Name + ", Startstation:" + StartStation.StationName + ", Endstation:" + TargetDestination.StationName + "Preisstufe:" + PriceEntry, 400, 0);
+            //QrCode qrCode = new QrCode("https://www.youtube.com/watch?v=dQw4w9WgXcQ", 400, 0);
+            page.Elements.Add(qrCode);
+            document.Draw(p_Text);
+        }
 
     }
 }

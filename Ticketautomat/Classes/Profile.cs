@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ceTe.DynamicPDF.Merger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -105,7 +106,14 @@ namespace Ticketautomat.Classes
         /// <param name="p_text">Name der PDF</param>
         public void ExportToPDF(String p_text)
         {
+            MergeDocument mergeDocument = new MergeDocument();
 
+            foreach (var item in ShoppingCart)
+            {
+                item.Key.ToPDF("CreatePdf.pdf");
+                mergeDocument.Append("CreatePdf.pdf");
+            }
+            mergeDocument.Draw(p_text);
         }
     }
 }
