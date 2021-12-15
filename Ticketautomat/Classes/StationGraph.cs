@@ -17,7 +17,7 @@ namespace Ticketautomat.Classes
         {
             List<List<Station>> ausgabe = new List<List<Station>>();
             ausgabe.Add(graph.CheapestPath(p_start, p_ende));
-            //ausgabe.Add(graph.ShortestPath(p_start, p_ende, graph.getVerbindungen()));
+            ausgabe.Add(graph.ShortestPath(p_start, p_ende, graph.getVerbindungen(), graph.GetStationen()));
             return ausgabe;
         }
     }
