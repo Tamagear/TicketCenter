@@ -101,7 +101,7 @@ namespace Ticketautomat.Classes
         }
 
         /// <summary>
-        /// Die Methode exportiert die Daten des Einkaufs als PDF.
+        /// Hängt die Pdf der Tickets zu einer Pdf aneinander
         /// </summary>
         /// <param name="p_text">Name der PDF</param>
         public void ExportToPDF(String p_text)

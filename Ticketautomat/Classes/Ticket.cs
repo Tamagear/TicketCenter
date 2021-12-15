@@ -35,6 +35,10 @@ namespace Ticketautomat.Classes
         }
 
         public PriceEntry PriceEntry { get { return this.m_priceEntry; } set { this.m_priceEntry = value;} }
+        /// <summary>
+        /// Erstellt eine Pdf mit den Informationen des Tickets
+        /// </summary>
+        /// <param name="p_Text">Der Name der Datei</param>
         public void ToPDF(string p_Text ) {
             
 
