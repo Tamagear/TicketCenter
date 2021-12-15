@@ -82,10 +82,7 @@ namespace Ticketautomat.Classes
                 path.Add(stationen[pred[current]]);
                 current = pred[current];
             }
-            for (int i = path.Count - 1; i >= 0; i--)
-            {
-                Console.WriteLine(path[i].StationName + " ");
-            }
+            
             return path;
         }
         public List<Station> CheapestPath(Station p_start, Station p_ende)
