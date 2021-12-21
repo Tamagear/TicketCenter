@@ -9,19 +9,23 @@ namespace Ticketautomat.Classes
 {
     public class MaintenanceProfile : Profile
     {
-        private String m_password = "";
-        private DateTime m_lastLogin;
+        private String m_password = "BAHNFAHRENISTTOLL";
         private Manager m_manager = null;
         private MoneyManager m_moneyManager = null;
+
+        public MaintenanceProfile(string p_name, string p_password)
+        {
+            m_name = p_name;
+            m_password = p_password;
+        }
 
         /// <summary>
         /// Versucht einen MaintenanceProfile einzuloggen.
         /// </summary>
         /// <returns></returns>
-        public bool Login()
+        public bool Login(string p_username, string p_password)
         {
-            //Tim
-            return true;
+            return m_name.Equals(p_username) && m_password.Equals(p_password);
         }
         /// <summary>
         /// Loggt den aktuellen Mitarbeiter aus.

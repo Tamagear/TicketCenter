@@ -195,7 +195,13 @@ namespace Ticketautomat
         private void Button_MaintenanceLogin_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            ShowError("Diese Funktion ist noch nicht implementiert.");
+
+            Image_AdminLogin_NotAllBoxesFilledOut.Visibility = Visibility.Collapsed;
+            Image_AdminLogin_WrongData.Visibility = Visibility.Collapsed;
+            TextBox_AdminLogin_AdminUsername.Text = string.Empty;
+            PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
+
+            AdminLogin.Visibility = Visibility.Visible;
         }
 
         private void Button_PriceTable_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -371,6 +377,30 @@ namespace Ticketautomat
         private void Button_BuyMenu_TicketSelection_Fastest_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_AdminLogin_LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_AdminLogin_AdminUsername.Text.Equals(string.Empty)
+                || PasswordBox_AdminLogin_AdminPassword.Password.Equals(string.Empty))
+            {
+                Image_AdminLogin_NotAllBoxesFilledOut.Visibility = Visibility.Visible;
+                return;
+            }
+
+            if (manager.TryLogin(TextBox_AdminLogin_AdminUsername.Text, PasswordBox_AdminLogin_AdminPassword.Password))
+            {
+                Label_AdminLogin_Password.Content = "Login erfolgreich!";
+            }
+            else
+            {
+                Image_AdminLogin_WrongData.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Button_AdminLogin_CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            AdminLogin.Visibility = Visibility.Collapsed;
         }
     }
 

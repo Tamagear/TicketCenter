@@ -149,5 +149,17 @@
             <Label x:Name="Label_ErrorWindow_Content" Content="Fehlertext" MaxHeight="500" Width="1245" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 230"/>
             <Button x:Name="Button_ErrorWindow_CloseButton" Content="OK" Width="1250" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0, 90" FontSize="40" Cursor="Hand" Click="Button_ErrorWindow_CloseButton_Click"/>
         </Grid>
+        <Grid x:Name="AdminLogin" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_AdminLogin_Background" Opacity="0.95" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>
+            <Label x:Name="Label_AdminLogin_Title" Content="BITTE MELDEN SIE SICH MIT&#x0a;IHREN MITARBEITER-KENNDATEN AN." Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="auto" Width="auto" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-300,0,0"/>
+            <Label x:Name="Label_AdminLogin_Username" Content="Benutzername" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="369,420,0,0"/>
+            <Label x:Name="Label_AdminLogin_Password" Content="Passwort" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,448,0,0"/>
+            <Button x:Name="Button_AdminLogin_LoginButton" Content="Anmelden" Width="150" Height="28" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="445,120,0,0" Cursor="Hand" Click="Button_AdminLogin_LoginButton_Click"/>
+            <Button x:Name="Button_AdminLogin_CancelButton" Content="Abbrechen" Width="150" Height="28" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,120,0,0" Cursor="Hand" Click="Button_AdminLogin_CancelButton_Click"/>
+            <TextBox x:Name="TextBox_AdminLogin_AdminUsername" Width="600" Height="28" FontSize="14" VerticalContentAlignment="Center" Margin="0,-30,0,0"/>
+            <PasswordBox x:Name="PasswordBox_AdminLogin_AdminPassword" Width="600" Height="28" FontSize="14" VerticalContentAlignment="Center" Margin="0,30,0,0"/>
+            <Image x:Name="Image_AdminLogin_NotAllBoxesFilledOut" Source="Resources/Images/adminLogin_notAllBoxesFilledOut.png" Visibility="Collapsed" Width="250" Margin="1102,60,248,-60"/>
+            <Image x:Name="Image_AdminLogin_WrongData" Source="Resources/Images/adminLogin_wrongData.png" Visibility="Collapsed" Width="250" Margin="1102,60,248,-60"/>
+        </Grid>
     </Grid>
 </Window>

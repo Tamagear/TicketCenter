@@ -10,9 +10,9 @@ namespace Ticketautomat.Classes
 {
     public class Profile
     {
-        private String m_name = "";
-        private Dictionary<Ticket, int> m_shoppingCart;
-        private bool m_isMaintenance = false;
+        protected string m_name = "";
+        protected Dictionary<Ticket, int> m_shoppingCart;
+        protected bool m_isMaintenance = false;
 
         public String Name
         {

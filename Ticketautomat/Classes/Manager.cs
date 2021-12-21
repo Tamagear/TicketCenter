@@ -9,6 +9,7 @@ namespace Ticketautomat.Classes
     class Manager
     {
         private Profile m_currentUser = null;
+        private List<MaintenanceProfile> m_maintenanceProfiles = new List<MaintenanceProfile>();
         private bool m_enabled = true;
         private float m_timeUntilTimeout = 0;
         private List<LogEntry> m_logEntries = new List<LogEntry>();
@@ -47,7 +48,9 @@ namespace Ticketautomat.Classes
         /// 
         private void Initialize()
         {
-
+            m_maintenanceProfiles.Add(new MaintenanceProfile("Niederhaeuser", "BAHNFAHRENISTTOLL"));
+            m_maintenanceProfiles.Add(new MaintenanceProfile("Kueppers", "BAHNFAHRENISTSUPER"));
+            m_maintenanceProfiles.Add(new MaintenanceProfile("Ochsendorf", "BAHNFAHRENISTMEGA"));
         }
 
         /// <summary>
@@ -159,6 +162,18 @@ namespace Ticketautomat.Classes
             PriceEntries[1, 2] = new PriceEntry((EnumCollection.EAgeType)1, (EnumCollection.ETariffLevel)2, 2.3f);
             PriceEntries[2, 2] = new PriceEntry((EnumCollection.EAgeType)2, (EnumCollection.ETariffLevel)2, 3f);
             PriceEntries[3, 2] = new PriceEntry((EnumCollection.EAgeType)3, (EnumCollection.ETariffLevel)2, 2.6f);
+        }
+
+        public bool TryLogin(string p_username, string p_password)
+        {
+            //ONLOGIN!
+            for (int i = 0; i<m_maintenanceProfiles.Count; i++)
+            {
+                if (m_maintenanceProfiles[i].Login(p_username, p_password))
+                    return true;
+            }
+
+            return false;
         }
     }
 }
