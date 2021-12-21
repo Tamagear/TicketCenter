@@ -322,6 +322,11 @@ namespace Ticketautomat
             BuyMenu.Visibility = Visibility.Visible;
         }
 
+        private void GoTo_AdminDashboard()
+        {
+
+        }
+
         private void ShowError(string content, string caption = "FEHLER")
         {
             Label_ErrorWindow_Title.Content = caption;
@@ -401,6 +406,61 @@ namespace Ticketautomat
         private void Button_AdminLogin_CancelButton_Click(object sender, RoutedEventArgs e)
         {
             AdminLogin.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_AdminDashboard_AdminButtonOptions_Statistics_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminDashboard_AdminButtonOptions_SavingsManagement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminDashboard_AdminButtonOptions_DisableMachine_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminDashboard_AdminButtonOptions_ChangePrices_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminChangePricesMenu_SaveAndGoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminDisableMachine_ShutDownButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AdminDisableMachine_CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

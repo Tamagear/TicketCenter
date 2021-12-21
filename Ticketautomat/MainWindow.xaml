@@ -140,6 +140,130 @@
                 <Button x:Name="Button_BuyMenu_TicketSelection_Fastest" Content="WENIGSTE STATIONEN&#x0a;BESTELLEN" FontSize="60" Height="300" VerticalAlignment="Bottom" Grid.Column="2" Click="Button_BuyMenu_TicketSelection_Fastest_Click" Cursor="Hand"/>
             </Grid>
         </Grid>
+        <Grid x:Name="AdminDashboard" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_AdminDashboard_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_AdminDashboard_BehindScrollView" Fill="LightGray" Height="725" Width="700" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Label x:Name="Label_AdminDashboard_Title" Content="MITARBEITER-DASHBOARD" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Label x:Name="Label_AdminDashboard_LogTitle" Content="LOG" FontSize="50" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="792,162,0,0"/>
+            <Button x:Name="Button_AdminDashboard_GoBackButton" Content="Abmelden" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
+            <Grid x:Name="AdminDashboard_AdminButtonOptions" Margin="100,230,900,170">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="Button_AdminDashboard_AdminButtonOptions_Statistics" Content="Statistiken" FontSize="60" Grid.Row="0" Click="Button_AdminDashboard_AdminButtonOptions_Statistics_Click"/>
+                <Button x:Name="Button_AdminDashboard_AdminButtonOptions_SavingsManagement" Content="Speicherverwaltung" FontSize="60" Grid.Row="1" Click="Button_AdminDashboard_AdminButtonOptions_SavingsManagement_Click"/>
+                <Button x:Name="Button_AdminDashboard_AdminButtonOptions_DisableMachine" Content="Automat abschalten" FontSize="60" Grid.Row="2" Click="Button_AdminDashboard_AdminButtonOptions_DisableMachine_Click"/>
+                <Button x:Name="Button_AdminDashboard_AdminButtonOptions_ChangePrices" Content="Preise ändern" FontSize="60" Grid.Row="3" Click="Button_AdminDashboard_AdminButtonOptions_ChangePrices_Click"/>
+            </Grid>
+            <ScrollViewer x:Name="ScrollViewer_AdminDashboard_Logs" HorizontalScrollBarVisibility="Disabled" Width="700" Height="725" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <!--Hier content für Log-Einträge-->
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid x:Name="AdminSavingsManagement" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_AdminSavingsManagement_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_AdminSavingsManagement_BehindCurrentFillState" Fill="LightGray" Height="725" Width="700" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Label x:Name="Label_AdminSavingsManagement_Title" Content="SPEICHERVERWALTUNG" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Label x:Name="Label_AdminSavingsManagement_CurrentFillState" Width="700" Height="725" Content="Tickets übrig: 1000 Stück&#x0a;0,05€: 76 Stück&#x0a;0,10€: 35 Stück&#x0a;..." FontSize="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Button x:Name="Button_AdminSavingsManagement_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_AdminSavingsManagement_GoBackButton_Click"  Cursor="Hand"/>
+            <Grid x:Name="AdminSavingsManagement_AdminButtonOptions" Margin="100,280,900,90">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper" Content="Papierspeicher auffüllen" FontSize="50" Grid.Row="0" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click"/>
+                <Button x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins" Content="Münzen auffüllen" FontSize="50" Grid.Row="1" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click"/>
+                <Button x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillBills" Content="Scheine auffüllen" FontSize="50" Grid.Row="2" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="AdminChangePricesMenu" Visibility="Collapsed">
+            <Image Source="Resources/Images/background_table.png"/>
+            <Rectangle x:Name="Rectangle_AdminChangePricesMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Label x:Name="Label_AdminChangePricesMenu_Title" Content="TICKETPREISE ANPASSEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Button x:Name="Button_AdminChangePricesMenu_SaveAndGoBackButton" Content="Speichern und zurück" FontSize="40" Height="80" Width="400" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30" Click="Button_AdminChangePricesMenu_SaveAndGoBackButton_Click" Cursor="Hand"/>
+            <Grid x:Name="AdminChangePricesMenu_Table">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_TariffLevel" Content="Tarifstufe" Grid.Column="1" Grid.Row="2" FontSize="30" FontWeight="Bold"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Age_Child" Content="Kinder" Grid.Column="2" Grid.Row="2" FontSize="30" FontWeight="Bold"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Age_Reduced" Content="Ermäßigt" Grid.Column="3" Grid.Row="2" FontSize="30" FontWeight="Bold"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Age_Adult" Content="Erwachsene" Grid.Column="4" Grid.Row="2" FontSize="30" FontWeight="Bold"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Age_Pensioner" Content="Senioren" Grid.Column="5" Grid.Row="2" FontSize="30" FontWeight="Bold"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Tariff_A" Content="A" Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Tariff_B" Content="B" Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Tariff_C" Content="C" Grid.Column="1" Grid.Row="5" FontSize="30" FontWeight="Bold"/>
+
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Child_A" Content="Lädt..." Grid.Column="2" Grid.Row="3" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Child_B" Content="Lädt..." Grid.Column="2" Grid.Row="4" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Child_C" Content="Lädt..." Grid.Column="2" Grid.Row="5" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Reduced_A" Content="Lädt..." Grid.Column="3" Grid.Row="3" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Reduced_B" Content="Lädt..." Grid.Column="3" Grid.Row="4" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Reduced_C" Content="Lädt..." Grid.Column="3" Grid.Row="5" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Adult_A" Content="Lädt..." Grid.Column="4" Grid.Row="3" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Adult_B" Content="Lädt..." Grid.Column="4" Grid.Row="4" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Adult_C" Content="Lädt..." Grid.Column="4" Grid.Row="5" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Pensioner_A" Content="Lädt..." Grid.Column="5" Grid.Row="3" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Pensioner_B" Content="Lädt..." Grid.Column="5" Grid.Row="4" FontSize="30"/>
+                <Label x:Name="Label_AdminChangePricesMenu_Table_Pensioner_C" Content="Lädt..." Grid.Column="5" Grid.Row="5" FontSize="30"/>
+
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Child_A" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="2" Grid.Row="3"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Child_B" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="2" Grid.Row="4"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Child_C" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="2" Grid.Row="5"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Reduced_A" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="3" Grid.Row="3"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Reduced_B" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="3" Grid.Row="4"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Reduced_C" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="3" Grid.Row="5"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Adult_A" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="4" Grid.Row="3"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Adult_B" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="4" Grid.Row="4"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Adult_C" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="4" Grid.Row="5"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Pensioner_A" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="5" Grid.Row="3"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Pensioner_B" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="5" Grid.Row="4"/>
+                <Button x:Name="Button_AdminChangePricesMenu_Table_Pensioner_C" Content="Ändern" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25,0" Grid.Column="5" Grid.Row="5"/>
+            </Grid>
+            <Grid x:Name="AdminChangePricesMenu_ChangeDialogue" Visibility="Collapsed">
+                <Rectangle x:Name="Rectangle_AdminChangePricesMenu_ChangeDialogue_Background" Opacity="0.5" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>
+                <Rectangle x:Name="Rectangle_AdminChangePricesMenu_ChangeDialogue_Middleground" Opacity="0.95" Fill="Black" Height="300" Width="900" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0"/>
+                <Rectangle x:Name="Rectangle_AdminChangePricesMenu_ChangeDialogue_Foreground" Fill="White" Width="100" Height="28" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0"/>
+                <Label x:Name="Label_AdminChangePricesMenu_ChangeDialogue_Title" Content="NEUEN PREIS EINGEBEN" Foreground="White" Height="130" Width="1325" FontSize="50" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="518,339,0,0"/>
+                <Label x:Name="Label_AdminChangePricesMenu_ChangeDialogue_Content" Content="€" Foreground="White" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="855,423,0,0"/>
+                <Button x:Name="Button_AdminChangePricesMenu_ChangeDialogue_CloseButton" Content="OK" Width="250" Height="30" VerticalAlignment="Top" Margin="675,469,675,0" FontSize="20" Cursor="Hand" Click="Button_ErrorWindow_CloseButton_Click"/>
+                <TextBlock x:Name="TextBlock_AdminChangePricesMenu_NewPrice" Width="100" Height="28" FontSize="19" Text="1,50"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="AdminDisableMachine" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_AdminDisableMachine_Background" Opacity="0.5" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>
+            <Rectangle x:Name="Rectangle_AdminDisableMachine_Middleground" Opacity="0.95" Fill="Black" Height="300" Width="900" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0"/>
+            <Label x:Name="Label_AdminDisableMachine_Title" Content="AUTOMATEN&#x0a;ABSCHALTEN?" Foreground="White" Height="130" Width="1325" FontSize="50" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="638,300,0,0"/>
+            <Button x:Name="Button_AdminDisableMachine_ShutDownButton" Content="Abschalten" Width="250" Height="40" VerticalAlignment="Top" Margin="675,469,675,0" FontSize="20" Cursor="Hand" Click="Button_AdminDisableMachine_ShutDownButton_Click"/>
+            <Button x:Name="Button_AdminDisableMachine_CancelButton" Content="Zurück" Width="250" Height="40" VerticalAlignment="Top" Margin="675,514,675,0" FontSize="20" Cursor="Hand" Click="Button_AdminDisableMachine_CancelButton_Click"/>
+        </Grid>
+        <Grid x:Name="AdminStatistics" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_AdminStatistics_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Label x:Name="Label_AdminStatistics_Title" Content="STATISTIKEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Button x:Name="Button_AdminStatistics_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_AdminSavingsManagement_GoBackButton_Click" Cursor="Hand"/>
+        </Grid>
         <Grid x:Name="ErrorWindow" Visibility="Collapsed">
             <!--Fester Hintergrund-->
             <Rectangle x:Name="Rectangle_ErrorWindow_Background" Opacity="0.95" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>
