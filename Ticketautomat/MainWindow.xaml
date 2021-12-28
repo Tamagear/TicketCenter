@@ -140,6 +140,72 @@
                 <Button x:Name="Button_BuyMenu_TicketSelection_Fastest" Content="WENIGSTE STATIONEN&#x0a;BESTELLEN" FontSize="60" Height="300" VerticalAlignment="Bottom" Grid.Column="2" Click="Button_BuyMenu_TicketSelection_Fastest_Click" Cursor="Hand"/>
             </Grid>
         </Grid>
+        <Grid x:Name="ShoppingCart" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_ShoppingCart_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Label x:Name="Label_ShoppingCart_Title" Content="WARENKORB" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Label x:Name="Label_ShoppingCart_Sum" Content="Preis insgesamt: Lädt..." FontWeight="Bold" FontSize="50" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,538,75,0"/>
+            <Button x:Name="Button_ShoppingCart_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
+            <Button x:Name="Button_ShoppingCart_PayNowButton" Content="Jetzt bezahlen" Height="60" Width="250" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,634,235,0" Click="Button_ShoppingCart_PayNowButton_Click" Cursor="Hand"/>
+            <ScrollViewer x:Name="ScrollViewer_ShoppingCart_TicketOverview" HorizontalScrollBarVisibility="Disabled" Width="900" Height="725" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20, 0">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <!--Hier content für Ticket-Einträge-->
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid x:Name="AddedTicket" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_AddedTicket_Background" Opacity="0.95" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>
+            <Rectangle x:Name="Rectangle_AddedTicket_Foreground" Fill="White" Height="835" Width="500" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20,20"/>
+            <Rectangle x:Name="Rectangle_AddedTicket_BelowTitle" Fill="Black" Height="3" Width="450" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="50, 100"/>
+            <Label x:Name="Label_AddedTicket_Title" Content="TICKET HINZUGEFÜGT" FontSize="40" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="50, 40"/>
+            <Label x:Name="Label_AddedTicket_TicketType" Content="Ticket, Tarifstufe Lädt...,&#x0a;Lädt..., Lädt..." FontSize="20" MaxWidth="300" MinHeight="250" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,128,309,0"/>
+            <Label x:Name="Label_AddedTicket_TicketCount" Content="Anzahl: Lädt.." FontSize="20" MaxWidth="300" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,128,50,0"/>
+            <Button x:Name="Button_AddedTicket_CancelButton" Content="Abbrechen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="300" Height="50" FontSize="30" Margin="0,0,125,292" Cursor="Hand" Click="Button_AddedTicket_CancelButton_Click"/>
+            <Button x:Name="Button_AddedTicket_ShoppingCartButton" Content="Zum Warenkorb" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="480" Height="70" FontSize="40" Margin="0,0,26,194" Cursor="Hand" Click="Button_AddedTicket_ShoppingCartButton_Click"/>
+            <Button x:Name="Button_AddedTicket_ContinueButton" Content="Weiter Einkaufen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="480" Height="70" FontSize="40" Margin="0,0,30,98" Cursor="Hand" Click="Button_AddedTicket_ContinueButton_Click"/>
+        </Grid>
+        <Grid x:Name="PayMenu" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_PayMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_PayMenu_BelowPaySum" Fill="Black" Height="7" Width="1050" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,512,0,0"/>
+            <Label x:Name="Label_PayMenu_Title" Content="BEZAHLEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Label x:Name="Label_PayMenu_PayTitle" Content="NOCH ZU ZAHLEN:" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,252,0,0"/>
+            <Label x:Name="Label_PayMenu_PaySum" Content="Lädt..." FontSize="120" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,342,0,0"/>
+            <Label x:Name="Label_PayMenu_PayHint" Content="Bitte werfen Sie die obige Summe ein." FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,524,0,0"/>
+            <Label x:Name="Label_PayMenu_PayMethodTitle" Content="Einwurf:" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="75,634,0,0"/>
+            <Button x:Name="Button_PayMenu_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
+            <Grid x:Name="PayMenu_PayButtonGrid" Margin="50,689,50,71">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_0005" Content="0,05€" FontSize="40" Grid.Row="0" Grid.Column="0" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_0010" Content="0,10€" FontSize="40" Grid.Row="0" Grid.Column="1" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_0020" Content="0,20€" FontSize="40" Grid.Row="0" Grid.Column="2" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_0050" Content="0,50€" FontSize="40" Grid.Row="0" Grid.Column="3" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_0100" Content="1,00€" FontSize="40" Grid.Row="0" Grid.Column="4" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_0200" Content="2,00€" FontSize="40" Grid.Row="0" Grid.Column="5" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_0500" Content="5,00€" FontSize="40" Grid.Row="1" Grid.Column="1" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_1000" Content="10,00€" FontSize="40" Grid.Row="1" Grid.Column="2" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_2000" Content="20,00€" FontSize="40" Grid.Row="1" Grid.Column="3" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+                <Button x:Name="PayMenu_PayButtonGrid_PayButton_5000" Content="50,00€" FontSize="40" Grid.Row="1" Grid.Column="4" Cursor="Hand" Click="PayMenu_PayButtonGrid_PayButton_Click"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="PDFExportMenu" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_PDFExportMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_PDFExportMenu_BelowExportDialog" Fill="Black" Height="7" Width="1050" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,410,0,0"/>
+            <Label x:Name="Label_PDFExportMenu_Title" Content="VIELEN DANK FÜR IHREN EINKAUF" Height="130" Width="1325" FontSize="70" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,56,0,0"/>
+            <Label x:Name="Label_PDFExportMenu_PleaseWaitText" Content="Bitte warten Sie, während ihr Ticket gedruckt wird." FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,252,0,0"/>
+            <Label x:Name="Label_PDFExportMenu_ExportDialogText" Content="Möchten Sie Ihre Bestellung als .PDF-Datei exportieren?" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,342,0,0"/>
+            <Button x:Name="Button_PDFExportMenu_GoBackButton" Content="Zum Hauptmenü" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
+            <Button x:Name="Button_PDFExportMenu_ExportButton" Content="Exportieren" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Width="400" Height="70" Margin="0,496,0,0" Cursor="Hand" Click="Button_PDFExportMenu_ExportButton_Click"/>
+        </Grid>
         <Grid x:Name="AdminDashboard" Visibility="Collapsed">
             <Rectangle x:Name="Rectangle_AdminDashboard_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Rectangle x:Name="Rectangle_AdminDashboard_BehindScrollView" Fill="LightGray" Height="725" Width="700" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
@@ -263,6 +329,18 @@
             <Rectangle x:Name="Rectangle_AdminStatistics_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Label x:Name="Label_AdminStatistics_Title" Content="STATISTIKEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Button x:Name="Button_AdminStatistics_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_AdminSavingsManagement_GoBackButton_Click" Cursor="Hand"/>
+        </Grid>
+        <Grid x:Name="DisabledScreen" Visibility="Collapsed">
+            <Rectangle x:Name="Rectangle_DisableScreen_Background" Opacity="0.95" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>
+            <Image x:Name="Image_DisableScreen_Lock" Source="Resources/Images/lockIcon.png" Width="310" Height="303" Margin="645,226,645,370"/>
+            <Image x:Name="Image_DisableScreen_NotAllBoxesFilledOut" Source="Resources/Images/adminLogin_notAllBoxesFilledOut.png" Visibility="Collapsed" Width="250" Margin="1105,311,245,-311"/>
+            <Image x:Name="Image_DisableScreen_WrongData" Source="Resources/Images/adminLogin_wrongData.png" Visibility="Collapsed" Width="250" Margin="1105,259,245,-259"/>
+            <Label x:Name="Label_DisableScreen_Title" Content="Der Automat ist aktuell gesperrt.&#x0a;Bitte wenden Sie sich an einen unserer Mitarbeiter." Foreground="White" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="45" Margin="0, 250"/>
+            <Label x:Name="Label_DisableScreen_Username" Content="Benutzername" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="372,680,0,0"/>
+            <Label x:Name="Label_DisableScreen_Password" Content="Passwort" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="411,710,0,0"/>
+            <Button x:Name="Button_DisableScreen_LoginButton" Content="Entsperren" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,500,123" Height="32" Width="97" FontSize="20" Cursor="Hand" Click="Button_DisableScreen_LoginButton_Click"/>
+            <TextBox x:Name="TextBox_DisableScreen_AdminUsername" Width="600" Height="28" FontSize="14" VerticalContentAlignment="Center" Margin="500,682,500,190"/>
+            <PasswordBox x:Name="PasswordBox_DisableScreen_AdminPassword" Width="600" Height="28" FontSize="14" VerticalContentAlignment="Center" Margin="500,712,500,160"/>
         </Grid>
         <Grid x:Name="ErrorWindow" Visibility="Collapsed">
             <!--Fester Hintergrund-->

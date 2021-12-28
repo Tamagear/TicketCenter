@@ -124,5 +124,8 @@
     <Resource Include="Resources\Images\adminLogin_notAllBoxesFilledOut.png" />
     <Resource Include="Resources\Images\adminLogin_wrongData.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\lockIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

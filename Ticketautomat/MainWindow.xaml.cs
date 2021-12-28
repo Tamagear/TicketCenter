@@ -462,6 +462,41 @@ namespace Ticketautomat
         {
 
         }
+
+        private void Button_DisableScreen_LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_ShoppingCart_PayNowButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AddedTicket_CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AddedTicket_ShoppingCartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_AddedTicket_ContinueButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PayMenu_PayButtonGrid_PayButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Parse den letzten _XXXX von sender-Name, um den eigeworfenen Wert zu erhalten.
+        }
+
+        private void Button_PDFExportMenu_ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public struct Version
