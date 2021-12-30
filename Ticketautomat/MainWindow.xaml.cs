@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -495,7 +496,13 @@ namespace Ticketautomat
 
         private void Button_PDFExportMenu_ExportButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                String fileName = saveFileDialog.FileName;
+                currentProfile.ExportToPDF(fileName);
+            } 
         }
     }
 
