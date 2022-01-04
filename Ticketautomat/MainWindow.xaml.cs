@@ -491,6 +491,30 @@ namespace Ticketautomat
 
         private void PayMenu_PayButtonGrid_PayButton_Click(object sender, RoutedEventArgs e)
         {
+            // der Name des gedrückten Buttons
+            string geldmenge = sender.GetType().Name;
+            // den Name nach dem Unterstrich splitten
+            string[] gesplitetter_test = geldmenge.Split('_');
+            int length = gesplitetter_test.Length;
+            string geld = gesplitetter_test[length-1]; //  eingetragene geldmenge
+            // geld menge umwandeln
+            int geld_to_int = int.Parse(geld);
+            // hinzugefügtes Geld
+            float hinzugefügtes_geld = geld_to_int / 1000;
+            // platzhalterwert
+            float result = 0.0f;
+            float new_price = result - hinzugefügtes_geld;
+
+            
+
+           
+
+
+
+
+
+          
+            
             //Parse den letzten _XXXX von sender-Name, um den eigeworfenen Wert zu erhalten.
         }
 

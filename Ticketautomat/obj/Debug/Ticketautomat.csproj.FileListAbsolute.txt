@@ -45,3 +45,16 @@ C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat
 C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.CopyComplete
 C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.exe
 C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.pdb
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\bin\Debug\Ticketautomat.exe.config
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\bin\Debug\Ticketautomat.exe
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\bin\Debug\Ticketautomat.pdb
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\bin\Debug\ceTe.DynamicPDF.40.dll
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\bin\Debug\ceTe.DynamicPDF.40.xml
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\MainWindow.baml
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.g.resources
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.Properties.Resources.resources
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.GenerateResource.cache
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.CoreCompileInputs.cache
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.csproj.CopyComplete
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.exe
+C:\Users\ayadi\source\repos\ticketcenter\Ticketautomat\obj\Debug\Ticketautomat.pdb
