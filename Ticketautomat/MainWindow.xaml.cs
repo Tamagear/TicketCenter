@@ -307,6 +307,13 @@ namespace Ticketautomat
             MainMenu.Visibility = Visibility.Visible;
             PriceTable.Visibility = Visibility.Collapsed;
             BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
         }
 
         private void GoTo_PriceTable()
@@ -314,6 +321,13 @@ namespace Ticketautomat
             MainMenu.Visibility = Visibility.Collapsed;
             PriceTable.Visibility = Visibility.Visible;
             BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
         }  
         
         private void GoTo_BuyMenu()
@@ -321,11 +335,111 @@ namespace Ticketautomat
             MainMenu.Visibility = Visibility.Collapsed;
             PriceTable.Visibility = Visibility.Collapsed;
             BuyMenu.Visibility = Visibility.Visible;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
         }
 
         private void GoTo_AdminDashboard()
         {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Visible;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
+        }
 
+        private void GoTo_AdminSavingsManagement()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Visible;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void GoTo_AdminChangePricesMenu()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Visible;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void GoTo_AdminStatistics()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Visible;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void GoTo_ShoppingCart()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Visible;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void GoTo_PayMenu()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Visible;
+            PDFExportMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void GoTo_PDFExportMenu()
+        {
+            MainMenu.Visibility = Visibility.Collapsed;
+            PriceTable.Visibility = Visibility.Collapsed;
+            BuyMenu.Visibility = Visibility.Collapsed;
+            AdminDashboard.Visibility = Visibility.Collapsed;
+            AdminSavingsManagement.Visibility = Visibility.Collapsed;
+            AdminChangePricesMenu.Visibility = Visibility.Collapsed;
+            AdminStatistics.Visibility = Visibility.Collapsed;
+            ShoppingCart.Visibility = Visibility.Collapsed;
+            PayMenu.Visibility = Visibility.Collapsed;
+            PDFExportMenu.Visibility = Visibility.Visible;
         }
 
         private void ShowError(string content, string caption = "FEHLER")
@@ -396,7 +510,8 @@ namespace Ticketautomat
 
             if (manager.TryLogin(TextBox_AdminLogin_AdminUsername.Text, PasswordBox_AdminLogin_AdminPassword.Password))
             {
-                Label_AdminLogin_Password.Content = "Login erfolgreich!";
+                GoTo_AdminDashboard();
+                AdminLogin.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -411,22 +526,22 @@ namespace Ticketautomat
 
         private void Button_AdminDashboard_AdminButtonOptions_Statistics_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_AdminStatistics();
         }
 
         private void Button_AdminDashboard_AdminButtonOptions_SavingsManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_AdminSavingsManagement();
         }
 
         private void Button_AdminDashboard_AdminButtonOptions_DisableMachine_Click(object sender, RoutedEventArgs e)
         {
-
+            AdminDisableMachine.Visibility = Visibility.Visible;
         }
 
         private void Button_AdminDashboard_AdminButtonOptions_ChangePrices_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_AdminChangePricesMenu();
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click(object sender, RoutedEventArgs e)
@@ -446,27 +561,43 @@ namespace Ticketautomat
 
         private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_AdminDashboard();
         }
 
         private void Button_AdminChangePricesMenu_SaveAndGoBackButton_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_AdminDashboard();
         }
 
         private void Button_AdminDisableMachine_ShutDownButton_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_MainMenu();
+            AdminDisableMachine.Visibility = Visibility.Collapsed;
+            DisabledScreen.Visibility = Visibility.Visible;
         }
 
         private void Button_AdminDisableMachine_CancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            AdminDisableMachine.Visibility = Visibility.Collapsed;
         }
 
         private void Button_DisableScreen_LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            if (TextBox_DisableScreen_AdminUsername.Text.Equals(string.Empty)
+                || PasswordBox_DisableScreen_AdminPassword.Password.Equals(string.Empty))
+            {
+                Image_DisableScreen_NotAllBoxesFilledOut.Visibility = Visibility.Visible;
+                return;
+            }
 
+            if (manager.TryLogin(TextBox_DisableScreen_AdminUsername.Text, PasswordBox_DisableScreen_AdminPassword.Password))
+            {                
+                DisabledScreen.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Image_DisableScreen_WrongData.Visibility = Visibility.Visible;
+            }
         }
 
         private void Button_ShoppingCart_PayNowButton_Click(object sender, RoutedEventArgs e)
@@ -505,15 +636,8 @@ namespace Ticketautomat
             float result = 0.0f;
             float new_price = result - hinzugefügtes_geld;
 
-            
-
-           
-
-
-
-
-
-          
+            if (new_price <= 0f)
+                GoTo_PDFExportMenu();          
             
             //Parse den letzten _XXXX von sender-Name, um den eigeworfenen Wert zu erhalten.
         }
