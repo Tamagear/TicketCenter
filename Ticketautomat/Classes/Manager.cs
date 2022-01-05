@@ -14,6 +14,7 @@ namespace Ticketautomat.Classes
         private float m_timeUntilTimeout = 0;
         private List<LogEntry> m_logEntries = new List<LogEntry>();
         private PriceEntry[,] m_priceEntries = new PriceEntry[4, 3];
+        private MoneyManager m_moneyManager = new MoneyManager();
 
         private const float TIMEOUT_THRESHOLD = 180f;
 
@@ -22,6 +23,7 @@ namespace Ticketautomat.Classes
         public float TimeUntilTimeout { get => m_timeUntilTimeout; set => m_timeUntilTimeout = value; }
         public List<LogEntry> LogEntries { get => m_logEntries; set => m_logEntries = value; }
         public PriceEntry[,] PriceEntries { get => m_priceEntries; set => m_priceEntries = value; }
+        public MoneyManager MoneyManager { get => m_moneyManager; }
 
         /// <summary>
         /// Erstellt eine Managerklasse mit einen Nutzer

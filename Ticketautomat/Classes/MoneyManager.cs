@@ -16,6 +16,12 @@ namespace Ticketautomat.Classes
         public int TicketPaperLeft { get => m_ticketPaperLeft; set => m_ticketPaperLeft = value; }
         public List<Money> MoneyFillStateList { get { return m_currentlyInsertedMoney; } set { m_currentlyInsertedMoney = value; } }
 
+        public MoneyManager(List<int> p_fillStates = null)
+        {
+            //Für jeden Geldtypen einen Eintrag im Dictionary erstellen
+            //p_fillStates nutzen, um die Menge an Geld reinzutun
+        }
+
         /// <summary>
         /// Methode zum Geld einzahlen
         /// </summary>
@@ -55,7 +61,7 @@ namespace Ticketautomat.Classes
         /// 200 Scheine pro Scheinart
         /// 150 Stk. Muenzen pro Muenztyp(bis auf 1 und 2 ct)
         /// </summary>
-        /// /// <param name="p_money">Geldtyp</param>
+        /// <param name="p_money">Geldtyp</param>
         /// <param name="p_zahl">Anzahl zum auffüllen</param>
         public void Refill(Money p_money, int p_zahl)
         {

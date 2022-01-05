@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace Ticketautomat
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Version version = new Version(0,0,2);
+        private Version version = new Version(0,0,3);
 
         private Profile currentProfile = null;
         private Manager manager = null;
@@ -160,7 +161,7 @@ namespace Ticketautomat
         private void Button_MainMenu_GoToCart_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            ShowError("Diese Funktion ist noch nicht implementiert.");
+            GoTo_ShoppingCart();
         }
 
         private void MainMenu_BuyButton_Adult_Click(object sender, RoutedEventArgs e)
@@ -456,47 +457,59 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Adult_Click(object sender, RoutedEventArgs e)
         {
-
+            //Setze aktuelle Preisstufe auf Adult
+            //Deaktiviere den entsprechenden Knopf
+            //Aktualisiere Preise
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Child_Click(object sender, RoutedEventArgs e)
         {
-
+            //Setze aktuelle Preisstufe auf Child
+            //Deaktiviere den entsprechenden Knopf
+            //Aktualisiere Preise
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Pensioner_Click(object sender, RoutedEventArgs e)
         {
-
+            //Setze aktuelle Preisstufe auf Pensioner
+            //Deaktiviere den entsprechenden Knopf
+            //Aktualisiere Preise
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Reduced_Click(object sender, RoutedEventArgs e)
         {
-
+            //Setze aktuelle Preisstufe auf Reduced
+            //Deaktiviere den entsprechenden Knopf
+            //Aktualisiere Preise
         }
 
         private void Button_BuyMenu_TicketOptions_StartButton_Click(object sender, RoutedEventArgs e)
         {
-
+            //Auswahl öffnen
         }
 
         private void Button_BuyMenu_TicketOptions_DestinationButton_Click(object sender, RoutedEventArgs e)
         {
-
+            //Auswahl öffnen
         }
 
         private void Button_BuyMenu_TicketOptions_DisplayRoutes_Click(object sender, RoutedEventArgs e)
         {
-
+            //Schrift von den beiden Ticket-Optionen setzen
         }
 
         private void Button_BuyMenu_TicketSelection_Cheapest_Click(object sender, RoutedEventArgs e)
         {
-
+            //Ticket hinzufügen
+            AddedTicket.Visibility = Visibility.Visible;
+            //Texte von AddedTicket setzen
         }
 
         private void Button_BuyMenu_TicketSelection_Fastest_Click(object sender, RoutedEventArgs e)
         {
-
+            //Ticket hinzufügen
+            AddedTicket.Visibility = Visibility.Visible;
+            //Texte von AddedTicket setzen
         }
 
         private void Button_AdminLogin_LoginButton_Click(object sender, RoutedEventArgs e)
@@ -546,17 +559,23 @@ namespace Ticketautomat
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click(object sender, RoutedEventArgs e)
         {
-
+            manager.MoneyManager.RefillTicketPaper();
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
         {
-
+            //Refill ordentlich
+            List<Money> refillCoins = new List<Money>();
+            refillCoins.Add(new Money());
+            manager.MoneyManager.Refill(refillCoins[0], 150);
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
         {
-
+            //Refill ordentlich
+            List<Money> refillBills = new List<Money>();
+            refillBills.Add(new Money());
+            manager.MoneyManager.Refill(refillBills[0], 200);
         }
 
         private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -602,22 +621,24 @@ namespace Ticketautomat
 
         private void Button_ShoppingCart_PayNowButton_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_PayMenu();
         }
 
         private void Button_AddedTicket_CancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            AddedTicket.Visibility = Visibility.Collapsed;
+            //Reset
+            GoTo_MainMenu();
         }
 
         private void Button_AddedTicket_ShoppingCartButton_Click(object sender, RoutedEventArgs e)
         {
-
+            GoTo_ShoppingCart();
         }
 
         private void Button_AddedTicket_ContinueButton_Click(object sender, RoutedEventArgs e)
         {
-
+            AddedTicket.Visibility = Visibility.Collapsed;
         }
 
         private void PayMenu_PayButtonGrid_PayButton_Click(object sender, RoutedEventArgs e)
