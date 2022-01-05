@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using Ticketautomat.Classes;
 
@@ -143,6 +144,7 @@ namespace Ticketautomat
             if (!string.IsNullOrEmpty(spotlightPath) && File.Exists(spotlightPath))
                 Label_MainMenu_TicketSpotlight.Content = File.ReadAllText(spotlightPath);
 
+            UpdateTicketSpecifics();
             UpdatePriceTableTexts();
         }
 
@@ -417,6 +419,9 @@ namespace Ticketautomat
 
         private void GoTo_PayMenu()
         {
+            manager.MoneyManager.SumLeft = manager.CurrentUser.GetFinalPrice();
+            UpdateTicketSpecifics();
+
             MainMenu.Visibility = Visibility.Collapsed;
             PriceTable.Visibility = Visibility.Collapsed;
             BuyMenu.Visibility = Visibility.Collapsed;
@@ -448,6 +453,15 @@ namespace Ticketautomat
             Label_ErrorWindow_Title.Content = caption;
             Label_ErrorWindow_Content.Content = content;
             ErrorWindow.Visibility = Visibility.Visible;
+        }
+
+        private void UpdateTicketSpecifics()
+        {
+            //Warenkorb: Sachen hinzufügen/löschen            
+            Button_MainMenu_GoToCart.Content = $"Warenkorb\nanzeigen ({manager.CurrentUser.ShoppingCart.Count})";
+            Button_BuyMenu_GoToCart.Content = $"Warenkorb\nanzeigen ({manager.CurrentUser.ShoppingCart.Count})";
+            Label_ShoppingCart_Sum.Content = $"Preis insgesamt: {manager.CurrentUser.GetFinalPrice():F2}€";
+            Label_PayMenu_PaySum.Content = $"{manager.MoneyManager.SumLeft:F2}€";
         }
 
         private void Button_BuyMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -503,6 +517,7 @@ namespace Ticketautomat
             //Ticket hinzufügen
             AddedTicket.Visibility = Visibility.Visible;
             //Texte von AddedTicket setzen
+            UpdateTicketSpecifics();
         }
 
         private void Button_BuyMenu_TicketSelection_Fastest_Click(object sender, RoutedEventArgs e)
@@ -510,6 +525,9 @@ namespace Ticketautomat
             //Ticket hinzufügen
             AddedTicket.Visibility = Visibility.Visible;
             //Texte von AddedTicket setzen
+            //Testwerte
+            manager.CurrentUser.AddToShoppingCart(new Ticket(DateTime.Now, manager.CurrentUser, manager.StationGraph.Graph.GetStation(0), manager.StationGraph.Graph.GetStation(2), manager.PriceEntries[0,0]));
+            UpdateTicketSpecifics();
         }
 
         private void Button_AdminLogin_LoginButton_Click(object sender, RoutedEventArgs e)
@@ -560,22 +578,19 @@ namespace Ticketautomat
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click(object sender, RoutedEventArgs e)
         {
             manager.MoneyManager.RefillTicketPaper();
+            //Bestätigungsfenster?
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
         {
-            //Refill ordentlich
-            List<Money> refillCoins = new List<Money>();
-            refillCoins.Add(new Money());
-            manager.MoneyManager.Refill(refillCoins[0], 150);
+            manager.MoneyManager.Refill(EnumCollection.EMoneyType.COIN, out _);
+            //Bestätigungsfenster?
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
         {
-            //Refill ordentlich
-            List<Money> refillBills = new List<Money>();
-            refillBills.Add(new Money());
-            manager.MoneyManager.Refill(refillBills[0], 200);
+            manager.MoneyManager.Refill(EnumCollection.EMoneyType.BILL, out _);
+            //Bestätigungsfenster?
         }
 
         private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -633,6 +648,7 @@ namespace Ticketautomat
 
         private void Button_AddedTicket_ShoppingCartButton_Click(object sender, RoutedEventArgs e)
         {
+            AddedTicket.Visibility = Visibility.Collapsed;
             GoTo_ShoppingCart();
         }
 
@@ -643,24 +659,20 @@ namespace Ticketautomat
 
         private void PayMenu_PayButtonGrid_PayButton_Click(object sender, RoutedEventArgs e)
         {
-            // der Name des gedrückten Buttons
-            string geldmenge = sender.GetType().Name;
-            // den Name nach dem Unterstrich splitten
-            string[] gesplitetter_test = geldmenge.Split('_');
-            int length = gesplitetter_test.Length;
-            string geld = gesplitetter_test[length-1]; //  eingetragene geldmenge
-            // geld menge umwandeln
-            int geld_to_int = int.Parse(geld);
-            // hinzugefügtes Geld
-            float hinzugefügtes_geld = geld_to_int / 1000;
-            // platzhalterwert
-            float result = 0.0f;
-            float new_price = result - hinzugefügtes_geld;
+            string[] moneyValues = ((Button)sender).Name.Split('_');
+            string moneyValue = moneyValues[moneyValues.Length - 1];
 
-            if (new_price <= 0f)
-                GoTo_PDFExportMenu();          
-            
-            //Parse den letzten _XXXX von sender-Name, um den eigeworfenen Wert zu erhalten.
+            float addedMoney = int.Parse(moneyValue) / 100f;
+            //Auf OverflowFehler achten!
+            manager.MoneyManager.InsertMoney(manager.MoneyManager.GetMoneyFromValue(addedMoney), 1);
+            manager.MoneyManager.SumLeft -= addedMoney;
+            UpdateTicketSpecifics();
+
+            if (manager.MoneyManager.SumLeft <= 0f)
+            {
+                //Entferne Wechselgeld
+                GoTo_PDFExportMenu();
+            }
         }
 
         private void Button_PDFExportMenu_ExportButton_Click(object sender, RoutedEventArgs e)
@@ -672,6 +684,12 @@ namespace Ticketautomat
                 String fileName = saveFileDialog.FileName;
                 currentProfile.ExportToPDF(fileName);
             } 
+        }
+
+        private void Button_PayMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            GoTo_ShoppingCart();
+            //Altes Geld auswerfen
         }
     }
 

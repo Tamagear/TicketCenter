@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ticketautomat.Classes
+﻿namespace Ticketautomat.Classes
 {
     public class Money
     {
@@ -19,5 +13,11 @@ namespace Ticketautomat.Classes
         
         public EnumCollection.EMoneyType MoneyType { get => m_moneyType; set => m_moneyType = value; }
         public float Value { get => m_value; set => m_value = value; }
+
+        public Money(float p_value, EnumCollection.EMoneyType p_moneyType)
+        {
+            m_value = p_value;
+            m_moneyType = p_moneyType;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Ticketautomat.Classes
     public class Profile
     {
         protected string m_name = "";
-        protected Dictionary<Ticket, int> m_shoppingCart;
+        protected Dictionary<Ticket, int> m_shoppingCart = new Dictionary<Ticket, int>();
         protected bool m_isMaintenance = false;
 
         public String Name
@@ -48,11 +48,7 @@ namespace Ticketautomat.Classes
         /// <param name="p_ticket">Ticket, den man hinzufügen will</param>
         public void AddToShoppingCart(Ticket p_ticket)
         {
-
-
             m_shoppingCart.Add(p_ticket, 1);
-
-
         }
 
         /// <summary>

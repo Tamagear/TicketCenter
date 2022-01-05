@@ -34,6 +34,16 @@ namespace Ticketautomat.Classes
             set { this.m_targetDestination = value; }
         }
 
+        public Ticket(DateTime p_date, Profile p_customer, Station p_startStation, Station p_targetDestination,
+            PriceEntry p_priceEntry)
+        {
+            m_date = p_date;
+            m_customer = p_customer;
+            m_startStation = p_startStation;   
+            m_targetDestination = p_targetDestination;
+            m_priceEntry = p_priceEntry;
+        }
+
         public PriceEntry PriceEntry { get { return this.m_priceEntry; } set { this.m_priceEntry = value;} }
         /// <summary>
         /// Erstellt eine Pdf mit den Informationen des Tickets
@@ -57,10 +67,10 @@ namespace Ticketautomat.Classes
             page.Elements.Add(Preisstufe);
             Label Ticketcenter = new Label("TicketCenter", 200, 680, 504, 100, Font.Helvetica, 18, TextAlign.Left);
             page.Elements.Add(Ticketcenter);
-            Image image = new Image("Resources/Images/softwareIcon.png", 0, 0, 0.2f);
-            page.Elements.Add(image);
+            //Image image = new Image("Resources/Images/softwareIcon.png", 0, 0, 0.2f);
+            //page.Elements.Add(image);
             
-            QrCode qrCode = new QrCode("Datum:" + Date + ", Name:" + Customer.Name + ", Startstation:" + StartStation.StationName + ", Endstation:" + TargetDestination.StationName + "Preisstufe:" + PriceEntry, 400, 0);
+            QrCode qrCode = new QrCode("Datum: " + Date + "\nName: " + Customer.Name + "\nStartstation: " + StartStation.StationName + "\nEndstation: " + TargetDestination.StationName + "\nPreisstufe: " + PriceEntry, 400, 0);
             //QrCode qrCode = new QrCode("https://www.youtube.com/watch?v=dQw4w9WgXcQ", 400, 0);
             page.Elements.Add(qrCode);
             document.Draw(p_Text);

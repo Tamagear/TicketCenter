@@ -171,7 +171,7 @@
             <Label x:Name="Label_PayMenu_PaySum" Content="Lädt..." FontSize="120" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,342,0,0"/>
             <Label x:Name="Label_PayMenu_PayHint" Content="Bitte werfen Sie die obige Summe ein." FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,524,0,0"/>
             <Label x:Name="Label_PayMenu_PayMethodTitle" Content="Einwurf:" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="75,634,0,0"/>
-            <Button x:Name="Button_PayMenu_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
+            <Button x:Name="Button_PayMenu_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_PayMenu_GoBackButton_Click" Cursor="Hand"/>
             <Grid x:Name="PayMenu_PayButtonGrid" Margin="50,689,50,71">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="6*"/>

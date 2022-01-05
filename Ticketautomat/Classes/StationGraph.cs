@@ -13,6 +13,188 @@ namespace Ticketautomat.Classes
 
         public Graph Graph { get => graph; set => graph = value; }
 
+        public StationGraph()
+        {
+            Graph.addStation("Rößle", EStationZone.ZONE_A);                   //0
+            Graph.addStation("Rust", EStationZone.ZONE_A);                    //1
+            Graph.addStation("Logos", EStationZone.ZONE_A);                   //2
+            Graph.addStation("Grosfeld", EStationZone.ZONE_A);                //3
+            Graph.addStation("Altstadt", EStationZone.ZONE_A);                //4
+            Graph.addStation("Nier2", EStationZone.ZONE_A);                   //5
+            Graph.addStation("Nier1", EStationZone.ZONE_B);                   //6
+            Graph.addStation("Keinfurt", EStationZone.ZONE_B);                //7
+            Graph.addStation("Trutztrum", EStationZone.ZONE_B);               //8
+            Graph.addStation("Hollstein", EStationZone.ZONE_B);               //9
+            Graph.addStation("Bierö", EStationZone.ZONE_B);                   //10
+            Graph.addStation("Swefurt", EStationZone.ZONE_B);                 //11
+            Graph.addStation("Ruste", EStationZone.ZONE_B);                   //12
+            Graph.addStation("Wolkenstadt", EStationZone.ZONE_B);             //13
+            Graph.addStation("Wissenstein", EStationZone.ZONE_B);             //14
+            Graph.addStation("Echsenstadt", EStationZone.ZONE_B);             //15
+            Graph.addStation("Rußstein", EStationZone.ZONE_B);                //16
+            Graph.addStation("Stolze", EStationZone.ZONE_C);                  //17
+            Graph.addStation("Wolfhain", EStationZone.ZONE_C);                //18
+            Graph.addStation("Rissstein", EStationZone.ZONE_C);               //19
+            Graph.addStation("Altschauerberg", EStationZone.ZONE_C);          //20
+            Graph.addStation("Simmerstein", EStationZone.ZONE_C);             //21
+            Graph.addStation("Bad Leer", EStationZone.ZONE_C);                //22
+            Graph.addStation("Nebelburg", EStationZone.ZONE_C);               //23
+            Graph.addStation("Obertal", EStationZone.ZONE_C);                 //24
+            Graph.addStation("Neudorf", EStationZone.ZONE_C);                 //25
+            Graph.addStation("Düstersteig", EStationZone.ZONE_C);             //26
+            Graph.addStation("Tanntal", EStationZone.ZONE_C);                 //27
+            Graph.addStation("Sems", EStationZone.ZONE_C);                    //28
+            Graph.addStation("Rotburg", EStationZone.ZONE_C);                 //29
+            Graph.addStation("Olde", EStationZone.ZONE_C);                    //30
+            Graph.addStation("Untersee", EStationZone.ZONE_C);                //31
+            Graph.addStation("Bruchdorf", EStationZone.ZONE_C);               //32
+
+
+            //Edges Station 0 Roeßle
+            Graph.AddEdge(Graph.GetStation(0), Graph.GetStation(1));
+            Graph.AddEdge(Graph.GetStation(0), Graph.GetStation(2));
+            Graph.AddEdge(Graph.GetStation(0), Graph.GetStation(3));
+            Graph.AddEdge(Graph.GetStation(0), Graph.GetStation(4));
+            Graph.AddEdge(Graph.GetStation(0), Graph.GetStation(5));
+            Graph.AddEdge(Graph.GetStation(0), Graph.GetStation(8));
+
+            //Edges Station 1 Rust
+            Graph.AddEdge(Graph.GetStation(1), Graph.GetStation(2));
+            Graph.AddEdge(Graph.GetStation(1), Graph.GetStation(3));
+            Graph.AddEdge(Graph.GetStation(1), Graph.GetStation(10));
+            Graph.AddEdge(Graph.GetStation(1), Graph.GetStation(11));
+            Graph.AddEdge(Graph.GetStation(1), Graph.GetStation(12));
+
+            //Edges Station 2 Logos
+            Graph.AddEdge(Graph.GetStation(2), Graph.GetStation(8));
+            Graph.AddEdge(Graph.GetStation(2), Graph.GetStation(9));
+            Graph.AddEdge(Graph.GetStation(2), Graph.GetStation(10));
+
+            //Edges Station 3 Grasfeld
+            Graph.AddEdge(Graph.GetStation(3), Graph.GetStation(4));
+            Graph.AddEdge(Graph.GetStation(3), Graph.GetStation(12));
+            Graph.AddEdge(Graph.GetStation(3), Graph.GetStation(13));
+            Graph.AddEdge(Graph.GetStation(3), Graph.GetStation(14));
+            Graph.AddEdge(Graph.GetStation(3), Graph.GetStation(15));
+
+            //Edges Station 4 Altstadt
+            Graph.AddEdge(Graph.GetStation(4), Graph.GetStation(5));
+            Graph.AddEdge(Graph.GetStation(4), Graph.GetStation(6));
+            Graph.AddEdge(Graph.GetStation(4), Graph.GetStation(15));
+            Graph.AddEdge(Graph.GetStation(4), Graph.GetStation(16));
+
+            //Edges Station 5 Nier2
+            Graph.AddEdge(Graph.GetStation(5), Graph.GetStation(6));
+            Graph.AddEdge(Graph.GetStation(5), Graph.GetStation(7));
+            Graph.AddEdge(Graph.GetStation(5), Graph.GetStation(8));
+
+            //Edges Station 6 Nier1
+            Graph.AddEdge(Graph.GetStation(6), Graph.GetStation(7));
+            Graph.AddEdge(Graph.GetStation(6), Graph.GetStation(16));
+            Graph.AddEdge(Graph.GetStation(6), Graph.GetStation(18));
+
+            //Edges Station 7 Keinfurt
+            Graph.AddEdge(Graph.GetStation(7), Graph.GetStation(8));
+            Graph.AddEdge(Graph.GetStation(7), Graph.GetStation(18));
+            Graph.AddEdge(Graph.GetStation(7), Graph.GetStation(19));
+
+            //Edges Station 8 Trutztrum
+            Graph.AddEdge(Graph.GetStation(8), Graph.GetStation(9));
+            Graph.AddEdge(Graph.GetStation(8), Graph.GetStation(19));
+            Graph.AddEdge(Graph.GetStation(8), Graph.GetStation(20));
+
+            //Edges Station 9 Hollstein
+            Graph.AddEdge(Graph.GetStation(9), Graph.GetStation(10));
+            Graph.AddEdge(Graph.GetStation(9), Graph.GetStation(20));
+            Graph.AddEdge(Graph.GetStation(9), Graph.GetStation(21));
+
+            //Edges Station 10 Bierö
+            Graph.AddEdge(Graph.GetStation(10), Graph.GetStation(11));
+            Graph.AddEdge(Graph.GetStation(10), Graph.GetStation(21));
+            Graph.AddEdge(Graph.GetStation(10), Graph.GetStation(22));
+
+            //Edges Station 11 Swefurt
+            Graph.AddEdge(Graph.GetStation(11), Graph.GetStation(12));
+            Graph.AddEdge(Graph.GetStation(11), Graph.GetStation(22));
+            Graph.AddEdge(Graph.GetStation(11), Graph.GetStation(23));
+            Graph.AddEdge(Graph.GetStation(11), Graph.GetStation(23));
+
+            //Edges Station 12 Ruste
+            Graph.AddEdge(Graph.GetStation(12), Graph.GetStation(13));
+            Graph.AddEdge(Graph.GetStation(12), Graph.GetStation(24));
+            Graph.AddEdge(Graph.GetStation(12), Graph.GetStation(25));
+
+            //Edges Station 13 Wolkenstadt
+            Graph.AddEdge(Graph.GetStation(13), Graph.GetStation(14));
+            Graph.AddEdge(Graph.GetStation(13), Graph.GetStation(25));
+            Graph.AddEdge(Graph.GetStation(13), Graph.GetStation(26));
+            Graph.AddEdge(Graph.GetStation(13), Graph.GetStation(27));
+
+            //Edges Station 14 Wissstein
+            Graph.AddEdge(Graph.GetStation(14), Graph.GetStation(15));
+            Graph.AddEdge(Graph.GetStation(14), Graph.GetStation(27));
+            Graph.AddEdge(Graph.GetStation(14), Graph.GetStation(28));
+            Graph.AddEdge(Graph.GetStation(14), Graph.GetStation(29));
+            Graph.AddEdge(Graph.GetStation(14), Graph.GetStation(30));
+
+            //Edges Station 15 Echsenstadt
+            Graph.AddEdge(Graph.GetStation(15), Graph.GetStation(16));
+            Graph.AddEdge(Graph.GetStation(15), Graph.GetStation(30));
+            Graph.AddEdge(Graph.GetStation(15), Graph.GetStation(31));
+
+            //Edges Station 16 Rußstein
+            Graph.AddEdge(Graph.GetStation(16), Graph.GetStation(17));
+            Graph.AddEdge(Graph.GetStation(16), Graph.GetStation(31));
+            Graph.AddEdge(Graph.GetStation(16), Graph.GetStation(32));
+
+            //Edges Station 17 Stolze
+            Graph.AddEdge(Graph.GetStation(17), Graph.GetStation(18));
+            Graph.AddEdge(Graph.GetStation(17), Graph.GetStation(32));
+
+            //Edges Station 18 Wolfhain
+            Graph.AddEdge(Graph.GetStation(18), Graph.GetStation(19));
+            Graph.AddEdge(Graph.GetStation(18), Graph.GetStation(32));
+
+            //Edges Station 19 Rissstein
+            Graph.AddEdge(Graph.GetStation(19), Graph.GetStation(20));
+
+            //Edges Station 20 Altschauerberg
+            Graph.AddEdge(Graph.GetStation(20), Graph.GetStation(21));
+
+            //Edges Station 21 Simmerstein
+            Graph.AddEdge(Graph.GetStation(21), Graph.GetStation(22));
+
+            //Edges Station 22 Bad Leer
+            Graph.AddEdge(Graph.GetStation(22), Graph.GetStation(23));
+
+            //Edges Station 23 Nebelburg
+            Graph.AddEdge(Graph.GetStation(23), Graph.GetStation(24));
+
+            //Edges Station 24 Obertal
+            Graph.AddEdge(Graph.GetStation(24), Graph.GetStation(25));
+
+            //Edges Station 25 Neudorf
+            Graph.AddEdge(Graph.GetStation(25), Graph.GetStation(26));
+
+            //Edges Station 26 Düstersteig
+            Graph.AddEdge(Graph.GetStation(26), Graph.GetStation(27));
+
+            //Edges Station 27 Tanntal
+            Graph.AddEdge(Graph.GetStation(27), Graph.GetStation(28));
+
+            //Edges Station 28 Sems
+            Graph.AddEdge(Graph.GetStation(28), Graph.GetStation(29));
+
+            //Edges Station 29 Rotburg
+            Graph.AddEdge(Graph.GetStation(29), Graph.GetStation(30));
+
+            //Edges Station 30 Olde
+
+
+            //Edges Station 31 Untersee
+            Graph.AddEdge(Graph.GetStation(31), Graph.GetStation(32));
+        }
+
         /// <summary>
         /// Die Methode gibt die 2 Möglichen Routen zwischen 2 Stationen aus.
         /// </summary>

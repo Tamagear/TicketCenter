@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using static Ticketautomat.Classes.EnumCollection;
 
 namespace Ticketautomat.Classes
 {
@@ -8,18 +8,53 @@ namespace Ticketautomat.Classes
     {
         private Dictionary<Money, int> m_moneyFillState = new Dictionary<Money, int>();
         private int m_ticketPaperLeft;
-        private List<Money> m_currentlyInsertedMoney;
+        private List<Money> m_currentlyInsertedMoney = new List<Money>();
+        private List<Money> m_allMoneyTypes = new List<Money>();
+        private float m_sumLeft = 0f;
 
         private const int TICKET_PAPER_PER_ROLL = 1000;
 
         public Dictionary<Money, int> MoneyFillState { get { return m_moneyFillState; } set { m_moneyFillState = value; } }
         public int TicketPaperLeft { get => m_ticketPaperLeft; set => m_ticketPaperLeft = value; }
         public List<Money> MoneyFillStateList { get { return m_currentlyInsertedMoney; } set { m_currentlyInsertedMoney = value; } }
+        public float SumLeft { get => m_sumLeft; set => m_sumLeft = value; }
 
         public MoneyManager(List<int> p_fillStates = null)
         {
+            m_allMoneyTypes.Add(new Money(0.05f, EnumCollection.EMoneyType.COIN));
+            m_allMoneyTypes.Add(new Money(0.10f, EnumCollection.EMoneyType.COIN));
+            m_allMoneyTypes.Add(new Money(0.20f, EnumCollection.EMoneyType.COIN));
+            m_allMoneyTypes.Add(new Money(0.50f, EnumCollection.EMoneyType.COIN));
+            m_allMoneyTypes.Add(new Money(1.00f, EnumCollection.EMoneyType.COIN));
+            m_allMoneyTypes.Add(new Money(2.00f, EnumCollection.EMoneyType.COIN));
+            m_allMoneyTypes.Add(new Money(5.00f, EnumCollection.EMoneyType.BILL));
+            m_allMoneyTypes.Add(new Money(10.00f, EnumCollection.EMoneyType.BILL));
+            m_allMoneyTypes.Add(new Money(20.00f, EnumCollection.EMoneyType.BILL));
+            m_allMoneyTypes.Add(new Money(50.00f, EnumCollection.EMoneyType.BILL));
+
+            foreach (Money money in m_allMoneyTypes)
+                m_moneyFillState.Add(money, 1);     //1 später durch geladenen Wert ersetzen
             //Für jeden Geldtypen einen Eintrag im Dictionary erstellen
             //p_fillStates nutzen, um die Menge an Geld reinzutun
+        }
+
+        public Money GetMoneyFromValue(float value)
+        {
+            switch(value)
+            {
+                case 0.05f: return m_allMoneyTypes[0];
+                case 0.10f: return m_allMoneyTypes[1];
+                case 0.20f: return m_allMoneyTypes[2];
+                case 0.50f: return m_allMoneyTypes[3];
+                case 1.00f: return m_allMoneyTypes[4];
+                case 2.00f: return m_allMoneyTypes[5];
+                case 5.00f: return m_allMoneyTypes[6];
+                case 10.00f: return m_allMoneyTypes[7];
+                case 20.00f: return m_allMoneyTypes[8];
+                case 50.00f: return m_allMoneyTypes[9];
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -53,6 +88,12 @@ namespace Ticketautomat.Classes
         {
             //Wie viel Geld muss eingeworfen werden => 0
             GetChange();
+        }
+
+        public void Refill(EMoneyType p_moneyType, out Dictionary<Money, int> refilledCount)
+        {
+            refilledCount = new Dictionary<Money, int>();
+            //Automatisch alles Geld vom Typen p_moneyType auffüllen und die aufgefüllte Menge in refilledCount rein
         }
 
         /// <summary>

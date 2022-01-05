@@ -15,6 +15,7 @@ namespace Ticketautomat.Classes
         private List<LogEntry> m_logEntries = new List<LogEntry>();
         private PriceEntry[,] m_priceEntries = new PriceEntry[4, 3];
         private MoneyManager m_moneyManager = new MoneyManager();
+        private StationGraph m_stationGraph = new StationGraph();
 
         private const float TIMEOUT_THRESHOLD = 180f;
 
@@ -24,6 +25,7 @@ namespace Ticketautomat.Classes
         public List<LogEntry> LogEntries { get => m_logEntries; set => m_logEntries = value; }
         public PriceEntry[,] PriceEntries { get => m_priceEntries; set => m_priceEntries = value; }
         public MoneyManager MoneyManager { get => m_moneyManager; }
+        public StationGraph StationGraph { get => m_stationGraph; }
 
         /// <summary>
         /// Erstellt eine Managerklasse mit einen Nutzer
@@ -50,6 +52,8 @@ namespace Ticketautomat.Classes
         /// 
         private void Initialize()
         {
+            CurrentUser.Name = "Kunde";
+            m_maintenanceProfiles.Add(new MaintenanceProfile("test", "test")); //ENTFERNEN!
             m_maintenanceProfiles.Add(new MaintenanceProfile("Niederhaeuser", "BAHNFAHRENISTTOLL"));
             m_maintenanceProfiles.Add(new MaintenanceProfile("Kueppers", "BAHNFAHRENISTSUPER"));
             m_maintenanceProfiles.Add(new MaintenanceProfile("Ochsendorf", "BAHNFAHRENISTMEGA"));

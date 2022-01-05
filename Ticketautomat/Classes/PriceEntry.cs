@@ -33,6 +33,31 @@ namespace Ticketautomat.Classes
             m_price = p_Price;
         }
 
+        public override string ToString()
+        {
+            string result = string.Empty;
+
+            switch (m_ageType)
+            {
+                case EAgeType.CHILD: 
+                    result += "Kind";
+                    break;
+                case EAgeType.REDUCED:
+                    result += "Ermäßigt";
+                    break;
+                case EAgeType.ADULT:
+                    result += "Erwachsener";
+                    break;
+                case EAgeType.PENSIONER:
+                    result += "Senior";
+                    break;
+            }
+
+            result += $" / Tarifstufe {(char)((int)m_tariffLevel + 65)} ({m_price:F2}€)";
+
+            return result;
+        }
+
         /// <summary>
         /// Ändert den Preis eines Tickets
         /// </summary>
