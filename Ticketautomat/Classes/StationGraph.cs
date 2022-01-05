@@ -13,6 +13,12 @@ namespace Ticketautomat.Classes
 
         public Graph Graph { get => graph; set => graph = value; }
 
+        /// <summary>
+        /// Die Methode gibt die 2 Möglichen Routen zwischen 2 Stationen aus.
+        /// </summary>
+        /// <param name="p_start">Startstation als Station-Objekt</param>
+        /// <param name="p_ende">Endstation als Station-Objekt</param>
+        /// <returns>Eine Liste, die 2 Listen von Stationen enthält. Die erste Liste hat den günstigsten Weg. Die Zweite hat den kürzesten</returns>
         public List<List<Station>> GetRoutes(Station p_start, Station p_ende)
         {
             List<List<Station>> ausgabe = new List<List<Station>>();
@@ -49,6 +55,11 @@ namespace Ticketautomat.Classes
             m_stationen = new List<Station>();
         }
 
+        /// <summary>
+        /// Fügt eine Verbindung zwischen 2 Stationen hinzu
+        /// </summary>
+        /// <param name="p_start">Startstation</param>
+        /// <param name="p_ende">Endstation</param>
         public void AddEdge(Station p_start, Station p_ende)
         {
             if (!m_verbindungen[p_start.StationIndex].Contains(p_ende))
@@ -58,6 +69,11 @@ namespace Ticketautomat.Classes
             }
         }
 
+        /// <summary>
+        /// Fügt eine neue Station hinzu
+        /// </summary>
+        /// <param name="p_stationName">Name der Station</param>
+        /// <param name="p_stationZone">Zone der Station</param>
         public void addStation(string p_stationName, EStationZone p_stationZone)
         {
             Station neu = new Station();
@@ -69,6 +85,14 @@ namespace Ticketautomat.Classes
             m_anzahlStationen++;
         }
 
+        /// <summary>
+        /// Die Methode berechnet den kürzesten Weg zwischen zwei Stationen
+        /// </summary>
+        /// <param name="p_start">Startstation</param>
+        /// <param name="p_ende">Endstation</param>
+        /// <param name="adj">Stationsverbindungen</param>
+        /// <param name="stationen">Liste aller Stationen</param>
+        /// <returns></returns>
         public List<Station> ShortestPath(Station p_start, Station p_ende, List<List<Station>> adj, List<Station> stationen)
         {
             List<Station> path = new List<Station>();
@@ -85,6 +109,13 @@ namespace Ticketautomat.Classes
             
             return path;
         }
+
+        /// <summary>
+        /// Die Methode berechnet den günstigsten Weg zwischen zwei Stationen
+        /// </summary>
+        /// <param name="p_start">Startstation</param>
+        /// <param name="p_ende">Endstation</param>
+        /// <returns></returns>
         public List<Station> CheapestPath(Station p_start, Station p_ende)
         {
             EStationZone start = p_start.StationZone;
