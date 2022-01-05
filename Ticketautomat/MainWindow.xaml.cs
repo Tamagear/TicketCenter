@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Ticketautomat.Classes;
+using static Ticketautomat.Classes.EnumCollection;
 
 namespace Ticketautomat
 {
@@ -19,6 +20,8 @@ namespace Ticketautomat
 
         private Profile currentProfile = null;
         private Manager manager = null;
+        private EAgeType currentSelectedAgeType = EAgeType.ADULT;
+        private bool timerRuns = false;
 
         public event EventHandler OnResetTimerTimeout;
 
@@ -114,13 +117,15 @@ namespace Ticketautomat
         {
             UpdateTimeTexts();
 
-            if (manager.TimeUntilTimeout > 0f)
+            if (manager.TimeUntilTimeout > 0f && timerRuns)
             {
                 manager.TimeUntilTimeout -= 1f;
 
                 if (manager.TimeUntilTimeout <= 0f)
                 {
                     manager.TimeUntilTimeout = 0f;
+                    Reset();
+                    GoTo_MainMenu();
                     OnResetTimerTimeout?.Invoke(null, null);
                 }
             }
@@ -169,24 +174,28 @@ namespace Ticketautomat
         private void MainMenu_BuyButton_Adult_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            Button_BuyMenu_TicketOptions_TariffOption_Adult_Click(sender, e);
             GoTo_BuyMenu();
         }
 
         private void MainMenu_BuyButton_Child_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            Button_BuyMenu_TicketOptions_TariffOption_Child_Click(sender, e);
             GoTo_BuyMenu();
         }
 
         private void MainMenu_BuyButton_Pensioner_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            Button_BuyMenu_TicketOptions_TariffOption_Pensioner_Click(sender, e);
             GoTo_BuyMenu();
         }
 
         private void MainMenu_BuyButton_Reduced_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            Button_BuyMenu_TicketOptions_TariffOption_Reduced_Click(sender, e);
             GoTo_BuyMenu();
         }
 
@@ -219,11 +228,18 @@ namespace Ticketautomat
         }
 
         private void UpdateTimeTexts()
-        {            
+        {
             DateTime now = DateTime.Now;
-            int minutesUntilTimeout = (int)(manager.TimeUntilTimeout / TIME_DIVIDER);
-            int secondsUntilTimeout = (int)(Math.Abs(manager.TimeUntilTimeout % TIME_DIVIDER));
-            Label_TimeLeft.Content = $"Zeit bis zum Abbruch: {(minutesUntilTimeout < 10 ? "0" : string.Empty) + minutesUntilTimeout} : {(secondsUntilTimeout < 10 ? "0" : string.Empty) + secondsUntilTimeout}";
+
+            if (timerRuns)
+            {
+                int minutesUntilTimeout = (int)(manager.TimeUntilTimeout / TIME_DIVIDER);
+                int secondsUntilTimeout = (int)(Math.Abs(manager.TimeUntilTimeout % TIME_DIVIDER));
+                Label_TimeLeft.Content = $"Zeit bis zum Abbruch: {(minutesUntilTimeout < 10 ? "0" : string.Empty) + minutesUntilTimeout} : {(secondsUntilTimeout < 10 ? "0" : string.Empty) + secondsUntilTimeout}";
+            }
+            else
+                Label_TimeLeft.Content = string.Empty;
+
             Label_DateTime.Content = $"{now.ToString("g")} Uhr";
         }
 
@@ -464,6 +480,13 @@ namespace Ticketautomat
             Label_PayMenu_PaySum.Content = $"{manager.MoneyManager.SumLeft:F2}€";
         }
 
+        private void Reset()
+        {
+            manager.CurrentUser.ResetShoppingCart();
+            timerRuns = false;
+            manager.ResetTimeUntilTimeout();
+        }
+
         private void Button_BuyMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
         {
             GoTo_MainMenu();
@@ -471,29 +494,41 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Adult_Click(object sender, RoutedEventArgs e)
         {
-            //Setze aktuelle Preisstufe auf Adult
-            //Deaktiviere den entsprechenden Knopf
+            Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = false;
+            Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = true;
+            currentSelectedAgeType = EAgeType.ADULT;
             //Aktualisiere Preise
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Child_Click(object sender, RoutedEventArgs e)
         {
-            //Setze aktuelle Preisstufe auf Child
-            //Deaktiviere den entsprechenden Knopf
+            Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = false;
+            Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = true;
+            currentSelectedAgeType = EAgeType.CHILD;
             //Aktualisiere Preise
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Pensioner_Click(object sender, RoutedEventArgs e)
         {
-            //Setze aktuelle Preisstufe auf Pensioner
-            //Deaktiviere den entsprechenden Knopf
+            Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = false;
+            Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = true;
+            currentSelectedAgeType = EAgeType.PENSIONER;
             //Aktualisiere Preise
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Reduced_Click(object sender, RoutedEventArgs e)
         {
-            //Setze aktuelle Preisstufe auf Reduced
-            //Deaktiviere den entsprechenden Knopf
+            Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
+            Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = false;
+            currentSelectedAgeType = EAgeType.REDUCED;
             //Aktualisiere Preise
         }
 
@@ -525,8 +560,22 @@ namespace Ticketautomat
             //Ticket hinzufügen
             AddedTicket.Visibility = Visibility.Visible;
             //Texte von AddedTicket setzen
+            int amount = 1;
+            DateTime dateTime = DateTime.Now;
+            Station startStation = manager.StationGraph.Graph.GetStation(0); //Aus Buttons auslesen
+            Station targetDestination = manager.StationGraph.Graph.GetStation(2); //Aus Buttons auslesen
+            ETariffLevel tariffLevel = ETariffLevel.TARIFF_A; //Ausrechnen
+            PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel]; //Preis-Eintrag rausfinden
             //Testwerte
-            manager.CurrentUser.AddToShoppingCart(new Ticket(DateTime.Now, manager.CurrentUser, manager.StationGraph.Graph.GetStation(0), manager.StationGraph.Graph.GetStation(2), manager.PriceEntries[0,0]));
+            for (int i = 0; i < amount; i++)
+            {
+                manager.CurrentUser.AddToShoppingCart(new Ticket(dateTime, manager.CurrentUser,
+                    startStation, targetDestination, usedPriceEntry));
+            }
+            Label_AddedTicket_TicketCount.Content = $"Anzahl: {amount}";
+            int splitIndex = usedPriceEntry.ToString().IndexOf('/');
+            Label_AddedTicket_TicketType.Content = $"Ticket, {usedPriceEntry.ToString().Substring(0, splitIndex)}\n{usedPriceEntry.ToString().Substring(splitIndex)}";
+            timerRuns = true;
             UpdateTicketSpecifics();
         }
 
@@ -583,14 +632,14 @@ namespace Ticketautomat
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
         {
-            manager.MoneyManager.Refill(EnumCollection.EMoneyType.COIN, out _);
-            //Bestätigungsfenster?
+            manager.MoneyManager.Refill(EMoneyType.COIN, out _);
+            //Bestätigungsfenster? Ausschuss anzeigen
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
         {
-            manager.MoneyManager.Refill(EnumCollection.EMoneyType.BILL, out _);
-            //Bestätigungsfenster?
+            manager.MoneyManager.Refill(EMoneyType.BILL, out _);
+            //Bestätigungsfenster? Ausschuss anzeigen
         }
 
         private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -606,6 +655,7 @@ namespace Ticketautomat
         private void Button_AdminDisableMachine_ShutDownButton_Click(object sender, RoutedEventArgs e)
         {
             GoTo_MainMenu();
+            Reset();
             AdminDisableMachine.Visibility = Visibility.Collapsed;
             DisabledScreen.Visibility = Visibility.Visible;
         }
@@ -642,7 +692,7 @@ namespace Ticketautomat
         private void Button_AddedTicket_CancelButton_Click(object sender, RoutedEventArgs e)
         {
             AddedTicket.Visibility = Visibility.Collapsed;
-            //Reset
+            Reset();
             GoTo_MainMenu();
         }
 
@@ -671,6 +721,7 @@ namespace Ticketautomat
             if (manager.MoneyManager.SumLeft <= 0f)
             {
                 //Entferne Wechselgeld
+                //Reset();
                 GoTo_PDFExportMenu();
             }
         }

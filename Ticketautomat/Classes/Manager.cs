@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Ticketautomat.Classes
 {
@@ -23,7 +19,7 @@ namespace Ticketautomat.Classes
         public bool Enabled { get => m_enabled; set => m_enabled = value; }
         public float TimeUntilTimeout { get => m_timeUntilTimeout; set => m_timeUntilTimeout = value; }
         public List<LogEntry> LogEntries { get => m_logEntries; set => m_logEntries = value; }
-        public PriceEntry[,] PriceEntries { get => m_priceEntries; set => m_priceEntries = value; }
+        public PriceEntry[,] PriceEntries { get => m_priceEntries; set => m_priceEntries = value; } //AgeType, TariffLevel
         public MoneyManager MoneyManager { get => m_moneyManager; }
         public StationGraph StationGraph { get => m_stationGraph; }
 
