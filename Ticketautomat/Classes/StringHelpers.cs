@@ -21,7 +21,15 @@ namespace Ticketautomat.Classes
 
         public static bool XML_IsValid(string input, string separatorTag)
         {
-            return input.StartsWith($"<{separatorTag}>") && input.EndsWith($"</{separatorTag}>");
+            return input.StartsWith($"<{separatorTag}>");
+        }
+
+        public static string XML_GetSingle2(string input, string separatorTag)
+        {
+            int firstPosition = input.IndexOf($"<{separatorTag}>");
+            int secondPosition = input.IndexOf($"</{separatorTag}>");
+            string output = input.Substring(firstPosition + $"<{separatorTag}>".Length, secondPosition - firstPosition - $"<{separatorTag}>".Length);
+            return output;
         }
     }
 }

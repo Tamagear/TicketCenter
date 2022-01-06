@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ticketautomat.Classes
 {
@@ -70,14 +71,16 @@ namespace Ticketautomat.Classes
         {
             //Lade Logs
             LogEntries.Clear();
-            List<string> logs = StringHelpers.XML_Get(p_input, "log");
+            List<string> logs = StringHelpers.XML_Get(p_input, "log");            
             foreach (string line in logs)
             {
-                if (!string.IsNullOrEmpty(line) && StringHelpers.XML_IsValid(line, "log"))
+                if (!string.IsNullOrEmpty(line) && StringHelpers.XML_IsValid(line, "date"))
                 {
-                    string date = StringHelpers.XML_GetSingle(line, "datetime");
-                    string author = StringHelpers.XML_GetSingle(line, "author");
-                    string content = StringHelpers.XML_GetSingle(line, "content");
+                    Console.WriteLine(line);
+                    string date = StringHelpers.XML_GetSingle2(line, "date");                    
+                    string author = StringHelpers.XML_GetSingle2(line, "author");
+                    string content = StringHelpers.XML_GetSingle2(line, "content");
+
                     LogEntry log = new LogEntry(date, author, content);
                     LogEntries.Add(log);
                 }

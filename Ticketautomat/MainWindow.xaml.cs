@@ -32,7 +32,7 @@ namespace Ticketautomat
         private Station destinationStation = null;
 
         private ObservableCollection<Tuple<Ticket, int, string>> tickets = new ObservableCollection<Tuple<Ticket, int, string>>();
-        private ObservableCollection<LogEntry> dynamicLogs = null;
+        private ObservableCollection<LogEntry> dynamicLogs = new ObservableCollection<LogEntry>();
 
         private object currentTicket { get; set; }
 
@@ -63,8 +63,6 @@ namespace Ticketautomat
             liveTimer.Tick += LiveTimer_Tick;
             liveTimer.Start();
 
-            dynamicLogs = new ObservableCollection<LogEntry>(manager.LogEntries);
-
             List_Logs.ItemsSource = dynamicLogs;
             List_ShoppingCart.ItemsSource = tickets;
             List_ShoppingCart.SelectedItem = currentTicket;
@@ -75,7 +73,7 @@ namespace Ticketautomat
             base.OnContentRendered(e);
 
             HandleSystemData();
-            LoadFile();
+            LoadFile();            
             UpdateTexts();
             SetStartStation(manager.StationGraph.Graph.GetStation(0));
             SetDestinationStation(manager.StationGraph.Graph.GetStation(1));
@@ -132,6 +130,10 @@ namespace Ticketautomat
             DecryptFile(saveFilePath, tempFilePath);
             manager.LoadSavedData(File.ReadAllText(tempFilePath));
             File.Delete(tempFilePath);
+            for(int i=0; i<manager.LogEntries.Count; i++)
+            {
+                dynamicLogs.Add(manager.LogEntries[i]);
+            }
         }
 
         private void LiveTimer_Tick(object sender, EventArgs e)
@@ -322,7 +324,6 @@ namespace Ticketautomat
                 encryptionIndex = (encryptionIndex + 1) % ENCRYPTION_KEY.Length;
                 outputText += (char)((int)ch - ENCRYPTION_KEY[encryptionIndex]);
             }
-
             File.WriteAllText(outputFile, outputText);
         }
 
