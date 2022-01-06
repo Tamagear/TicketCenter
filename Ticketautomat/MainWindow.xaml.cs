@@ -24,8 +24,8 @@ namespace Ticketautomat
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
         private bool timerRuns = false;
 
-        private ObservableCollection<Ticket> tickets = new ObservableCollection<Ticket>();
-        public string selectedTicket { get; set; }
+        private ObservableCollection<Tuple<Ticket, int>> tickets = new ObservableCollection<Tuple<Ticket, int>>();
+        public string selectedTicket { get; set; }     
 
         public event EventHandler OnResetTimerTimeout;
 
@@ -586,11 +586,26 @@ namespace Ticketautomat
             ETariffLevel tariffLevel = ETariffLevel.TARIFF_A; //Ausrechnen
             PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel]; //Preis-Eintrag rausfinden
             //Testwerte
+            Ticket addTicket = new Ticket(dateTime, manager.CurrentUser, startStation, targetDestination, usedPriceEntry);
             for (int i = 0; i < amount; i++)
+            {                
+                manager.CurrentUser.AddToShoppingCart(addTicket);                             
+            }
+            bool exists = false;
+            for(int i=0; i<tickets.Count; i++)
             {
-                Ticket addTicket = new Ticket(dateTime, manager.CurrentUser,startStation, targetDestination, usedPriceEntry);
-                manager.CurrentUser.AddToShoppingCart(addTicket);
-                tickets.Add(addTicket);
+                if(tickets[i].Item1 == addTicket)
+                {
+                    int menge = tickets[i].Item2;
+                    tickets.RemoveAt(i);
+                    tickets.Add(new Tuple<Ticket, int>(addTicket, amount + menge));
+                    exists = true;
+                    break;
+                }
+            }
+            if (exists == false)
+            {
+                tickets.Add(new Tuple<Ticket, int>(addTicket, amount));
             }
             Label_AddedTicket_TicketCount.Content = $"Anzahl: {amount}";
             int splitIndex = usedPriceEntry.ToString().IndexOf('/');
@@ -780,6 +795,86 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             GoTo_ShoppingCart();
             //Altes Geld auswerfen
+        }
+
+        private void Button_ShoppingCart_Increase_Click(object sender, RoutedEventArgs e)
+        {
+            object selectedItem = null;
+            if (List_ShoppingCart.SelectedItems != null)
+            {
+                var count = List_ShoppingCart.SelectedItems.Count;
+                while (count != 0)
+                {
+                    selectedItem = List_ShoppingCart.SelectedItems[count - 1];
+                    Tuple<Ticket, int> item = (Tuple<Ticket, int>)selectedItem;
+                    for (int i = 0; i < tickets.Count; i++)
+                    {
+                        if (tickets[i].Item1 == item.Item1)
+                        {
+                            manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
+                            int menge = tickets[i].Item2 + 1;
+                            tickets.RemoveAt(i);
+                            if (menge > 0)
+                            {
+                                tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                            }
+                            break;
+                        }
+                    }
+                    count--;    
+                }
+            }
+            List_ShoppingCart.SelectedItem = selectedItem;
+        }
+
+        private void Button_ShoppingCart_Decrease_Click(object sender, RoutedEventArgs e)
+        {
+            if (List_ShoppingCart.SelectedItems != null)
+            {
+                var count = List_ShoppingCart.SelectedItems.Count;
+                while (count != 0)
+                {
+                    var selectedItem = List_ShoppingCart.SelectedItems[count - 1];
+                    Tuple<Ticket, int> item = (Tuple<Ticket,int>)selectedItem;
+                    for (int i=0; i<tickets.Count; i++)
+                    {
+                        if (tickets[i].Item1 == item.Item1)
+                        {
+                            manager.CurrentUser.DecreaseByOneFromShoppingCart(item.Item1);
+                            int menge = tickets[i].Item2-1;
+                            tickets.RemoveAt(i);
+                            if (menge > 0)
+                            {
+                                tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                            }
+                            break;
+                        }
+                    }                    
+                    count--;                    
+                }                
+            }
+        }
+        private void Button_ShoppingCart_Remove_Click(object sender, RoutedEventArgs e)
+        {
+            if (List_ShoppingCart.SelectedItems != null)
+            {
+                var count = List_ShoppingCart.SelectedItems.Count;
+                while (count != 0)
+                {
+                    var selectedItem = List_ShoppingCart.SelectedItems[count - 1];
+                    Tuple<Ticket, int> item = (Tuple<Ticket, int>)selectedItem;
+                    for (int i = 0; i < tickets.Count; i++)
+                    {
+                        if (tickets[i].Item1 == item.Item1)
+                        {
+                            manager.CurrentUser.RemoveFromShoppingCart(item.Item1);
+                            tickets.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    count--;
+                }
+            }
         }
     }
 

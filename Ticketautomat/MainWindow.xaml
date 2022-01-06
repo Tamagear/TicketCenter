@@ -148,21 +148,28 @@
             <Button x:Name="Button_ShoppingCart_PayNowButton" Content="Jetzt bezahlen" Height="60" Width="250" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,634,235,0" Click="Button_ShoppingCart_PayNowButton_Click" Cursor="Hand"/>
             <ScrollViewer x:Name="ScrollViewer_ShoppingCart_TicketOverview" HorizontalScrollBarVisibility="Disabled" Width="900" Height="725" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20, 0">
                 <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="Button_ShoppingCart_Decrease" Content="-" Width="33" Height="33" Click="Button_ShoppingCart_Decrease_Click" Margin="400,0,0,0"/>
+                        <Button x:Name="Button_ShoppingCart_Increase" Content="+" Width="33" Height="33" Click="Button_ShoppingCart_Increase_Click"/>
+                        <Button x:Name="Button_ShoppingCart_Remove" Content="X" Width="33" Height="33" Click="Button_ShoppingCart_Remove_Click"/>
+                    </StackPanel>
                     <ListBox Name="List_ShoppingCart" Width="800" Margin="20" HorizontalAlignment="Left" SelectedItem="{Binding selectedTicket}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Margin="15,10,5,10" Text="Startstation:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding StartStation.StationName}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item1.StartStation.StationName}"/>
                                     <TextBlock Margin="20,10,5,10" Text="Endstation:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding TargetDestination.StationName}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item1.TargetDestination.StationName}"/>
                                     <TextBlock Margin="20,10,5,10" Text="Altersgruppe:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.AgeTypeString}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item1.PriceEntry.AgeTypeString}"/>
                                     <TextBlock Margin="20,10,5,10" Text="Tarifstufe:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.TariffLevelChar}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item1.PriceEntry.TariffLevelChar}"/>
                                     <TextBlock Margin="20,10,5,10" Text="Preis:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.Price, StringFormat={}{0:F2}}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item1.PriceEntry.Price, StringFormat={}{0:F2}}"/>
                                     <TextBlock Margin="0,10,0,10" Text="€"/>
+                                    <TextBlock Margin="20,10,5,10" Text="Menge:"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item2, StringFormat={}{0:F2}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

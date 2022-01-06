@@ -68,6 +68,31 @@ namespace Ticketautomat.Classes
 
         }
 
+        public void DecreaseByOneFromShoppingCart(Ticket p_ticket)
+        {
+            if (m_shoppingCart.ContainsKey(p_ticket))
+            {
+                int i = m_shoppingCart[p_ticket]-1;
+                m_shoppingCart.Remove(p_ticket);
+                if (i > 0)
+                {
+                    m_shoppingCart.Add(p_ticket, i);
+                }
+            }
+        }
+        public void IncreaseByOneFromShoppingCart(Ticket p_ticket)
+        {
+            if (m_shoppingCart.ContainsKey(p_ticket))
+            {
+                int i = m_shoppingCart[p_ticket] + 1;
+                m_shoppingCart.Remove(p_ticket);
+                if (i > 0)
+                {
+                    m_shoppingCart.Add(p_ticket, i);
+                }
+            }
+        }
+
         /// <summary>
         /// Die Methode ändert die Anzahl eines bestimmten Tickets.
         /// </summary>
