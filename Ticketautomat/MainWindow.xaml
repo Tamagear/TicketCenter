@@ -153,7 +153,7 @@
                         <Button x:Name="Button_ShoppingCart_Increase" Content="+" Width="33" Height="33" Click="Button_ShoppingCart_Increase_Click"/>
                         <Button x:Name="Button_ShoppingCart_Remove" Content="X" Width="33" Height="33" Click="Button_ShoppingCart_Remove_Click"/>
                     </StackPanel>
-                    <ListBox Name="List_ShoppingCart" Width="800" Margin="20" HorizontalAlignment="Left" SelectedItem="{Binding selectedTicket}">
+                    <ListBox Name="List_ShoppingCart" Width="800" Margin="20" HorizontalAlignment="Left">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

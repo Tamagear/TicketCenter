@@ -17,7 +17,7 @@ namespace Ticketautomat
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Version version = new Version(0,0,3);
+        private Version version = new Version(0, 0, 3);
 
         private Profile currentProfile = null;
         private Manager manager = null;
@@ -25,7 +25,8 @@ namespace Ticketautomat
         private bool timerRuns = false;
 
         private ObservableCollection<Tuple<Ticket, int>> tickets = new ObservableCollection<Tuple<Ticket, int>>();
-        public string selectedTicket { get; set; }     
+
+        private object currentTicket { get; set; }
 
         public event EventHandler OnResetTimerTimeout;
 
@@ -56,14 +57,14 @@ namespace Ticketautomat
 
             List_ShoppingCart.ItemsSource = tickets;
         }
-        
+
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
 
             HandleSystemData();
             LoadFile();
-            UpdateTexts();            
+            UpdateTexts();
         }
 
         private void HandleSystemData()
@@ -79,7 +80,7 @@ namespace Ticketautomat
                 Directory.CreateDirectory(fileDirectory);
             }
 
-            if (!File.Exists(motdPath))            
+            if (!File.Exists(motdPath))
                 File.WriteAllText(motdPath, "MESSAGE OF THE DAY");
 
             if (!File.Exists(spotlightPath))
@@ -101,7 +102,7 @@ namespace Ticketautomat
             string tempFilePath = $"{fileDirectory}/temp_{RandomString(10)}.txt";
             string saveFilePath = $"{fileDirectory}/{dir_saveFile}";
 
-            File.WriteAllText(tempFilePath, SerializeSaveFile());  
+            File.WriteAllText(tempFilePath, SerializeSaveFile());
             EncryptFile(tempFilePath, saveFilePath);
             File.Delete(tempFilePath);
         }
@@ -140,7 +141,7 @@ namespace Ticketautomat
         private void UpdateTexts()
         {
             Label_SoftwareTitleAndVersion.Content = $"{SOFTWARE_NAME} Version {version}-{VERSION_STATUS}";
-            Button_MainMenu_BuyButton_Adult.Content = $"Erwachsener\nAb {manager.PriceEntries[2,0].Price.ToString("F2")}€";
+            Button_MainMenu_BuyButton_Adult.Content = $"Erwachsener\nAb {manager.PriceEntries[2, 0].Price.ToString("F2")}€";
             Button_MainMenu_BuyButton_Child.Content = $"Kind\nAb {manager.PriceEntries[0, 0].Price.ToString("F2")}€";
             Button_MainMenu_BuyButton_Pensioner.Content = $"Senior\nAb {manager.PriceEntries[3, 0].Price.ToString("F2")}€";
             Button_MainMenu_BuyButton_Reduced.Content = $"Ermäßigt\nAb {manager.PriceEntries[1, 0].Price.ToString("F2")}€";
@@ -274,7 +275,7 @@ namespace Ticketautomat
             string inputText = File.ReadAllText(inputFile);
             string outputText = string.Empty;
             int encryptionIndex = 0;
-            foreach(char ch in inputText)
+            foreach (char ch in inputText)
             {
                 encryptionIndex = (encryptionIndex + 1) % ENCRYPTION_KEY.Length;
                 outputText += (char)((int)ch + ENCRYPTION_KEY[encryptionIndex]);
@@ -344,7 +345,7 @@ namespace Ticketautomat
         }
 
         private void GoTo_PriceTable()
-        {            
+        {
             MainMenu.Visibility = Visibility.Collapsed;
             PriceTable.Visibility = Visibility.Visible;
             BuyMenu.Visibility = Visibility.Collapsed;
@@ -355,8 +356,8 @@ namespace Ticketautomat
             ShoppingCart.Visibility = Visibility.Collapsed;
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
-        }  
-        
+        }
+
         private void GoTo_BuyMenu()
         {
             MainMenu.Visibility = Visibility.Collapsed;
@@ -588,13 +589,13 @@ namespace Ticketautomat
             //Testwerte
             Ticket addTicket = new Ticket(dateTime, manager.CurrentUser, startStation, targetDestination, usedPriceEntry);
             for (int i = 0; i < amount; i++)
-            {                
-                manager.CurrentUser.AddToShoppingCart(addTicket);                             
+            {
+                manager.CurrentUser.AddToShoppingCart(addTicket);
             }
             bool exists = false;
-            for(int i=0; i<tickets.Count; i++)
+            for (int i = 0; i < tickets.Count; i++)
             {
-                if(tickets[i].Item1 == addTicket)
+                if (tickets[i].Item1 == addTicket)
                 {
                     int menge = tickets[i].Item2;
                     tickets.RemoveAt(i);
@@ -723,7 +724,7 @@ namespace Ticketautomat
             }
 
             if (manager.TryLogin(TextBox_DisableScreen_AdminUsername.Text, PasswordBox_DisableScreen_AdminPassword.Password))
-            {                
+            {
                 DisabledScreen.Visibility = Visibility.Collapsed;
             }
             else
@@ -787,7 +788,7 @@ namespace Ticketautomat
             {
                 String fileName = saveFileDialog.FileName;
                 currentProfile.ExportToPDF(fileName);
-            } 
+            }
         }
 
         private void Button_PayMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -799,85 +800,120 @@ namespace Ticketautomat
 
         private void Button_ShoppingCart_Increase_Click(object sender, RoutedEventArgs e)
         {
-            object selectedItem = null;
-            if (List_ShoppingCart.SelectedItems != null)
+            if (List_ShoppingCart.SelectedItem != null)
             {
-                var count = List_ShoppingCart.SelectedItems.Count;
-                while (count != 0)
+                currentTicket = List_ShoppingCart.SelectedItem;
+                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
                 {
-                    selectedItem = List_ShoppingCart.SelectedItems[count - 1];
-                    Tuple<Ticket, int> item = (Tuple<Ticket, int>)selectedItem;
-                    for (int i = 0; i < tickets.Count; i++)
+                    if (tickets[i].Item1 == item.Item1)
                     {
-                        if (tickets[i].Item1 == item.Item1)
-                        {
-                            manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
-                            int menge = tickets[i].Item2 + 1;
-                            tickets.RemoveAt(i);
-                            if (menge > 0)
-                            {
-                                tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
-                            }
-                            break;
-                        }
+                        manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
+                        int menge = tickets[i].Item2 + 1;
+                        tickets.RemoveAt(i);
+                        tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                        break;
                     }
-                    count--;    
                 }
             }
-            List_ShoppingCart.SelectedItem = selectedItem;
+            else if (currentTicket != null)
+            {
+                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
+                {
+                    if (tickets[i].Item1 == item.Item1)
+                    {
+                        manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
+                        int menge = tickets[i].Item2 + 1;
+                        tickets.RemoveAt(i);
+                        tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                        break;
+                    }
+                }
+            }
         }
 
         private void Button_ShoppingCart_Decrease_Click(object sender, RoutedEventArgs e)
         {
-            if (List_ShoppingCart.SelectedItems != null)
+            if (List_ShoppingCart.SelectedItem != null)
             {
-                var count = List_ShoppingCart.SelectedItems.Count;
-                while (count != 0)
+                currentTicket = List_ShoppingCart.SelectedItem;
+                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
                 {
-                    var selectedItem = List_ShoppingCart.SelectedItems[count - 1];
-                    Tuple<Ticket, int> item = (Tuple<Ticket,int>)selectedItem;
-                    for (int i=0; i<tickets.Count; i++)
+                    if (tickets[i].Item1 == item.Item1)
                     {
-                        if (tickets[i].Item1 == item.Item1)
+                        manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
+                        int menge = tickets[i].Item2 - 1;
+                        tickets.RemoveAt(i);
+                        if (menge > 0)
                         {
-                            manager.CurrentUser.DecreaseByOneFromShoppingCart(item.Item1);
-                            int menge = tickets[i].Item2-1;
-                            tickets.RemoveAt(i);
-                            if (menge > 0)
-                            {
-                                tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
-                            }
-                            break;
+                            tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
                         }
-                    }                    
-                    count--;                    
-                }                
+                        else
+                        {
+                            currentTicket = null;
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (currentTicket != null)
+            {
+                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
+                {
+                    if (tickets[i].Item1 == item.Item1)
+                    {
+                        manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
+                        int menge = tickets[i].Item2 - 1;
+                        tickets.RemoveAt(i);
+                        if (menge > 0)
+                        {
+                            tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                        }
+                        else
+                        {
+                            currentTicket = null;
+                        }
+                        break;
+                    }
+                }
             }
         }
         private void Button_ShoppingCart_Remove_Click(object sender, RoutedEventArgs e)
         {
-            if (List_ShoppingCart.SelectedItems != null)
+            if (List_ShoppingCart.SelectedItem != null)
             {
-                var count = List_ShoppingCart.SelectedItems.Count;
-                while (count != 0)
+                currentTicket = List_ShoppingCart.SelectedItem;
+                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
                 {
-                    var selectedItem = List_ShoppingCart.SelectedItems[count - 1];
-                    Tuple<Ticket, int> item = (Tuple<Ticket, int>)selectedItem;
-                    for (int i = 0; i < tickets.Count; i++)
+                    if (tickets[i].Item1 == item.Item1)
                     {
-                        if (tickets[i].Item1 == item.Item1)
-                        {
-                            manager.CurrentUser.RemoveFromShoppingCart(item.Item1);
-                            tickets.RemoveAt(i);
-                            break;
-                        }
+                        manager.CurrentUser.RemoveFromShoppingCart(item.Item1);
+                        tickets.RemoveAt(i);
+                        currentTicket = null;
+                        break;
                     }
-                    count--;
+                }
+            }
+            else if (currentTicket != null)
+            {
+                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
+                {
+                    if (tickets[i].Item1 == item.Item1)
+                    {
+                        manager.CurrentUser.RemoveFromShoppingCart(item.Item1);
+                        tickets.RemoveAt(i);
+                        currentTicket = null;
+                        break;
+                    }
                 }
             }
         }
     }
-
     public struct Version
     {
         public int major;
