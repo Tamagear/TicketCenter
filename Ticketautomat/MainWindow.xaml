@@ -139,6 +139,60 @@
                 <Button x:Name="Button_BuyMenu_TicketSelection_Cheapest" Content="GÜNSTIGSTE OPTION&#x0a;BESTELLEN" FontSize="60" Height="300" VerticalAlignment="Bottom" Grid.Column="0" Click="Button_BuyMenu_TicketSelection_Cheapest_Click" Cursor="Hand"/>
                 <Button x:Name="Button_BuyMenu_TicketSelection_Fastest" Content="WENIGSTE STATIONEN&#x0a;BESTELLEN" FontSize="60" Height="300" VerticalAlignment="Bottom" Grid.Column="2" Click="Button_BuyMenu_TicketSelection_Fastest_Click" Cursor="Hand"/>
             </Grid>
+            <Grid x:Name="BuyMenu_TicketOptions_TicketMap" Margin="0,-5,0,5" Visibility="Collapsed">
+                <Grid.Resources>
+                    <Style x:Key="ButtonStyleNoHighlighting" TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal"/>
+                                                <VisualState x:Name="MouseOver"/>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+                <Image x:Name="Image_BuyMenu_TicketOptions_TicketMap_Background" Source="Resources/Images/map_full.jpg" Width="500" Margin="619,117,481,-117"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_0" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="830,564,719,315" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_1" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="876,590,684,295" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_2" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="849,614,711,269" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_3" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="865,532,666,349" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_4" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="819,519,748,364" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_5" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="804,553,770,333" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_6" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="781,524,786,364" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_7" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="767,571,796,302" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_8" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="792,604,759,269" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_9" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="845,658,716,232" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_10" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="887,668,690,222" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_11" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="915,614,649,240" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_12" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="926,584,643,302" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_13" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="933,514,614,368" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_14" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="873,484,659,398" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_15" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="811,460,738,423" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_16" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="786,488,770,398" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_17" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="753,476,819,413" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_18" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="702,501,833,380" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_19" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="717,644,845,244" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_20" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="760,654,760,222" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_21" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="842,696,696,187" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_22" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="912,668,641,187" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_23" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="964,663,593,206" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_24" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="956,611,610,273" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_25" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="982,579,572,294" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_26" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="1001,476,550,398" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_27" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="956,476,610,407" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_28" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="915,455,651,426" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_29" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="879,428,677,450" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_30" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="837,433,738,445" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_31" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="760,420,800,466" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+                <Button x:Name="Button_BuyMenu_TicketOptions_TicketMap_Station_32" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Margin="727,439,829,447" Click="Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click" Style="{StaticResource ButtonStyleNoHighlighting}"/>
+            </Grid>
         </Grid>
         <Grid x:Name="ShoppingCart" Visibility="Collapsed">
             <Rectangle x:Name="Rectangle_ShoppingCart_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>

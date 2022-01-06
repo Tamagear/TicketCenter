@@ -23,6 +23,11 @@ namespace Ticketautomat
         private Manager manager = null;
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
         private bool timerRuns = false;
+        private bool ticketMapIsSelectingDestination = false;
+        private Thickness ticketMapMarginStart = new Thickness(0f, -5f, 0f, 5f);
+        private Thickness ticketMapMarginDestination = new Thickness(0, 50f, 0f, -50f);
+        private Station startStation = null;
+        private Station destinationStation = null;
 
         private ObservableCollection<Tuple<Ticket, int>> tickets = new ObservableCollection<Tuple<Ticket, int>>();
 
@@ -65,6 +70,8 @@ namespace Ticketautomat
             HandleSystemData();
             LoadFile();
             UpdateTexts();
+            SetStartStation(manager.StationGraph.Graph.GetStation(0));
+            SetDestinationStation(manager.StationGraph.Graph.GetStation(1));
         }
 
         private void HandleSystemData()
@@ -549,13 +556,17 @@ namespace Ticketautomat
         private void Button_BuyMenu_TicketOptions_StartButton_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            //Auswahl öffnen
+            BuyMenu_TicketOptions_TicketMap.Visibility = Visibility.Visible;
+            BuyMenu_TicketOptions_TicketMap.Margin = ticketMapMarginStart;
+            ticketMapIsSelectingDestination = false;
         }
 
         private void Button_BuyMenu_TicketOptions_DestinationButton_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            //Auswahl öffnen
+            BuyMenu_TicketOptions_TicketMap.Visibility = Visibility.Visible;
+            BuyMenu_TicketOptions_TicketMap.Margin = ticketMapMarginDestination;
+            ticketMapIsSelectingDestination = true;
         }
 
         private void Button_BuyMenu_TicketOptions_DisplayRoutes_Click(object sender, RoutedEventArgs e)
@@ -881,6 +892,7 @@ namespace Ticketautomat
                 }
             }
         }
+
         private void Button_ShoppingCart_Remove_Click(object sender, RoutedEventArgs e)
         {
             if (List_ShoppingCart.SelectedItem != null)
@@ -912,6 +924,39 @@ namespace Ticketautomat
                     }
                 }
             }
+        }
+
+        private void Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click(object sender, RoutedEventArgs e)
+        {
+            manager.ResetTimeUntilTimeout();
+            BuyMenu_TicketOptions_TicketMap.Visibility = Visibility.Collapsed;
+            string[] nameparts = ((Button)sender).Name.Split('_');
+            if (int.TryParse(nameparts[nameparts.Length - 1], out int id))
+            {
+                Station selectedStation = manager.StationGraph.Graph.GetStation(id);
+
+                Console.WriteLine($"Ausgewählt: {selectedStation.StationName}");
+                if (!ticketMapIsSelectingDestination)                
+                    SetStartStation(selectedStation);                
+                else                
+                    SetDestinationStation(selectedStation);                
+            }
+            else
+                ShowError("Die ausgewählte Station ist ungültig.");
+        }
+
+        private void SetStartStation(Station selectedStation)
+        {
+            Button_BuyMenu_TicketOptions_StartButton.Content = selectedStation.StationName;
+            Button_BuyMenu_TicketOptions_StartButton.Background = selectedStation.GetStationColor();
+            startStation = selectedStation;
+        }
+
+        private void SetDestinationStation(Station selectedStation)
+        {
+            Button_BuyMenu_TicketOptions_DestinationButton.Content = selectedStation.StationName;
+            Button_BuyMenu_TicketOptions_DestinationButton.Background = selectedStation.GetStationColor();
+            destinationStation = selectedStation;
         }
     }
     public struct Version
