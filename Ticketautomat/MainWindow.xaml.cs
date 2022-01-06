@@ -30,6 +30,7 @@ namespace Ticketautomat
         private Station destinationStation = null;
 
         private ObservableCollection<Tuple<Ticket, int, string>> tickets = new ObservableCollection<Tuple<Ticket, int, string>>();
+        private ObservableCollection<LogEntry> dynamicLogs = null;
 
         private object currentTicket { get; set; }
 
@@ -60,6 +61,9 @@ namespace Ticketautomat
             liveTimer.Tick += LiveTimer_Tick;
             liveTimer.Start();
 
+            dynamicLogs = new ObservableCollection<LogEntry>(manager.LogEntries);
+
+            List_Logs.ItemsSource = dynamicLogs;
             List_ShoppingCart.ItemsSource = tickets;
             List_ShoppingCart.SelectedItem = currentTicket;
         }
@@ -336,6 +340,14 @@ namespace Ticketautomat
             }
 
             return result;
+        }
+
+        private void AddLogEntry(string content)
+        {
+            DateTime dateTime = DateTime.Now;           
+            string autor = manager.CurrentUser.Name;
+            manager.LogEntries.Add(new LogEntry(dateTime.ToString(), autor, content));
+            dynamicLogs.Add(new LogEntry(dateTime.ToString(), autor, content));
         }
 
         private void GoTo_MainMenu()
@@ -672,6 +684,8 @@ namespace Ticketautomat
                 AdminLogin.Visibility = Visibility.Collapsed;
                 manager.ResetTimeUntilTimeout();
                 timerRuns = true;
+
+                AddLogEntry($"Erfolgreiche Anmeldung. Benutzer: {TextBox_AdminLogin_AdminUsername.Text}");
             }
             else
             {
@@ -714,6 +728,7 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             manager.MoneyManager.RefillTicketPaper();
             //Bestätigungsfenster?
+            AddLogEntry("Papierspeicher aufgefüllt");
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
@@ -721,6 +736,7 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             manager.MoneyManager.Refill(EMoneyType.COIN, out _);
             //Bestätigungsfenster? Ausschuss anzeigen
+            AddLogEntry("Maschine mit Münzen aufgefüllt");
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
@@ -728,6 +744,7 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             manager.MoneyManager.Refill(EMoneyType.BILL, out _);
             //Bestätigungsfenster? Ausschuss anzeigen
+            AddLogEntry("Maschine mit Scheinen aufgefüllt");
         }
 
         private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -748,6 +765,7 @@ namespace Ticketautomat
             Reset();
             AdminDisableMachine.Visibility = Visibility.Collapsed;
             DisabledScreen.Visibility = Visibility.Visible;
+            AddLogEntry("Maschine gesperrt");
         }
 
         private void Button_AdminDisableMachine_CancelButton_Click(object sender, RoutedEventArgs e)
@@ -768,6 +786,7 @@ namespace Ticketautomat
             if (manager.TryLogin(TextBox_DisableScreen_AdminUsername.Text, PasswordBox_DisableScreen_AdminPassword.Password))
             {
                 DisabledScreen.Visibility = Visibility.Collapsed;
+                AddLogEntry("Maschine wieder Aktiviert");
             }
             else
             {
