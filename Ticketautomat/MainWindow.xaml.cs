@@ -543,6 +543,8 @@ namespace Ticketautomat
             GoTo_MainMenu();
 
             //Unsicher ob richtig
+            currentProfile = new Profile();
+            manager.CurrentUser = currentProfile;
             manager.CurrentUser.Name = "Kunde";
         }
 
@@ -694,6 +696,7 @@ namespace Ticketautomat
                 AdminLogin.Visibility = Visibility.Collapsed;
                 manager.ResetTimeUntilTimeout();
                 timerRuns = true;
+                currentProfile = manager.CurrentUser;
                 AddLogEntry($"Erfolgreiche Anmeldung. Benutzer: {TextBox_AdminLogin_AdminUsername.Text}");
             }
             else
@@ -796,6 +799,8 @@ namespace Ticketautomat
             {
                 DisabledScreen.Visibility = Visibility.Collapsed;
                 AddLogEntry("Maschine wieder aktiviert");
+                currentProfile = new Profile();
+                manager.CurrentUser = currentProfile;
                 manager.CurrentUser.Name = "Kunde";
             }
             else
