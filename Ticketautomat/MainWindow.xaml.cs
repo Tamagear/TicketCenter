@@ -491,9 +491,14 @@ namespace Ticketautomat
         private void UpdateTicketSpecifics()
         {
             //Warenkorb: Sachen hinzufügen/löschen            
+            float finalPrice = manager.CurrentUser.GetFinalPrice();
             Button_MainMenu_GoToCart.Content = $"Warenkorb\nanzeigen ({manager.CurrentUser.ShoppingCart.Count})";
             Button_BuyMenu_GoToCart.Content = $"Warenkorb\nanzeigen ({manager.CurrentUser.ShoppingCart.Count})";
-            Label_ShoppingCart_Sum.Content = $"Preis insgesamt: {manager.CurrentUser.GetFinalPrice():F2}€";
+            Button_ShoppingCart_PayNowButton.IsEnabled = finalPrice > 0f;
+            Button_ShoppingCart_Decrease.IsEnabled = finalPrice > 0f;
+            Button_ShoppingCart_Increase.IsEnabled = finalPrice > 0f;
+            Button_ShoppingCart_Remove.IsEnabled = finalPrice > 0f;
+            Label_ShoppingCart_Sum.Content = $"Preis insgesamt: {finalPrice:F2}€";
             Label_PayMenu_PaySum.Content = $"{manager.MoneyManager.SumLeft:F2}€";
         }
 
@@ -570,40 +575,40 @@ namespace Ticketautomat
             ticketMapIsSelectingDestination = true;
         }
 
-        private void Button_BuyMenu_TicketOptions_DisplayRoutes_Click(object sender, RoutedEventArgs e)
-        {
-            manager.ResetTimeUntilTimeout();
-            //Schrift von den beiden Ticket-Optionen setzen
-            //Lieber automatisieren
-        }
-
         private void Button_BuyMenu_TicketSelection_Cheapest_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            //Ticket hinzufügen
             AddedTicket.Visibility = Visibility.Visible;
-            //Texte von AddedTicket setzen
-            UpdateTicketSpecifics();
+
+            int amount = 1; //Aus entsprechendem Knopf auslesen
+            ETariffLevel tariffLevel = manager.StationGraph.GetRouteTariffLevel(manager.StationGraph.Graph.CheapestPath(startStation, destinationStation));
+            PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel];
+
+            AddCurrentTicket(amount, usedPriceEntry);
         }
 
         private void Button_BuyMenu_TicketSelection_Fastest_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            //Ticket hinzufügen
             AddedTicket.Visibility = Visibility.Visible;
-            //Texte von AddedTicket setzen
-            int amount = 1;
+
+            int amount = 1; //Aus entsprechendem Knopf auslesen
+            ETariffLevel tariffLevel = manager.StationGraph.GetRouteTariffLevel(manager.StationGraph.Graph.ShortestPath(startStation, destinationStation));
+            PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel];
+
+            AddCurrentTicket(amount, usedPriceEntry);
+        }
+
+        private void AddCurrentTicket(int amount, PriceEntry usedPriceEntry)
+        {
             DateTime dateTime = DateTime.Now;
-            Station startStation = manager.StationGraph.Graph.GetStation(0); //Aus Buttons auslesen
-            Station targetDestination = manager.StationGraph.Graph.GetStation(2); //Aus Buttons auslesen
-            ETariffLevel tariffLevel = ETariffLevel.TARIFF_A; //Ausrechnen
-            PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel]; //Preis-Eintrag rausfinden
-            //Testwerte
-            Ticket addTicket = new Ticket(dateTime, manager.CurrentUser, startStation, targetDestination, usedPriceEntry);
-            for (int i = 0; i < amount; i++)
-            {
+
+            Ticket addTicket = new Ticket(dateTime, manager.CurrentUser, startStation, destinationStation, usedPriceEntry);
+            for (int i = 0; i < amount; i++)            
                 manager.CurrentUser.AddToShoppingCart(addTicket);
-            }
+
+            #region ShoppingCart
+
             bool exists = false;
             for (int i = 0; i < tickets.Count; i++)
             {
@@ -616,10 +621,12 @@ namespace Ticketautomat
                     break;
                 }
             }
-            if (exists == false)
-            {
+
+            if (!exists)            
                 tickets.Add(new Tuple<Ticket, int>(addTicket, amount));
-            }
+
+            #endregion
+
             Label_AddedTicket_TicketCount.Content = $"Anzahl: {amount}";
             int splitIndex = usedPriceEntry.ToString().IndexOf('/');
             Label_AddedTicket_TicketType.Content = $"Ticket, {usedPriceEntry.ToString().Substring(0, splitIndex)}\n{usedPriceEntry.ToString().Substring(splitIndex)}";
@@ -812,6 +819,8 @@ namespace Ticketautomat
 
         private void Button_ShoppingCart_Increase_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
+
             if (List_ShoppingCart.SelectedItem != null)
             {
                 currentTicket = List_ShoppingCart.SelectedItem;
@@ -843,10 +852,14 @@ namespace Ticketautomat
                     }
                 }
             }
+
+            UpdateTicketSpecifics();
         }
 
         private void Button_ShoppingCart_Decrease_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
+
             if (List_ShoppingCart.SelectedItem != null)
             {
                 currentTicket = List_ShoppingCart.SelectedItem;
@@ -892,10 +905,14 @@ namespace Ticketautomat
                     }
                 }
             }
+
+            UpdateTicketSpecifics();
         }
 
         private void Button_ShoppingCart_Remove_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
+
             if (List_ShoppingCart.SelectedItem != null)
             {
                 currentTicket = List_ShoppingCart.SelectedItem;
@@ -925,6 +942,8 @@ namespace Ticketautomat
                     }
                 }
             }
+
+            UpdateTicketSpecifics();
         }
 
         private void Button_BuyMenu_TicketOptions_TicketMap_StationButton_Click(object sender, RoutedEventArgs e)

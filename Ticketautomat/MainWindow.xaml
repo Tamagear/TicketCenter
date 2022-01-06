@@ -128,7 +128,6 @@
                 </Grid>
                 <Button x:Name="Button_BuyMenu_TicketOptions_StartButton" Content="SIMMERSTEIN" Background="Yellow" FontSize="30" Click="Button_BuyMenu_TicketOptions_StartButton_Click" Cursor="Hand" Grid.Row="1" Grid.Column="1"/>
                 <Button x:Name="Button_BuyMenu_TicketOptions_DestinationButton" Content="ECHSENSTADT" Background="CornflowerBlue" FontSize="30" Click="Button_BuyMenu_TicketOptions_DestinationButton_Click" Cursor="Hand" Grid.Row="2" Grid.Column="1"/>
-                <Button x:Name="Button_BuyMenu_TicketOptions_DisplayRoutes" Content="Abfahrten anzeigen" FontSize="10" Click="Button_BuyMenu_TicketOptions_DisplayRoutes_Click" Cursor="Hand" Grid.Row="3" Grid.Column="1" Width="200" Height="20" Margin="533,15,0,15"/>
             </Grid>
             <Grid x:Name="BuyMenu_TicketSelection" Margin="100,50">
                 <Grid.ColumnDefinitions>
@@ -223,7 +222,7 @@
                                     <TextBlock Margin="0,10,0,10" Text="{Binding Item1.PriceEntry.Price, StringFormat={}{0:F2}}"/>
                                     <TextBlock Margin="0,10,0,10" Text="€"/>
                                     <TextBlock Margin="20,10,5,10" Text="Menge:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item2, StringFormat={}{0:F2}}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding Item2}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

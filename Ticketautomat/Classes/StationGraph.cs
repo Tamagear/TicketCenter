@@ -205,8 +205,20 @@ namespace Ticketautomat.Classes
         {
             List<List<Station>> ausgabe = new List<List<Station>>();
             ausgabe.Add(graph.CheapestPath(p_start, p_ende));
-            ausgabe.Add(graph.ShortestPath(p_start, p_ende, graph.getVerbindungen(), graph.GetStationen()));
+            ausgabe.Add(graph.ShortestPath(p_start, p_ende));
             return ausgabe;
+        }
+
+        public ETariffLevel GetRouteTariffLevel(List<Station> route)
+        {
+            List<EStationZone> zones = new List<EStationZone>();
+            foreach (Station station in route)
+            {
+                if (!zones.Contains(station.StationZone))
+                    zones.Add(station.StationZone);
+            }
+
+            return (ETariffLevel)zones.Count - 1;
         }
     }
 
@@ -267,6 +279,11 @@ namespace Ticketautomat.Classes
             m_anzahlStationen++;
         }
 
+        public List<Station> ShortestPath(Station p_start, Station p_ende)
+        {
+            return ShortestPath(p_start, p_ende, m_verbindungen, m_stationen);
+        }
+
         /// <summary>
         /// Die Methode berechnet den kürzesten Weg zwischen zwei Stationen
         /// </summary>
@@ -275,7 +292,7 @@ namespace Ticketautomat.Classes
         /// <param name="adj">Stationsverbindungen</param>
         /// <param name="stationen">Liste aller Stationen</param>
         /// <returns></returns>
-        public List<Station> ShortestPath(Station p_start, Station p_ende, List<List<Station>> adj, List<Station> stationen)
+        private List<Station> ShortestPath(Station p_start, Station p_ende, List<List<Station>> adj, List<Station> stationen)
         {
             List<Station> path = new List<Station>();
             int[] pred = new int[m_anzahlStationen];
