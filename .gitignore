@@ -1,0 +1,9 @@
+#Ignoriere die SaveFiles, weil es dort vermehrt zu unnötigen Merge Conflicts kommt
+
+Ticketautomat/bin/Debug/data/savefile.txt
+Ticketautomat/bin/Debug/data/motd.txt
+Ticketautomat/bin/Debug/data/spotlight.txt
+
+Ticketautomat/bin/Release/data/savefile.txt
+Ticketautomat/bin/Release/data/motd.txt
+Ticketautomat/bin/Release/data/spotlight.txt
