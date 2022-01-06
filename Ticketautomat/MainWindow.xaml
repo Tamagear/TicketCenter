@@ -202,14 +202,14 @@
             <ScrollViewer x:Name="ScrollViewer_ShoppingCart_TicketOverview" HorizontalScrollBarVisibility="Disabled" Width="900" Height="725" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20, 0">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="Button_ShoppingCart_Decrease" Content="-" Width="33" Height="33" Click="Button_ShoppingCart_Decrease_Click" Margin="400,0,0,0"/>
-                        <Button x:Name="Button_ShoppingCart_Increase" Content="+" Width="33" Height="33" Click="Button_ShoppingCart_Increase_Click"/>
-                        <Button x:Name="Button_ShoppingCart_Remove" Content="X" Width="33" Height="33" Click="Button_ShoppingCart_Remove_Click"/>
+                        <Button x:Name="Button_ShoppingCart_Decrease" Content="-" Width="33" Height="33" Click="Button_ShoppingCart_Decrease_Click" Margin="400,0,0,0" IsEnabled="False"/>
+                        <Button x:Name="Button_ShoppingCart_Increase" Content="+" Width="33" Height="33" Click="Button_ShoppingCart_Increase_Click" IsEnabled="False"/>
+                        <Button x:Name="Button_ShoppingCart_Remove" Content="X" Width="33" Height="33" Click="Button_ShoppingCart_Remove_Click" IsEnabled="False"/>
                     </StackPanel>
-                    <ListBox Name="List_ShoppingCart" Width="800" Margin="20" HorizontalAlignment="Left">
+                    <ListBox Name="List_ShoppingCart" Width="800" Margin="20" HorizontalAlignment="Left" SelectionChanged="Change_Selected_Ticket">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Background="{Binding Item3}" Width="785">
                                     <TextBlock Margin="15,10,5,10" Text="Startstation:"/>
                                     <TextBlock Margin="0,10,0,10" Text="{Binding Item1.StartStation.StationName}"/>
                                     <TextBlock Margin="20,10,5,10" Text="Endstation:"/>

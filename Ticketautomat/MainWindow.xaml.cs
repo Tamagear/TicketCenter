@@ -29,7 +29,7 @@ namespace Ticketautomat
         private Station startStation = null;
         private Station destinationStation = null;
 
-        private ObservableCollection<Tuple<Ticket, int>> tickets = new ObservableCollection<Tuple<Ticket, int>>();
+        private ObservableCollection<Tuple<Ticket, int, string>> tickets = new ObservableCollection<Tuple<Ticket, int, string>>();
 
         private object currentTicket { get; set; }
 
@@ -498,6 +498,12 @@ namespace Ticketautomat
             Button_ShoppingCart_Decrease.IsEnabled = finalPrice > 0f;
             Button_ShoppingCart_Increase.IsEnabled = finalPrice > 0f;
             Button_ShoppingCart_Remove.IsEnabled = finalPrice > 0f;
+            if (currentTicket == null)
+            {
+                Button_ShoppingCart_Decrease.IsEnabled = false;
+                Button_ShoppingCart_Increase.IsEnabled = false;
+                Button_ShoppingCart_Remove.IsEnabled = false;
+            }
             Label_ShoppingCart_Sum.Content = $"Preis insgesamt: {finalPrice:F2}€";
             Label_PayMenu_PaySum.Content = $"{manager.MoneyManager.SumLeft:F2}€";
         }
@@ -607,7 +613,7 @@ namespace Ticketautomat
             DateTime dateTime = DateTime.Now;
 
             Ticket addTicket = new Ticket(dateTime, manager.CurrentUser, startStation, destinationStation, usedPriceEntry);
-            for (int i = 0; i < amount; i++)            
+            for (int i = 0; i < amount; i++)
                 manager.CurrentUser.AddToShoppingCart(addTicket);
 
             #region ShoppingCart
@@ -619,14 +625,14 @@ namespace Ticketautomat
                 {
                     int menge = tickets[i].Item2;
                     tickets.RemoveAt(i);
-                    tickets.Add(new Tuple<Ticket, int>(addTicket, amount + menge));
+                    tickets.Add(new Tuple<Ticket, int, string>(addTicket, amount + menge, "white"));
                     exists = true;
                     break;
                 }
             }
 
-            if (!exists)            
-                tickets.Add(new Tuple<Ticket, int>(addTicket, amount));
+            if (!exists)
+                tickets.Add(new Tuple<Ticket, int, string>(addTicket, amount, "white"));
 
             #endregion
 
@@ -820,6 +826,56 @@ namespace Ticketautomat
             //Altes Geld auswerfen
         }
 
+        private void Change_Selected_Ticket(object sender, SelectionChangedEventArgs e)
+        {
+            manager.ResetTimeUntilTimeout();
+            if (List_ShoppingCart.SelectedItem == null)
+            {
+            }
+            else if (currentTicket != null)
+            {
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
+                currentTicket = List_ShoppingCart.SelectedItem;
+                Tuple<Ticket, int, string> item2 = (Tuple<Ticket, int, string>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
+                {
+                    if (tickets[i].Item1 == item.Item1 || tickets[i].Item1 == item2.Item1)
+                    {
+                        if (tickets[i].Item1 == item.Item1)
+                        {
+                            int menge = tickets[i].Item2;
+                            tickets.RemoveAt(i);
+                            tickets.Insert(i, new Tuple<Ticket, int, string>(item.Item1, menge, "White"));
+                        }
+                        else if (tickets[i].Item1 == item2.Item1)
+                        {
+                            int menge = tickets[i].Item2;
+                            tickets.RemoveAt(i);
+                            tickets.Insert(i, new Tuple<Ticket, int, string>(item2.Item1, menge, "AntiqueWhite"));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                currentTicket = List_ShoppingCart.SelectedItem;
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
+                for (int i = 0; i < tickets.Count; i++)
+                {
+                    if (tickets[i].Item1 == item.Item1)
+                    {
+                        if (tickets[i].Item1 == item.Item1)
+                        {
+                            int menge = tickets[i].Item2;
+                            tickets.RemoveAt(i);
+                            tickets.Insert(i, new Tuple<Ticket, int, string>(item.Item1, menge, "AntiqueWhite"));
+                        }                        
+                    }
+                }
+            }
+            UpdateTicketSpecifics();
+        }
+
         private void Button_ShoppingCart_Increase_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
@@ -827,7 +883,7 @@ namespace Ticketautomat
             if (List_ShoppingCart.SelectedItem != null)
             {
                 currentTicket = List_ShoppingCart.SelectedItem;
-                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
                 for (int i = 0; i < tickets.Count; i++)
                 {
                     if (tickets[i].Item1 == item.Item1)
@@ -835,14 +891,14 @@ namespace Ticketautomat
                         manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
                         int menge = tickets[i].Item2 + 1;
                         tickets.RemoveAt(i);
-                        tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
+                        tickets.Insert(i, new Tuple<Ticket, int, string>(item.Item1, menge, "AntiqueWhite"));
                         break;
                     }
                 }
             }
             else if (currentTicket != null)
             {
-                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
                 for (int i = 0; i < tickets.Count; i++)
                 {
                     if (tickets[i].Item1 == item.Item1)
@@ -850,7 +906,7 @@ namespace Ticketautomat
                         manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
                         int menge = tickets[i].Item2 + 1;
                         tickets.RemoveAt(i);
-                        tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
+                        tickets.Insert(i, new Tuple<Ticket, int, string>(item.Item1, menge, "AntiqueWhite"));
                         break;
                     }
                 }
@@ -866,17 +922,17 @@ namespace Ticketautomat
             if (List_ShoppingCart.SelectedItem != null)
             {
                 currentTicket = List_ShoppingCart.SelectedItem;
-                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
                 for (int i = 0; i < tickets.Count; i++)
                 {
                     if (tickets[i].Item1 == item.Item1)
                     {
-                        manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
+                        manager.CurrentUser.DecreaseByOneFromShoppingCart(item.Item1);
                         int menge = tickets[i].Item2 - 1;
                         tickets.RemoveAt(i);
                         if (menge > 0)
                         {
-                            tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
+                            tickets.Insert(i, new Tuple<Ticket, int, string>(item.Item1, menge, "AntiqueWhite"));
                         }
                         else
                         {
@@ -888,17 +944,17 @@ namespace Ticketautomat
             }
             else if (currentTicket != null)
             {
-                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
                 for (int i = 0; i < tickets.Count; i++)
                 {
                     if (tickets[i].Item1 == item.Item1)
                     {
-                        manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
+                        manager.CurrentUser.DecreaseByOneFromShoppingCart(item.Item1);
                         int menge = tickets[i].Item2 - 1;
                         tickets.RemoveAt(i);
                         if (menge > 0)
                         {
-                            tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
+                            tickets.Insert(i, new Tuple<Ticket, int, string>(item.Item1, menge, "AntiqueWhite"));
                         }
                         else
                         {
@@ -919,7 +975,7 @@ namespace Ticketautomat
             if (List_ShoppingCart.SelectedItem != null)
             {
                 currentTicket = List_ShoppingCart.SelectedItem;
-                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
                 for (int i = 0; i < tickets.Count; i++)
                 {
                     if (tickets[i].Item1 == item.Item1)
@@ -933,7 +989,7 @@ namespace Ticketautomat
             }
             else if (currentTicket != null)
             {
-                Tuple<Ticket, int> item = (Tuple<Ticket, int>)currentTicket;
+                Tuple<Ticket, int, string> item = (Tuple<Ticket, int, string>)currentTicket;
                 for (int i = 0; i < tickets.Count; i++)
                 {
                     if (tickets[i].Item1 == item.Item1)
@@ -959,10 +1015,10 @@ namespace Ticketautomat
                 Station selectedStation = manager.StationGraph.Graph.GetStation(id);
 
                 Console.WriteLine($"Ausgewählt: {selectedStation.StationName}");
-                if (!ticketMapIsSelectingDestination)                
-                    SetStartStation(selectedStation);                
-                else                
-                    SetDestinationStation(selectedStation);                
+                if (!ticketMapIsSelectingDestination)
+                    SetStartStation(selectedStation);
+                else
+                    SetDestinationStation(selectedStation);
             }
             else
                 ShowError("Die ausgewählte Station ist ungültig.");
