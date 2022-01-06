@@ -156,13 +156,13 @@
                                     <TextBlock Margin="0,10,0,10" Text="{Binding StartStation.StationName}"/>
                                     <TextBlock Margin="20,10,5,10" Text="Endstation:"/>
                                     <TextBlock Margin="0,10,0,10" Text="{Binding TargetDestination.StationName}"/>
-                                    <TextBlock Margin="20,10,5,10" Text="Preis:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.Price}"/>
-                                    <TextBlock Margin="0,10,0,10" Text="€"/>
                                     <TextBlock Margin="20,10,5,10" Text="Altersgruppe:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.Altersgruppe}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.AgeTypeString}"/>
                                     <TextBlock Margin="20,10,5,10" Text="Tarifstufe:"/>
-                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.TarifStufe}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.TariffLevelChar}"/>
+                                    <TextBlock Margin="20,10,5,10" Text="Preis:"/>
+                                    <TextBlock Margin="0,10,0,10" Text="{Binding PriceEntry.Price, StringFormat={}{0:F2}}"/>
+                                    <TextBlock Margin="0,10,0,10" Text="€"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

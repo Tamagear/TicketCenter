@@ -48,7 +48,10 @@ namespace Ticketautomat.Classes
         /// <param name="p_ticket">Ticket, den man hinzufügen will</param>
         public void AddToShoppingCart(Ticket p_ticket)
         {
-            m_shoppingCart.Add(p_ticket, 1);
+            if (m_shoppingCart.TryGetValue(p_ticket, out int value))
+                m_shoppingCart[p_ticket]++;
+            else
+                m_shoppingCart.Add(p_ticket, 1);
         }
 
         /// <summary>
@@ -72,12 +75,10 @@ namespace Ticketautomat.Classes
         /// <param name="p_zahl">Die Anzahl an Tickets, die man möchte</param>
         public void ChangeTicketCountTo(Ticket p_ticket, int p_zahl)
         {
-
             if (m_shoppingCart.ContainsKey(p_ticket))
             {
                 m_shoppingCart[p_ticket] = p_zahl;
             }
-
         }
 
         /// <summary>

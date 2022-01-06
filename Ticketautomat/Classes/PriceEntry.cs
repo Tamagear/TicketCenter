@@ -21,45 +21,41 @@ namespace Ticketautomat.Classes
         /// Ticketpreis für die bestimmte Altersgruppe und Zone
         /// </summary>
         private float m_price;
-        private string m_Altersgruppe;
-        private char m_tarifStufe;
+        private string m_ageTypeString;
+        private char m_tariffLevelChar;
 
         public EAgeType AgeType { get => m_ageType; set => m_ageType = value; }
         public ETariffLevel TariffLevel { get => m_tariffLevel; set => m_tariffLevel = value; }
         public float Price { get => m_price; set => m_price = value; }
-        public string Altersgruppe { get => m_Altersgruppe;}
-        public char TarifStufe { get => m_tarifStufe; }
+        public string AgeTypeString { get => m_ageTypeString; }
+        public char TariffLevelChar { get => m_tariffLevelChar; }
 
         public PriceEntry(EAgeType p_ageType, ETariffLevel p_tariffLevel, float p_Price)
         {
             m_ageType = p_ageType;
             m_tariffLevel = p_tariffLevel;
             m_price = p_Price;
-            m_tarifStufe = (char)((int)m_tariffLevel + 65);
+            m_tariffLevelChar = (char)((int)m_tariffLevel + 65);
             switch (m_ageType)
             {
                 case EAgeType.CHILD:
-                    m_Altersgruppe = "Kind";
+                    m_ageTypeString = "Kind";
                     break;
                 case EAgeType.REDUCED:
-                    m_Altersgruppe = "Ermäßigt";
+                    m_ageTypeString = "Ermäßigt";
                     break;
                 case EAgeType.ADULT:
-                    m_Altersgruppe = "Erwachsener";
+                    m_ageTypeString = "Erwachsener";
                     break;
                 case EAgeType.PENSIONER:
-                    m_Altersgruppe = "Senior";
+                    m_ageTypeString = "Senior";
                     break;
             }
         }
 
-
-    public override string ToString()
+        public override string ToString()
         {
-            string result = string.Empty;
-            result += $"{m_Altersgruppe} / Tarifstufe {m_tarifStufe} ({m_price:F2}€)";
-
-            return result;
+            return $"{m_ageTypeString} / Tarifstufe {m_tariffLevelChar} ({m_price:F2}€)";
         }
 
         /// <summary>
