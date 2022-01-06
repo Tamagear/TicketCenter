@@ -571,6 +571,10 @@ namespace Ticketautomat
         private void Button_BuyMenu_TicketOptions_StartButton_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            BuyMenu_TicketOptions_TicketMap.Visibility = Visibility.Visible;
+            BuyMenu_TicketOptions_TicketMap.Margin = ticketMapMarginStart;
+            ticketMapIsSelectingDestination = false;
+
             if (BuyMenu_TicketOptions_TicketMap.Visibility == Visibility.Collapsed ||
                 BuyMenu_TicketOptions_TicketMap.Margin == ticketMapMarginDestination)
             {
@@ -585,6 +589,10 @@ namespace Ticketautomat
         private void Button_BuyMenu_TicketOptions_DestinationButton_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
+            BuyMenu_TicketOptions_TicketMap.Visibility = Visibility.Visible;
+            BuyMenu_TicketOptions_TicketMap.Margin = ticketMapMarginDestination;
+            ticketMapIsSelectingDestination = true;
+
             if (BuyMenu_TicketOptions_TicketMap.Visibility == Visibility.Collapsed ||
                 BuyMenu_TicketOptions_TicketMap.Margin == ticketMapMarginStart)
             {
