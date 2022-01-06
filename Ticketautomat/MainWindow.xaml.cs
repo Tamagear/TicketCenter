@@ -22,6 +22,8 @@ namespace Ticketautomat
         private Profile currentProfile = null;
         private Manager manager = null;
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
+        private EAgeType currentAdminChangePriceAgeType = EAgeType.ADULT;
+        private ETariffLevel currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_A;
         private bool timerRuns = false;
         private bool ticketMapIsSelectingDestination = false;
         private Thickness ticketMapMarginStart = new Thickness(0f, -5f, 0f, 5f);
@@ -279,6 +281,19 @@ namespace Ticketautomat
             Label_PriceTable_Table_Pensioner_A.Content = $"{manager.PriceEntries[3, 0].Price.ToString("F2")}€";
             Label_PriceTable_Table_Pensioner_B.Content = $"{manager.PriceEntries[3, 1].Price.ToString("F2")}€";
             Label_PriceTable_Table_Pensioner_C.Content = $"{manager.PriceEntries[3, 2].Price.ToString("F2")}€";
+
+            Label_AdminChangePricesMenu_Table_Child_A.Content = $"{manager.PriceEntries[0, 0].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Child_B.Content = $"{manager.PriceEntries[0, 1].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Child_C.Content = $"{manager.PriceEntries[0, 2].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Reduced_A.Content = $"{manager.PriceEntries[1, 0].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Reduced_B.Content = $"{manager.PriceEntries[1, 1].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Reduced_C.Content = $"{manager.PriceEntries[1, 2].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Adult_A.Content = $"{manager.PriceEntries[2, 0].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Adult_B.Content = $"{manager.PriceEntries[2, 1].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Adult_C.Content = $"{manager.PriceEntries[2, 2].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Pensioner_A.Content = $"{manager.PriceEntries[3, 0].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Pensioner_B.Content = $"{manager.PriceEntries[3, 1].Price.ToString("F2")}€";
+            Label_AdminChangePricesMenu_Table_Pensioner_C.Content = $"{manager.PriceEntries[3, 2].Price.ToString("F2")}€";
         }
 
         //temp => save
@@ -1080,6 +1095,113 @@ namespace Ticketautomat
             Button_BuyMenu_TicketOptions_DestinationButton.Content = selectedStation.StationName;
             Button_BuyMenu_TicketOptions_DestinationButton.Background = selectedStation.GetStationColor();
             destinationStation = selectedStation;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Child_A_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[0, 0].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.CHILD;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_A;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Child_B_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[0, 1].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.CHILD;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_B;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Child_C_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[0, 2].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.CHILD;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_C;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Reduced_A_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[1, 0].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.REDUCED;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_A;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Reduced_B_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[1, 1].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.REDUCED;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_B;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Reduced_C_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[1, 2].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.REDUCED;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_C;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Adult_A_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[2, 0].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.ADULT;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_A;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Adult_B_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[2, 1].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.ADULT;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_B;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Adult_C_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[2, 2].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.ADULT;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_C;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Pensioner_A_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[3, 0].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.PENSIONER;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_A;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Pensioner_B_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[3, 1].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.PENSIONER;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_B;
+        }
+
+        private void Button_AdminChangePricesMenu_Table_Pensioner_C_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Visible;
+            TextBox_AdminChangePricesMenu_NewPrice.Text = manager.PriceEntries[3, 2].Price.ToString("F2");
+            currentAdminChangePriceAgeType = EAgeType.PENSIONER;
+            currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_C;
+        }
+
+        private void Button_AdminChangePricesMenu_ChangeDialogue_CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (float.TryParse(TextBox_AdminChangePricesMenu_NewPrice.Text, out float result))
+            {
+                manager.PriceEntries[(int)currentAdminChangePriceAgeType, (int)currentAdminChangePriceTariffLevel].Price = result;
+                AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Collapsed;
+                AddLogEntry("Preise angepasst");
+                UpdatePriceTableTexts();
+            }           
         }
     }
     public struct Version
