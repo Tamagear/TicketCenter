@@ -574,7 +574,7 @@ namespace Ticketautomat
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = true;
             currentSelectedAgeType = EAgeType.ADULT;
-            //Aktualisiere Preise
+            UpdateTicketBuyPriceTexts();
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Child_Click(object sender, RoutedEventArgs e)
@@ -585,7 +585,7 @@ namespace Ticketautomat
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = true;
             currentSelectedAgeType = EAgeType.CHILD;
-            //Aktualisiere Preise
+            UpdateTicketBuyPriceTexts();
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Pensioner_Click(object sender, RoutedEventArgs e)
@@ -596,7 +596,7 @@ namespace Ticketautomat
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = false;
             Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = true;
             currentSelectedAgeType = EAgeType.PENSIONER;
-            //Aktualisiere Preise
+            UpdateTicketBuyPriceTexts();
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Reduced_Click(object sender, RoutedEventArgs e)
@@ -607,7 +607,7 @@ namespace Ticketautomat
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Reduced.IsEnabled = false;
             currentSelectedAgeType = EAgeType.REDUCED;
-            //Aktualisiere Preise
+            UpdateTicketBuyPriceTexts();
         }
 
         private void Button_BuyMenu_TicketOptions_StartButton_Click(object sender, RoutedEventArgs e)
@@ -662,6 +662,40 @@ namespace Ticketautomat
             PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel];
 
             AddCurrentTicket(amount, usedPriceEntry);
+        }
+
+        private void UpdateTicketBuyPriceTexts()
+        {
+            Button_BuyMenu_TicketSelection_Cheapest.Content = "Über ";
+            List<Station> cheapestRoute = manager.StationGraph.Graph.CheapestPath(startStation, destinationStation);
+            cheapestRoute.Reverse();
+            bool hasComma = false;
+            for (int i=0; i<cheapestRoute.Count; i++)
+            {
+                if (i%2==1 || cheapestRoute.Count == 1)
+                {
+                    Button_BuyMenu_TicketSelection_Cheapest.Content += $"{(hasComma ? ", " : string.Empty)}{cheapestRoute[i].StationName}";
+                    hasComma = true;
+                }
+            }
+            PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)manager.StationGraph.GetRouteTariffLevel(cheapestRoute)];
+            Button_BuyMenu_TicketSelection_Cheapest.Content += $"\n{usedPriceEntry}";
+
+            Button_BuyMenu_TicketSelection_Fastest.Content = "Über ";
+            List<Station> shortestRoute = manager.StationGraph.Graph.ShortestPath(startStation, destinationStation);
+            shortestRoute.Reverse();
+            hasComma = false;
+            for (int i = 0; i < shortestRoute.Count; i++)
+            {
+                if (i % 2 == 1 || shortestRoute.Count == 1)
+                {
+                    Button_BuyMenu_TicketSelection_Fastest.Content += $"{(hasComma ? ", " : string.Empty)}{shortestRoute[i].StationName}";
+                    hasComma = true;
+                }
+            }
+
+            usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)manager.StationGraph.GetRouteTariffLevel(shortestRoute)];
+            Button_BuyMenu_TicketSelection_Fastest.Content += $"\n{usedPriceEntry}";
         }
 
         private void AddCurrentTicket(int amount, PriceEntry usedPriceEntry)
@@ -1084,11 +1118,11 @@ namespace Ticketautomat
                 Console.WriteLine($"Ausgewählt: {selectedStation.StationName}");
                 if (!ticketMapIsSelectingDestination)
                     SetStartStation(selectedStation);
-                else
+                else if (selectedStation != startStation)
                     SetDestinationStation(selectedStation);
+
+                UpdateTicketBuyPriceTexts();
             }
-            else
-                ShowError("Die ausgewählte Station ist ungültig.");
         }
 
         private void SetStartStation(Station selectedStation)
