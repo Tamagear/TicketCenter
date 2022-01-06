@@ -76,5 +76,37 @@ namespace Ticketautomat.Classes
             document.Draw(p_Text);
         }
 
+        public bool Equals(Ticket other)
+        {
+            if (other is null)
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            if (GetType() != other.GetType())
+                return false;
+
+            return other.Date.Equals(Date) && m_customer.Name.Equals(other.m_customer.Name)
+                && other.StartStation.Equals(StartStation) && other.TargetDestination.Equals(TargetDestination)
+                && other.PriceEntry.Equals(PriceEntry);
+        }
+
+        public static bool operator ==(Ticket left, Ticket right)
+        {
+            if (left is null)
+            {
+                if (right is null)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Ticket left, Ticket right) => !(left == right);
     }
 }
