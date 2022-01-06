@@ -235,7 +235,7 @@ namespace Ticketautomat
             TextBox_AdminLogin_AdminUsername.Text = string.Empty;
             PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
 
-            AdminLogin.Visibility = Visibility.Visible;
+            AdminLogin.Visibility = Visibility.Visible;           
         }
 
         private void Button_PriceTable_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -378,6 +378,7 @@ namespace Ticketautomat
             ShoppingCart.Visibility = Visibility.Collapsed;
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
+            Button_MaintenanceLogin.Visibility = Visibility.Visible;
         }
 
         private void GoTo_PriceTable()
@@ -420,6 +421,7 @@ namespace Ticketautomat
             ShoppingCart.Visibility = Visibility.Collapsed;
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
+            Button_MaintenanceLogin.Visibility = Visibility.Collapsed;
         }
 
         private void GoTo_AdminSavingsManagement()
@@ -558,6 +560,8 @@ namespace Ticketautomat
             GoTo_MainMenu();
 
             //Unsicher ob richtig
+            currentProfile = new Profile();
+            manager.CurrentUser = currentProfile;
             manager.CurrentUser.Name = "Kunde";
         }
 
@@ -709,6 +713,7 @@ namespace Ticketautomat
                 AdminLogin.Visibility = Visibility.Collapsed;
                 manager.ResetTimeUntilTimeout();
                 timerRuns = true;
+                currentProfile = manager.CurrentUser;
                 AddLogEntry($"Erfolgreiche Anmeldung. Benutzer: {TextBox_AdminLogin_AdminUsername.Text}");
             }
             else
@@ -811,6 +816,8 @@ namespace Ticketautomat
             {
                 DisabledScreen.Visibility = Visibility.Collapsed;
                 AddLogEntry("Maschine wieder aktiviert");
+                currentProfile = new Profile();
+                manager.CurrentUser = currentProfile;
                 manager.CurrentUser.Name = "Kunde";
             }
             else
