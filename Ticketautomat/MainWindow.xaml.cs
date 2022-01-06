@@ -348,6 +348,7 @@ namespace Ticketautomat
             string autor = manager.CurrentUser.Name;
             manager.LogEntries.Add(new LogEntry(dateTime.ToString(), autor, content));
             dynamicLogs.Add(new LogEntry(dateTime.ToString(), autor, content));
+            SaveFile();
         }
 
         private void GoTo_MainMenu()
