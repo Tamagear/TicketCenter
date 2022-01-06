@@ -678,6 +678,8 @@ namespace Ticketautomat
                     hasComma = true;
                 }
             }
+            Button_BuyMenu_TicketSelection_Cheapest.Content += $"\nAnzahl Stationen: {cheapestRoute.Count}";
+
             PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)manager.StationGraph.GetRouteTariffLevel(cheapestRoute)];
             Button_BuyMenu_TicketSelection_Cheapest.Content += $"\n{usedPriceEntry}";
 
@@ -693,6 +695,7 @@ namespace Ticketautomat
                     hasComma = true;
                 }
             }
+            Button_BuyMenu_TicketSelection_Fastest.Content += $"\nAnzahl Stationen: {shortestRoute.Count}";
 
             usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)manager.StationGraph.GetRouteTariffLevel(shortestRoute)];
             Button_BuyMenu_TicketSelection_Fastest.Content += $"\n{usedPriceEntry}";
