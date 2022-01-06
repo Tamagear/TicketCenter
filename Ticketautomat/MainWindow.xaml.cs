@@ -507,6 +507,9 @@ namespace Ticketautomat
             manager.CurrentUser.ResetShoppingCart();
             timerRuns = false;
             manager.ResetTimeUntilTimeout();
+            UpdateTicketSpecifics();
+            tickets.Clear();
+            currentTicket = null;
         }
 
         private void Button_BuyMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
