@@ -87,7 +87,7 @@ namespace Ticketautomat.Classes
             if (GetType() != other.GetType())
                 return false;
 
-            return other.Date.Equals(Date) && m_customer.Name.Equals(other.m_customer.Name)
+            return m_customer.Name.Equals(other.m_customer.Name)
                 && other.StartStation.Equals(StartStation) && other.TargetDestination.Equals(TargetDestination)
                 && other.PriceEntry.Equals(PriceEntry);
         }

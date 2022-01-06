@@ -225,11 +225,13 @@ namespace Ticketautomat
 
         private void Button_PriceTable_GoBackButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_MainMenu();
         }
 
         private void Button_ErrorWindow_CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             ErrorWindow.Visibility = Visibility.Collapsed;
         }
 
@@ -495,11 +497,13 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_MainMenu();
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Adult_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = false;
             Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
@@ -510,6 +514,7 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Child_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = false;
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
@@ -520,6 +525,7 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Pensioner_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = false;
@@ -530,6 +536,7 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Reduced_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             Button_BuyMenu_TicketOptions_TariffOption_Adult.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Child.IsEnabled = true;
             Button_BuyMenu_TicketOptions_TariffOption_Pensioner.IsEnabled = true;
@@ -540,21 +547,26 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_TicketOptions_StartButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             //Auswahl öffnen
         }
 
         private void Button_BuyMenu_TicketOptions_DestinationButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             //Auswahl öffnen
         }
 
         private void Button_BuyMenu_TicketOptions_DisplayRoutes_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             //Schrift von den beiden Ticket-Optionen setzen
+            //Lieber automatisieren
         }
 
         private void Button_BuyMenu_TicketSelection_Cheapest_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             //Ticket hinzufügen
             AddedTicket.Visibility = Visibility.Visible;
             //Texte von AddedTicket setzen
@@ -563,6 +575,7 @@ namespace Ticketautomat
 
         private void Button_BuyMenu_TicketSelection_Fastest_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             //Ticket hinzufügen
             AddedTicket.Visibility = Visibility.Visible;
             //Texte von AddedTicket setzen
@@ -599,6 +612,8 @@ namespace Ticketautomat
             {
                 GoTo_AdminDashboard();
                 AdminLogin.Visibility = Visibility.Collapsed;
+                manager.ResetTimeUntilTimeout();
+                timerRuns = true;
             }
             else
             {
@@ -608,54 +623,64 @@ namespace Ticketautomat
 
         private void Button_AdminLogin_CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             AdminLogin.Visibility = Visibility.Collapsed;
         }
 
         private void Button_AdminDashboard_AdminButtonOptions_Statistics_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_AdminStatistics();
         }
 
         private void Button_AdminDashboard_AdminButtonOptions_SavingsManagement_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_AdminSavingsManagement();
         }
 
         private void Button_AdminDashboard_AdminButtonOptions_DisableMachine_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             AdminDisableMachine.Visibility = Visibility.Visible;
         }
 
         private void Button_AdminDashboard_AdminButtonOptions_ChangePrices_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_AdminChangePricesMenu();
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             manager.MoneyManager.RefillTicketPaper();
             //Bestätigungsfenster?
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             manager.MoneyManager.Refill(EMoneyType.COIN, out _);
             //Bestätigungsfenster? Ausschuss anzeigen
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             manager.MoneyManager.Refill(EMoneyType.BILL, out _);
             //Bestätigungsfenster? Ausschuss anzeigen
         }
 
         private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_AdminDashboard();
         }
 
         private void Button_AdminChangePricesMenu_SaveAndGoBackButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_AdminDashboard();
         }
 
@@ -669,6 +694,7 @@ namespace Ticketautomat
 
         private void Button_AdminDisableMachine_CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             AdminDisableMachine.Visibility = Visibility.Collapsed;
         }
 
@@ -693,6 +719,7 @@ namespace Ticketautomat
 
         private void Button_ShoppingCart_PayNowButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_PayMenu();
         }
 
@@ -705,17 +732,20 @@ namespace Ticketautomat
 
         private void Button_AddedTicket_ShoppingCartButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             AddedTicket.Visibility = Visibility.Collapsed;
             GoTo_ShoppingCart();
         }
 
         private void Button_AddedTicket_ContinueButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             AddedTicket.Visibility = Visibility.Collapsed;
         }
 
         private void PayMenu_PayButtonGrid_PayButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             string[] moneyValues = ((Button)sender).Name.Split('_');
             string moneyValue = moneyValues[moneyValues.Length - 1];
 
@@ -735,6 +765,7 @@ namespace Ticketautomat
 
         private void Button_PDFExportMenu_ExportButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf";
             if (saveFileDialog.ShowDialog() == true)
@@ -746,6 +777,7 @@ namespace Ticketautomat
 
         private void Button_PayMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
         {
+            manager.ResetTimeUntilTimeout();
             GoTo_ShoppingCart();
             //Altes Geld auswerfen
         }
