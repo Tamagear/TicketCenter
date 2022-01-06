@@ -289,7 +289,7 @@
             <Rectangle x:Name="Rectangle_AdminDashboard_BehindScrollView" Fill="LightGray" Height="725" Width="700" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
             <Label x:Name="Label_AdminDashboard_Title" Content="MITARBEITER-DASHBOARD" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_AdminDashboard_LogTitle" Content="LOG" FontSize="50" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="792,162,0,0"/>
-            <Button x:Name="Button_AdminDashboard_GoBackButton" Content="Abmelden" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
+            <Button x:Name="Button_AdminDashboard_GoBackButton" Content="Abmelden" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_AdminMenu_Logout_Click" Cursor="Hand"/>
             <Grid x:Name="AdminDashboard_AdminButtonOptions" Margin="100,230,900,170">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="4*"/>

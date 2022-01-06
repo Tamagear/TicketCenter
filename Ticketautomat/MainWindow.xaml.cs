@@ -345,7 +345,7 @@ namespace Ticketautomat
         private void AddLogEntry(string content)
         {
             DateTime dateTime = DateTime.Now;           
-            string autor = manager.CurrentUser.Name;
+            string autor = manager.CurrentUser.Name;            
             manager.LogEntries.Add(new LogEntry(dateTime.ToString(), autor, content));
             dynamicLogs.Add(new LogEntry(dateTime.ToString(), autor, content));
         }
@@ -536,6 +536,15 @@ namespace Ticketautomat
             GoTo_MainMenu();
         }
 
+        private void Button_AdminMenu_Logout_Click(object sender, RoutedEventArgs e)
+        {
+            manager.ResetTimeUntilTimeout();
+            GoTo_MainMenu();
+
+            //Unsicher ob richtig
+            manager.CurrentUser.Name = "Kunde";
+        }
+
         private void Button_BuyMenu_TicketOptions_TariffOption_Adult_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
@@ -684,7 +693,6 @@ namespace Ticketautomat
                 AdminLogin.Visibility = Visibility.Collapsed;
                 manager.ResetTimeUntilTimeout();
                 timerRuns = true;
-
                 AddLogEntry($"Erfolgreiche Anmeldung. Benutzer: {TextBox_AdminLogin_AdminUsername.Text}");
             }
             else
@@ -765,7 +773,7 @@ namespace Ticketautomat
             Reset();
             AdminDisableMachine.Visibility = Visibility.Collapsed;
             DisabledScreen.Visibility = Visibility.Visible;
-            AddLogEntry("Maschine gesperrt");
+            AddLogEntry("Maschine deaktiviert");
         }
 
         private void Button_AdminDisableMachine_CancelButton_Click(object sender, RoutedEventArgs e)
@@ -786,7 +794,8 @@ namespace Ticketautomat
             if (manager.TryLogin(TextBox_DisableScreen_AdminUsername.Text, PasswordBox_DisableScreen_AdminPassword.Password))
             {
                 DisabledScreen.Visibility = Visibility.Collapsed;
-                AddLogEntry("Maschine wieder Aktiviert");
+                AddLogEntry("Maschine wieder aktiviert");
+                manager.CurrentUser.Name = "Kunde";
             }
             else
             {
@@ -850,6 +859,7 @@ namespace Ticketautomat
                 String fileName = saveFileDialog.FileName;
                 currentProfile.ExportToPDF(fileName);
             }
+            AddLogEntry("Ticketpdf exportiert");
         }
 
         private void Button_PayMenu_GoBackButton_Click(object sender, RoutedEventArgs e)

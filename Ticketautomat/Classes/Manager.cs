@@ -172,7 +172,10 @@ namespace Ticketautomat.Classes
             for (int i = 0; i<m_maintenanceProfiles.Count; i++)
             {
                 if (m_maintenanceProfiles[i].Login(p_username, p_password))
+                {
+                    m_currentUser = m_maintenanceProfiles[i];
                     return true;
+                }
             }
 
             return false;
