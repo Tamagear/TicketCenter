@@ -21,39 +21,43 @@ namespace Ticketautomat.Classes
         /// Ticketpreis für die bestimmte Altersgruppe und Zone
         /// </summary>
         private float m_price;
+        private string m_Altersgruppe;
+        private char m_tarifStufe;
 
         public EAgeType AgeType { get => m_ageType; set => m_ageType = value; }
         public ETariffLevel TariffLevel { get => m_tariffLevel; set => m_tariffLevel = value; }
         public float Price { get => m_price; set => m_price = value; }
+        public string Altersgruppe { get => m_Altersgruppe;}
+        public char TarifStufe { get => m_tarifStufe; }
 
         public PriceEntry(EAgeType p_ageType, ETariffLevel p_tariffLevel, float p_Price)
         {
             m_ageType = p_ageType;
             m_tariffLevel = p_tariffLevel;
             m_price = p_Price;
-        }
-
-        public override string ToString()
-        {
-            string result = string.Empty;
-
+            m_tarifStufe = (char)((int)m_tariffLevel + 65);
             switch (m_ageType)
             {
-                case EAgeType.CHILD: 
-                    result += "Kind";
+                case EAgeType.CHILD:
+                    m_Altersgruppe = "Kind";
                     break;
                 case EAgeType.REDUCED:
-                    result += "Ermäßigt";
+                    m_Altersgruppe = "Ermäßigt";
                     break;
                 case EAgeType.ADULT:
-                    result += "Erwachsener";
+                    m_Altersgruppe = "Erwachsener";
                     break;
                 case EAgeType.PENSIONER:
-                    result += "Senior";
+                    m_Altersgruppe = "Senior";
                     break;
             }
+        }
 
-            result += $" / Tarifstufe {(char)((int)m_tariffLevel + 65)} ({m_price:F2}€)";
+
+    public override string ToString()
+        {
+            string result = string.Empty;
+            result += $"{m_Altersgruppe} / Tarifstufe {m_tarifStufe} ({m_price:F2}€)";
 
             return result;
         }

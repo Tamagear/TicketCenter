@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using System.Collections.ObjectModel;
 using Ticketautomat.Classes;
 using static Ticketautomat.Classes.EnumCollection;
 
@@ -22,6 +23,9 @@ namespace Ticketautomat
         private Manager manager = null;
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
         private bool timerRuns = false;
+
+        private ObservableCollection<Ticket> tickets = new ObservableCollection<Ticket>();
+        public string selectedTicket { get; set; }
 
         public event EventHandler OnResetTimerTimeout;
 
@@ -49,6 +53,8 @@ namespace Ticketautomat
             liveTimer.Interval = TimeSpan.FromSeconds(1);
             liveTimer.Tick += LiveTimer_Tick;
             liveTimer.Start();
+
+            List_ShoppingCart.ItemsSource = tickets;
         }
         
         protected override void OnContentRendered(EventArgs e)
@@ -569,8 +575,9 @@ namespace Ticketautomat
             //Testwerte
             for (int i = 0; i < amount; i++)
             {
-                manager.CurrentUser.AddToShoppingCart(new Ticket(dateTime, manager.CurrentUser,
-                    startStation, targetDestination, usedPriceEntry));
+                Ticket addTicket = new Ticket(dateTime, manager.CurrentUser,startStation, targetDestination, usedPriceEntry);
+                manager.CurrentUser.AddToShoppingCart(addTicket);
+                tickets.Add(addTicket);
             }
             Label_AddedTicket_TicketCount.Content = $"Anzahl: {amount}";
             int splitIndex = usedPriceEntry.ToString().IndexOf('/');
