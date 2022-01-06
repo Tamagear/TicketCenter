@@ -56,6 +56,7 @@ namespace Ticketautomat
             liveTimer.Start();
 
             List_ShoppingCart.ItemsSource = tickets;
+            List_ShoppingCart.SelectedItem = currentTicket;
         }
 
         protected override void OnContentRendered(EventArgs e)
@@ -811,7 +812,7 @@ namespace Ticketautomat
                         manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
                         int menge = tickets[i].Item2 + 1;
                         tickets.RemoveAt(i);
-                        tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                        tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
                         break;
                     }
                 }
@@ -826,7 +827,7 @@ namespace Ticketautomat
                         manager.CurrentUser.IncreaseByOneFromShoppingCart(item.Item1);
                         int menge = tickets[i].Item2 + 1;
                         tickets.RemoveAt(i);
-                        tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                        tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
                         break;
                     }
                 }
@@ -848,7 +849,7 @@ namespace Ticketautomat
                         tickets.RemoveAt(i);
                         if (menge > 0)
                         {
-                            tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                            tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
                         }
                         else
                         {
@@ -870,7 +871,7 @@ namespace Ticketautomat
                         tickets.RemoveAt(i);
                         if (menge > 0)
                         {
-                            tickets.Add(new Tuple<Ticket, int>(item.Item1, menge));
+                            tickets.Insert(i, new Tuple<Ticket, int>(item.Item1, menge));
                         }
                         else
                         {
