@@ -97,6 +97,8 @@
             <Rectangle x:Name="Rectangle_BuyMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Rectangle x:Name="Rectangle_BuyMenu_BelowTicketOptions" Fill="ForestGreen" Height="7" Width="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0"/>
             <Label x:Name="Label_BuyMenu_Title" Content="TICKET KAUFEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Label x:Name="Label_BuyMenu_TicketSelection_CheapestTitle" Content="GÜNSTIGSTE OPTION" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="100,0,0,360"/>
+            <Label x:Name="Label_BuyMenu_TicketSelection_FastestTitle" Content="WENIGSTE STATIONEN" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="100,0,100,360"/>
             <Button x:Name="Button_BuyMenu_GoToCart" Content="Warenkorb&#x0a;anzeigen" Height="60" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,235,0" Click="Button_MainMenu_GoToCart_Click" Cursor="Hand"/>
             <Button x:Name="Button_BuyMenu_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
             <Grid x:Name="BuyMenu_TicketOptions" Margin="250,250">
@@ -135,8 +137,8 @@
                     <ColumnDefinition Width="100px"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="Button_BuyMenu_TicketSelection_Cheapest" Content="GÜNSTIGSTE OPTION&#x0a;BESTELLEN" FontSize="60" Height="300" VerticalAlignment="Bottom" Grid.Column="0" Click="Button_BuyMenu_TicketSelection_Cheapest_Click" Cursor="Hand"/>
-                <Button x:Name="Button_BuyMenu_TicketSelection_Fastest" Content="WENIGSTE STATIONEN&#x0a;BESTELLEN" FontSize="60" Height="300" VerticalAlignment="Bottom" Grid.Column="2" Click="Button_BuyMenu_TicketSelection_Fastest_Click" Cursor="Hand"/>
+                <Button x:Name="Button_BuyMenu_TicketSelection_Cheapest" Content="GÜNSTIGSTE OPTION&#x0a;BESTELLEN" Height="300" VerticalAlignment="Bottom" Grid.Column="0" Click="Button_BuyMenu_TicketSelection_Cheapest_Click" Cursor="Hand"/>
+                <Button x:Name="Button_BuyMenu_TicketSelection_Fastest" Content="WENIGSTE STATIONEN&#x0a;BESTELLEN" Height="300" VerticalAlignment="Bottom" Grid.Column="2" Click="Button_BuyMenu_TicketSelection_Fastest_Click" Cursor="Hand"/>
             </Grid>
             <Grid x:Name="BuyMenu_TicketOptions_TicketMap" Margin="0,-5,0,5" Visibility="Collapsed">
                 <Grid.Resources>
