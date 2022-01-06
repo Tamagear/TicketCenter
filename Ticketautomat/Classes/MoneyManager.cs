@@ -18,6 +18,7 @@ namespace Ticketautomat.Classes
         public int TicketPaperLeft { get => m_ticketPaperLeft; set => m_ticketPaperLeft = value; }
         public List<Money> MoneyFillStateList { get { return m_currentlyInsertedMoney; } set { m_currentlyInsertedMoney = value; } }
         public float SumLeft { get => m_sumLeft; set => m_sumLeft = value; }
+        public List<Money> AllMoneyTypes { get => m_allMoneyTypes; set => m_allMoneyTypes = value; }
 
         public MoneyManager(List<int> p_fillStates = null)
         {

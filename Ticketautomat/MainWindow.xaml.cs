@@ -268,6 +268,19 @@ namespace Ticketautomat
             Label_DateTime.Content = $"{now.ToString("g")} Uhr";
         }
 
+        private void UpdateSavingsManagement()
+        {
+            string labelText = "";
+            labelText += $"Tickets übrig: {manager.MoneyManager.TicketPaperLeft} Stück";
+            List<Money> moneyTypes = manager.MoneyManager.AllMoneyTypes;
+            Dictionary<Money, int> fillstate = manager.MoneyManager.MoneyFillState;
+            for (int i = 0; i < fillstate.Count; i++)
+            {
+                labelText += $"\n{moneyTypes[i].Value}€: {fillstate[moneyTypes[i]]} Stück";
+            }
+            Label_AdminSavingsManagement_CurrentFillState.Content = labelText;
+        }
+
         private void UpdatePriceTableTexts()
         {
             Label_PriceTable_AsOfToday.Content = $"Stand: {Label_DateTime.Content}";
@@ -422,7 +435,7 @@ namespace Ticketautomat
             ShoppingCart.Visibility = Visibility.Collapsed;
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
-            Button_MaintenanceLogin.Visibility = Visibility.Collapsed;
+            Button_MaintenanceLogin.Visibility = Visibility.Collapsed;            
         }
 
         private void GoTo_AdminSavingsManagement()
@@ -437,7 +450,9 @@ namespace Ticketautomat
             ShoppingCart.Visibility = Visibility.Collapsed;
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
+            UpdateSavingsManagement();
         }
+
 
         private void GoTo_AdminChangePricesMenu()
         {
@@ -796,6 +811,7 @@ namespace Ticketautomat
             manager.MoneyManager.RefillTicketPaper();
             //Bestätigungsfenster?
             AddLogEntry("Papierspeicher aufgefüllt");
+            UpdateSavingsManagement();
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
@@ -804,6 +820,7 @@ namespace Ticketautomat
             manager.MoneyManager.Refill(EMoneyType.COIN, out _);
             //Bestätigungsfenster? Ausschuss anzeigen
             AddLogEntry("Maschine mit Münzen aufgefüllt");
+            UpdateSavingsManagement();
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
@@ -812,6 +829,7 @@ namespace Ticketautomat
             manager.MoneyManager.Refill(EMoneyType.BILL, out _);
             //Bestätigungsfenster? Ausschuss anzeigen
             AddLogEntry("Maschine mit Scheinen aufgefüllt");
+            UpdateSavingsManagement();
         }
 
         private void Button_AdminSavingsManagement_GoBackButton_Click(object sender, RoutedEventArgs e)
