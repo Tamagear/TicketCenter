@@ -752,6 +752,8 @@ namespace Ticketautomat
                 manager.ResetTimeUntilTimeout();
                 timerRuns = true;
                 currentProfile = manager.CurrentUser;
+                TextBox_AdminLogin_AdminUsername.Text = string.Empty;
+                PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
                 AddLogEntry($"Erfolgreiche Anmeldung. Benutzer: {TextBox_AdminLogin_AdminUsername.Text}");
             }
             else
@@ -857,6 +859,8 @@ namespace Ticketautomat
                 currentProfile = new Profile();
                 manager.CurrentUser = currentProfile;
                 manager.CurrentUser.Name = "Kunde";
+                TextBox_DisableScreen_AdminUsername.Text = string.Empty;
+                PasswordBox_DisableScreen_AdminPassword.Password = string.Empty;
             }
             else
             {
