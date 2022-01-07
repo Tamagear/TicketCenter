@@ -139,6 +139,28 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="Button_BuyMenu_TicketSelection_Cheapest" Content="GÜNSTIGSTE OPTION&#x0a;BESTELLEN" Height="300" VerticalAlignment="Bottom" Grid.Column="0" Click="Button_BuyMenu_TicketSelection_Cheapest_Click" Cursor="Hand"/>
                 <Button x:Name="Button_BuyMenu_TicketSelection_Fastest" Content="WENIGSTE STATIONEN&#x0a;BESTELLEN" Height="300" VerticalAlignment="Bottom" Grid.Column="2" Click="Button_BuyMenu_TicketSelection_Fastest_Click" Cursor="Hand"/>
+                <StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="0" Width="60" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="Label_BuyMenu_TicketAmount_Cheapest" Content="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Width="40" HorizontalAlignment="Left" Background="White" VerticalAlignment="Bottom" Grid.Column="0"/>
+                        <Button x:Name="Button_BuyMenu_TicketAmount_Cheapest_Increase" Content="+" Height="20" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_BuyMenu_TicketAmount_Increase_Click" Cursor="Hand" Grid.Column="1"/>
+                        <Button x:Name="Button_BuyMenu_TicketAmount_Cheapest_Decrease" Content="-" Height="20" Width="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_BuyMenu_TicketAmount_Decrease_Click" Cursor="Hand" Grid.Column="1"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Column="2" Width="60" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="Label_BuyMenu_TicketAmount_Fastest" Content="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Width="40" HorizontalAlignment="Left" Background="White" VerticalAlignment="Bottom" Grid.Column="0"/>
+                        <Button x:Name="Button_BuyMenu_TicketAmount_Fastest_Increase" Content="+" Height="20" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_BuyMenu_TicketAmount_Increase_Click" Cursor="Hand" Grid.Column="1"/>
+                        <Button x:Name="Button_BuyMenu_TicketAmount_Fastest_Decrease" Content="-" Height="20" Width="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_BuyMenu_TicketAmount_Decrease_Click" Cursor="Hand" Grid.Column="1"/>
+                    </Grid>
+                </StackPanel>
             </Grid>
             <Grid x:Name="BuyMenu_TicketOptions_TicketMap" Margin="0,-5,0,5" Visibility="Collapsed">
                 <Grid.Resources>

@@ -659,7 +659,8 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             AddedTicket.Visibility = Visibility.Visible;
 
-            int amount = 1; //Aus entsprechendem Knopf auslesen
+            int amount = 1;
+            int.TryParse(Label_BuyMenu_TicketAmount_Cheapest.Content.ToString(), out amount);
             ETariffLevel tariffLevel = manager.StationGraph.GetRouteTariffLevel(manager.StationGraph.Graph.CheapestPath(startStation, destinationStation));
             PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel];
 
@@ -671,7 +672,8 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             AddedTicket.Visibility = Visibility.Visible;
 
-            int amount = 1; //Aus entsprechendem Knopf auslesen
+            int amount = 1;
+            int.TryParse(Label_BuyMenu_TicketAmount_Fastest.Content.ToString(), out amount);
             ETariffLevel tariffLevel = manager.StationGraph.GetRouteTariffLevel(manager.StationGraph.Graph.ShortestPath(startStation, destinationStation));
             PriceEntry usedPriceEntry = manager.PriceEntries[(int)currentSelectedAgeType, (int)tariffLevel];
 
@@ -1268,6 +1270,39 @@ namespace Ticketautomat
                 AddLogEntry("Preise angepasst");
                 UpdatePriceTableTexts();
             }           
+        }
+
+        private void Button_BuyMenu_TicketAmount_Decrease_Click(object sender, RoutedEventArgs e)
+        {
+            if (((Button)sender).Name == "Button_BuyMenu_TicketAmount_Fastest_Decrease")
+            {
+                int amount;
+                int.TryParse(Label_BuyMenu_TicketAmount_Fastest.Content.ToString(), out amount);
+                if (amount > 1)
+                    Label_BuyMenu_TicketAmount_Fastest.Content = amount - 1;
+            }
+            else
+            {
+                int amount;
+                int.TryParse(Label_BuyMenu_TicketAmount_Cheapest.Content.ToString(), out amount);
+                if (amount > 1)
+                    Label_BuyMenu_TicketAmount_Cheapest.Content = amount - 1;
+            }
+        }
+        private void Button_BuyMenu_TicketAmount_Increase_Click(object sender, RoutedEventArgs e)
+        {
+            if (((Button)sender).Name == "Button_BuyMenu_TicketAmount_Fastest_Increase")
+            {
+                int amount;
+                int.TryParse(Label_BuyMenu_TicketAmount_Fastest.Content.ToString(), out amount);
+                Label_BuyMenu_TicketAmount_Fastest.Content = amount + 1;
+            }
+            else
+            {
+                int amount;
+                int.TryParse(Label_BuyMenu_TicketAmount_Cheapest.Content.ToString(), out amount);
+                Label_BuyMenu_TicketAmount_Cheapest.Content = amount + 1;
+            }
         }
     }
     public struct Version
