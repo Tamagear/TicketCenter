@@ -420,6 +420,7 @@ namespace Ticketautomat
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
             Button_MaintenanceLogin.Visibility = Visibility.Visible;
+            UpdateTicketSpecifics();
         }
 
         private void GoTo_PriceTable()
@@ -581,6 +582,10 @@ namespace Ticketautomat
             }
             Label_ShoppingCart_Sum.Content = $"Preis insgesamt: {finalPrice:F2}€";
             Label_PayMenu_PaySum.Content = $"{manager.MoneyManager.SumLeft:F2}€";
+            if(manager.CurrentUser.ShoppingCart.Count == 0)
+            {
+                timerRuns = false;
+            }
         }
 
         private void Reset()
@@ -604,7 +609,6 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             GoTo_MainMenu();
 
-            //Unsicher ob richtig
             currentProfile = new Profile();
             manager.CurrentUser = currentProfile;
             manager.CurrentUser.Name = "Kunde";
