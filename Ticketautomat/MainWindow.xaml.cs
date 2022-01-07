@@ -368,6 +368,13 @@ namespace Ticketautomat
                 }
             }
 
+            foreach(KeyValuePair<Money, int> valuePair in manager.MoneyManager.MoneyFillState)
+            {
+                result += $"<fillstate>{valuePair.Value}</fillstate>";
+            }
+
+            result += $"<ticketpaperleft>{manager.MoneyManager.TicketPaperLeft}</ticketpaperleft>";
+
             return result;
         }
 

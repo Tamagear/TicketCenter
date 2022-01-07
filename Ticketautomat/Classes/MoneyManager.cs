@@ -13,6 +13,8 @@ namespace Ticketautomat.Classes
         private float m_sumLeft = 0f;
 
         private const int TICKET_PAPER_PER_ROLL = 1000;
+        private const int MONEY_FILL_DEFAULT_COIN = 100;
+        private const int MONEY_FILL_DEFAULT_BILL = 75;
 
         public Dictionary<Money, int> MoneyFillState { get { return m_moneyFillState; } set { m_moneyFillState = value; } }
         public int TicketPaperLeft { get => m_ticketPaperLeft; set => m_ticketPaperLeft = value; }
@@ -20,7 +22,7 @@ namespace Ticketautomat.Classes
         public float SumLeft { get => m_sumLeft; set => m_sumLeft = value; }
         public List<Money> AllMoneyTypes { get => m_allMoneyTypes; set => m_allMoneyTypes = value; }
 
-        public MoneyManager(List<int> p_fillStates = null)
+        public MoneyManager()
         {
             m_allMoneyTypes.Add(new Money(0.05f, EnumCollection.EMoneyType.COIN));
             m_allMoneyTypes.Add(new Money(0.10f, EnumCollection.EMoneyType.COIN));
@@ -33,8 +35,6 @@ namespace Ticketautomat.Classes
             m_allMoneyTypes.Add(new Money(20.00f, EnumCollection.EMoneyType.BILL));
             m_allMoneyTypes.Add(new Money(50.00f, EnumCollection.EMoneyType.BILL));
 
-            foreach (Money money in m_allMoneyTypes)
-                m_moneyFillState.Add(money, 1);     //1 später durch geladenen Wert ersetzen
             //Für jeden Geldtypen einen Eintrag im Dictionary erstellen
             //p_fillStates nutzen, um die Menge an Geld reinzutun
         }
@@ -56,6 +56,28 @@ namespace Ticketautomat.Classes
             }
 
             return null;
+        }
+
+        public void SetFillStates(List<int> p_fillStates)
+        {
+            m_moneyFillState.Clear();
+
+            if (p_fillStates.Count > 0)
+            {
+                for (int i = 0; i < m_allMoneyTypes.Count; i++)
+                {
+                    Money money = m_allMoneyTypes[i];
+                    m_moneyFillState.Add(money, p_fillStates[i]);
+                }
+            }
+            else
+            {
+                foreach (Money money in m_allMoneyTypes)
+                {
+                    int amount = money.MoneyType == EMoneyType.COIN ? MONEY_FILL_DEFAULT_COIN : MONEY_FILL_DEFAULT_BILL;
+                    m_moneyFillState.Add(money, amount);
+                }
+            }
         }
 
         /// <summary>
