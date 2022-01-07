@@ -19,6 +19,7 @@ namespace Ticketautomat
     {
         private Version version = new Version(0, 0, 3);
 
+        List<Money> tempAddedMoney = new List<Money>();
         private Profile currentProfile = null;
         private Manager manager = null;
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
@@ -73,7 +74,7 @@ namespace Ticketautomat
             base.OnContentRendered(e);
 
             HandleSystemData();
-            LoadFile();            
+            LoadFile();
             UpdateTexts();
             SetStartStation(manager.StationGraph.Graph.GetStation(0));
             SetDestinationStation(manager.StationGraph.Graph.GetStation(1));
@@ -130,7 +131,7 @@ namespace Ticketautomat
             DecryptFile(saveFilePath, tempFilePath);
             manager.LoadSavedData(File.ReadAllText(tempFilePath));
             File.Delete(tempFilePath);
-            for(int i=0; i<manager.LogEntries.Count; i++)
+            for (int i = 0; i < manager.LogEntries.Count; i++)
             {
                 dynamicLogs.Add(manager.LogEntries[i]);
             }
@@ -237,7 +238,7 @@ namespace Ticketautomat
             TextBox_AdminLogin_AdminUsername.Text = string.Empty;
             PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
 
-            AdminLogin.Visibility = Visibility.Visible;           
+            AdminLogin.Visibility = Visibility.Visible;
         }
 
         private void Button_PriceTable_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -382,8 +383,8 @@ namespace Ticketautomat
         {
             DateTime dateTime = DateTime.Now;           
             string autor = manager.CurrentUser.Name;            
-            manager.LogEntries.Add(new LogEntry(dateTime.ToString("G"), autor, content));
-            dynamicLogs.Add(new LogEntry(dateTime.ToString("G"), autor, content));
+            manager.LogEntries.Add(new LogEntry(dateTime.ToString(), autor, content));
+            dynamicLogs.Add(new LogEntry(dateTime.ToString(), autor, content));
             SaveFile();
         }
 
@@ -442,7 +443,7 @@ namespace Ticketautomat
             ShoppingCart.Visibility = Visibility.Collapsed;
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
-            Button_MaintenanceLogin.Visibility = Visibility.Collapsed;            
+            Button_MaintenanceLogin.Visibility = Visibility.Collapsed;
         }
 
         private void GoTo_AdminSavingsManagement()
@@ -585,6 +586,7 @@ namespace Ticketautomat
             currentProfile = new Profile();
             manager.CurrentUser = currentProfile;
             manager.CurrentUser.Name = "Kunde";
+            tickets.Clear();
         }
 
         private void Button_BuyMenu_TicketOptions_TariffOption_Adult_Click(object sender, RoutedEventArgs e)
@@ -693,9 +695,9 @@ namespace Ticketautomat
             List<Station> cheapestRoute = manager.StationGraph.Graph.CheapestPath(startStation, destinationStation);
             cheapestRoute.Reverse();
             bool hasComma = false;
-            for (int i=0; i<cheapestRoute.Count; i++)
+            for (int i = 0; i < cheapestRoute.Count; i++)
             {
-                if (i%2==1 || cheapestRoute.Count == 1)
+                if (i % 2 == 1 || cheapestRoute.Count == 1)
                 {
                     Button_BuyMenu_TicketSelection_Cheapest.Content += $"{(hasComma ? ", " : string.Empty)}{cheapestRoute[i].StationName}";
                     hasComma = true;
@@ -928,7 +930,7 @@ namespace Ticketautomat
 
             float addedMoney = int.Parse(moneyValue) / 100f;
             //Auf OverflowFehler achten!
-            manager.MoneyManager.InsertMoney(manager.MoneyManager.GetMoneyFromValue(addedMoney), 1);
+            tempAddedMoney.Add(manager.MoneyManager.GetMoneyFromValue(addedMoney));
             manager.MoneyManager.SumLeft -= addedMoney;
             UpdateTicketSpecifics();
 
@@ -936,6 +938,12 @@ namespace Ticketautomat
             {
                 //Entferne Wechselgeld
                 //Reset();
+                for(int i=0; i<tempAddedMoney.Count; i++)
+                {
+                    Console.WriteLine(tempAddedMoney.Count);
+                    manager.MoneyManager.InsertMoney(tempAddedMoney[i], 1);
+                }
+                tempAddedMoney.Clear();
                 GoTo_PDFExportMenu();
             }
         }
@@ -957,6 +965,16 @@ namespace Ticketautomat
         {
             manager.ResetTimeUntilTimeout();
             GoTo_ShoppingCart();
+            //Altes Geld auswerfen
+        }
+
+        private void Button_PDFExportMenu_GoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            manager.ResetTimeUntilTimeout();
+            manager.CurrentUser.ShoppingCart.Clear();
+            tickets.Clear();
+            UpdateTicketSpecifics();
+            GoTo_MainMenu();
             //Altes Geld auswerfen
         }
 
@@ -1003,7 +1021,7 @@ namespace Ticketautomat
                             int menge = tickets[i].Item2;
                             tickets.RemoveAt(i);
                             tickets.Insert(i, new Tuple<Ticket, int, string>(item.Item1, menge, "AntiqueWhite"));
-                        }                        
+                        }
                     }
                 }
             }
@@ -1276,7 +1294,7 @@ namespace Ticketautomat
                 AdminChangePricesMenu_ChangeDialogue.Visibility = Visibility.Collapsed;
                 AddLogEntry("Preise angepasst");
                 UpdatePriceTableTexts();
-            }           
+            }
         }
 
         private void Button_BuyMenu_TicketAmount_Decrease_Click(object sender, RoutedEventArgs e)
