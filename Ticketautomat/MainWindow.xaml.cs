@@ -926,7 +926,7 @@ namespace Ticketautomat
             if(manager.MoneyManager.TicketPaperLeft < amountOfTickets)
             {
                 AddLogEntry("Nicht genug Tickets vorhanden um den Kauf abzuschließen");
-                Label_ShoppingCart_Sum.Content = "Der Ticketspeicher ist leer";                
+                ShowError($"Es sind nicht genug Tickets im Ticketspeicher vorhanden\nTicketspeicher: {manager.MoneyManager.TicketPaperLeft} Stück übrig");
             }
             else
             {
