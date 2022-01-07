@@ -790,7 +790,7 @@ namespace Ticketautomat
                 currentProfile = manager.CurrentUser;
                 TextBox_AdminLogin_AdminUsername.Text = string.Empty;
                 PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
-                AddLogEntry($"Erfolgreiche Anmeldung. Benutzer: {TextBox_AdminLogin_AdminUsername.Text}");
+                AddLogEntry($"Erfolgreiche Anmeldung");
             }
             else
             {
