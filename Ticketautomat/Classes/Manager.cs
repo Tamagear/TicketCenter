@@ -76,7 +76,6 @@ namespace Ticketautomat.Classes
             {
                 if (!string.IsNullOrEmpty(line) && StringHelpers.XML_IsValid(line, "date"))
                 {
-                    Console.WriteLine(line);
                     string date = StringHelpers.XML_GetSingle2(line, "date");                    
                     string author = StringHelpers.XML_GetSingle2(line, "author");
                     string content = StringHelpers.XML_GetSingle2(line, "content");

@@ -309,7 +309,7 @@
                     <ListBox Name="List_Logs" Margin="20" HorizontalAlignment="Left" Width="640">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="{Binding Item3}">
+                                <StackPanel Orientation="Horizontal">
                                     <TextBlock Margin="0,10,0,10" Text="{Binding Date}"/>
                                     <TextBlock Margin="20,10,0,10" Text="{Binding Author}"/>
                                     <TextBlock Margin="20,10,0,10" Text="{Binding Content}"/>
