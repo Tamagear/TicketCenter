@@ -130,10 +130,13 @@ namespace Ticketautomat.Classes
         {
             MergeDocument mergeDocument = new MergeDocument();
 
-            foreach (var item in ShoppingCart)
+            foreach (KeyValuePair<Ticket, int> item in ShoppingCart)
             {
-                item.Key.ToPDF("CreatePdf.pdf");
-                mergeDocument.Append("CreatePdf.pdf");
+                for (int i = 0; i < item.Value; i++)
+                {
+                    item.Key.ToPDF("CreatePdf.pdf");
+                    mergeDocument.Append("CreatePdf.pdf");
+                }
             }
             mergeDocument.Draw(p_text);
         }
