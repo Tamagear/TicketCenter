@@ -10,12 +10,12 @@ namespace Ticketautomat.Classes
         private bool m_enabled = true;
         private float m_timeUntilTimeout = 0;
         private List<LogEntry> m_logEntries = new List<LogEntry>();
+        private List<DateTime> m_statistics = new List<DateTime>();
         private PriceEntry[,] m_priceEntries = new PriceEntry[4, 3];
         private MoneyManager m_moneyManager = new MoneyManager();
         private StationGraph m_stationGraph = new StationGraph();
 
         private const float TIMEOUT_THRESHOLD = 180f;
-        private const int TICKET_PAPER_MAX = 1000;
 
         public Profile CurrentUser { get => m_currentUser; set => m_currentUser = value; }
         public bool Enabled { get => m_enabled; set => m_enabled = value; }
@@ -130,7 +130,7 @@ namespace Ticketautomat.Classes
             if (StringHelpers.XML_IsValid(ticketPapierInput, "ticketpaperleft") && int.TryParse(ticketPapierInput, out int ticketPaperLeft))
                 MoneyManager.TicketPaperLeft = ticketPaperLeft;
             else
-                MoneyManager.TicketPaperLeft = TICKET_PAPER_MAX;
+                MoneyManager.RefillTicketPaper();
         }
 
         /// <summary>
