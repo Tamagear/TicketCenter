@@ -383,8 +383,8 @@ namespace Ticketautomat
         {
             DateTime dateTime = DateTime.Now;           
             string autor = manager.CurrentUser.Name;            
-            manager.LogEntries.Add(new LogEntry(dateTime.ToString(), autor, content));
-            dynamicLogs.Add(new LogEntry(dateTime.ToString(), autor, content));
+            manager.LogEntries.Add(new LogEntry(dateTime.ToString("G"), autor, content));
+            dynamicLogs.Add(new LogEntry(dateTime.ToString("G"), autor, content));
             SaveFile();
         }
 
