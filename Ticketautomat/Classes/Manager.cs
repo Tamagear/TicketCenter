@@ -24,6 +24,7 @@ namespace Ticketautomat.Classes
         public PriceEntry[,] PriceEntries { get => m_priceEntries; set => m_priceEntries = value; } //AgeType, TariffLevel
         public MoneyManager MoneyManager { get => m_moneyManager; }
         public StationGraph StationGraph { get => m_stationGraph; }
+        public List<DateTime> Statistics { get => m_statistics; set => m_statistics = value; }
 
         /// <summary>
         /// Erstellt eine Managerklasse mit einen Nutzer
@@ -126,11 +127,22 @@ namespace Ticketautomat.Classes
             MoneyManager.SetFillStates(fillStates);
 
             //Lade TicketPaperLeft
-            string ticketPapierInput = StringHelpers.XML_GetSingle(p_input, "ticketpaperleft");
-            if (StringHelpers.XML_IsValid(ticketPapierInput, "ticketpaperleft") && int.TryParse(ticketPapierInput, out int ticketPaperLeft))
+            if (StringHelpers.XML_ContainsTag(p_input, "ticketpaperleft") && int.TryParse(StringHelpers.XML_GetSingle(p_input, "ticketpaperleft"), out int ticketPaperLeft))
                 MoneyManager.TicketPaperLeft = ticketPaperLeft;
             else
                 MoneyManager.RefillTicketPaper();
+
+            //Lade Statistiken           
+            if (StringHelpers.XML_ContainsTag(p_input, "statistics"))
+            {
+                string readStatistics = StringHelpers.XML_GetSingle(p_input, "statistics");
+                string[] dates = readStatistics.Split(',');
+                foreach(string date in dates)
+                {
+                    if (DateTime.TryParse(date, out DateTime result))                    
+                        m_statistics.Add(result);                    
+                }
+            }
         }
 
         /// <summary>
@@ -166,11 +178,22 @@ namespace Ticketautomat.Classes
         }
 
         /// <summary>
-        /// W.I.P
+        /// Beendet die Transaktion, "druckt" die Tickets und fügt die gekauften Tickets den Statistiken hinzu.
         /// </summary>
-        public void FinalizeTransaction()
+        /// <param name="p_shoppingCart">Der Einkauf</param>
+        public void FinalizeTransaction(Dictionary<Ticket, int> p_shoppingCart)
         {
+            int ticketAmount = 0;
+            foreach(KeyValuePair<Ticket, int> keyValuePair in p_shoppingCart)
+            {
+                ticketAmount += keyValuePair.Value;
+                for (int i=0; i<keyValuePair.Value; i++)
+                {
+                    m_statistics.Add(keyValuePair.Key.Date);
+                }
+            }
 
+            MoneyManager.TicketPaperLeft -= ticketAmount;
         }
 
         /// <summary>
