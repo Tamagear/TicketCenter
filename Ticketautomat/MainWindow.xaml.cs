@@ -951,7 +951,6 @@ namespace Ticketautomat
                 //Reset();
                 for (int i = 0; i < tempAddedMoney.Count; i++)
                 {
-                    Console.WriteLine(tempAddedMoney.Count);
                     manager.MoneyManager.InsertMoney(tempAddedMoney[i], 1);
                 }
                 int j = manager.MoneyManager.MoneyFillState.Count - 1;
@@ -969,6 +968,8 @@ namespace Ticketautomat
                     }
                 }
 
+                Label_BuyMenu_TicketAmount_Cheapest.Content = 1;
+                Label_BuyMenu_TicketAmount_Fastest.Content = 1;
                 tempAddedMoney.Clear();
                 FinalizeTransaction();
                 GoTo_PDFExportMenu();
