@@ -7,3 +7,5 @@ Ticketautomat/bin/Debug/data/spotlight.txt
 Ticketautomat/bin/Release/data/savefile.txt
 Ticketautomat/bin/Release/data/motd.txt
 Ticketautomat/bin/Release/data/spotlight.txt
+
+*.txt
