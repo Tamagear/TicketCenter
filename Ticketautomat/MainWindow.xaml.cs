@@ -136,7 +136,7 @@ namespace Ticketautomat
             DecryptFile(saveFilePath, tempFilePath);
             manager.LoadSavedData(File.ReadAllText(tempFilePath));
             File.Delete(tempFilePath);
-            for (int i = 0; i < manager.LogEntries.Count; i++)
+            for (int i = manager.LogEntries.Count-1; i >= 0; i--)
             {
                 dynamicLogs.Add(manager.LogEntries[i]);
             }
@@ -400,7 +400,10 @@ namespace Ticketautomat
             DateTime dateTime = DateTime.Now;
             string autor = manager.CurrentUser.Name;
             manager.LogEntries.Add(new LogEntry(dateTime.ToString("G"), autor, content));
+            dynamicLogs = new ObservableCollection<LogEntry>(dynamicLogs.Reverse());
             dynamicLogs.Add(new LogEntry(dateTime.ToString("G"), autor, content));
+            dynamicLogs = new ObservableCollection<LogEntry>(dynamicLogs.Reverse());
+            List_Logs.ItemsSource = dynamicLogs;
             SaveFile();
         }
 
