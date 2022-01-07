@@ -766,7 +766,7 @@ namespace Ticketautomat
                 {
                     int menge = tickets[i].Item2;
                     tickets.RemoveAt(i);
-                    tickets.Add(new Tuple<Ticket, int, string>(addTicket, amount + menge, "white"));
+                    tickets.Insert(i, new Tuple<Ticket, int, string>(addTicket, amount + menge, "white"));
                     exists = true;
                     break;
                 }
