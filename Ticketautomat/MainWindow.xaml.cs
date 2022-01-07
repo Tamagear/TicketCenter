@@ -765,7 +765,7 @@ namespace Ticketautomat
             bool exists = false;
             for (int i = 0; i < tickets.Count; i++)
             {
-                if (tickets[i].Item1 == addTicket)
+                if (tickets[i].Item1.Customer.Name.Equals(addTicket.Customer.Name) && addTicket.StartStation.Equals(tickets[i].Item1.StartStation) && addTicket.TargetDestination.Equals(tickets[i].Item1.TargetDestination) && addTicket.PriceEntry.Equals(tickets[i].Item1.PriceEntry))
                 {
                     int menge = tickets[i].Item2;
                     tickets.RemoveAt(i);
