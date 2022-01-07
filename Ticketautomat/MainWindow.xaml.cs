@@ -369,12 +369,23 @@ namespace Ticketautomat
                 }
             }
 
+            //MoneyFillState
             foreach(KeyValuePair<Money, int> valuePair in manager.MoneyManager.MoneyFillState)
             {
                 result += $"<fillstate>{valuePair.Value}</fillstate>";
             }
 
+            //TicketPaperLeft
             result += $"<ticketpaperleft>{manager.MoneyManager.TicketPaperLeft}</ticketpaperleft>";
+
+            //Statistics
+            result += "<statistics>";
+            for (int i = 0; i < manager.Statistics.Count; i++)
+            {
+                DateTime statistic = manager.Statistics[i];
+                result += $"{statistic:g}{(i < manager.Statistics.Count - 1 ? "," : string.Empty)}";
+            }
+            result += "</statistics>";
 
             return result;
         }
@@ -943,7 +954,9 @@ namespace Ticketautomat
                     Console.WriteLine(tempAddedMoney.Count);
                     manager.MoneyManager.InsertMoney(tempAddedMoney[i], 1);
                 }
+
                 tempAddedMoney.Clear();
+                FinalizeTransaction();
                 GoTo_PDFExportMenu();
             }
         }
@@ -1329,6 +1342,11 @@ namespace Ticketautomat
                 int.TryParse(Label_BuyMenu_TicketAmount_Cheapest.Content.ToString(), out amount);
                 Label_BuyMenu_TicketAmount_Cheapest.Content = amount + 1;
             }
+        }
+
+        private void FinalizeTransaction()
+        {
+            manager.FinalizeTransaction(currentProfile.ShoppingCart);
         }
     }
 
