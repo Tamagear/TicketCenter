@@ -32,6 +32,11 @@
             MONTH,
             COMPLETE
         }
+        public enum EStatisticTimespanType
+        {
+            TIMESPAN,
+            PER_TIME_OF_DAY
+        }
         public enum ETariffLevel
         {
             TARIFF_A,

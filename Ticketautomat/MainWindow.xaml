@@ -440,7 +440,36 @@
         <Grid x:Name="AdminStatistics" Visibility="Collapsed">
             <Rectangle x:Name="Rectangle_AdminStatistics_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Label x:Name="Label_AdminStatistics_Title" Content="STATISTIKEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
+            <Label x:Name="Label_AdminStatistics_CurrentStatistics" Content="Alle / Zeitspanne" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,722,0,0"/>
             <Button x:Name="Button_AdminStatistics_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_AdminSavingsManagement_GoBackButton_Click" Cursor="Hand"/>
+            <Button x:Name="Button_AdminStatistics_TimespanButton" Content="Zeitraum" Height="50" Width="200" FontSize="25" Cursor="Hand" Click="Button_AdminStatistics_TimespanButton_Click" Margin="223,790,1177,60"/>
+            <Button x:Name="Button_AdminStatistics_PerTimeOfDayButton" Content="Pro Tageszeit" Height="50" Width="200" FontSize="25" Cursor="Hand" Click="Button_AdminStatistics_PerTimeOfDayButton_Click" Margin="428,790,972,60"/>
+            <Button x:Name="Button_AdminStatistics_GraphButton" Content="Graph" Height="50" Width="200" FontSize="25" Cursor="Hand" Click="Button_AdminStatistics_GraphButton_Click" Margin="633,790,767,60"/>
+            <Button x:Name="Button_AdminStatistics_TableButton" Content="Tabelle" Height="50" Width="200" FontSize="25" Cursor="Hand" Click="Button_AdminStatistics_TableButton_Click" Margin="838,790,562,60"/>
+            <Grid x:Name="AdminStatistics_BarChart" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                <Canvas x:Name="Canvas_AdminStatistics_BarChartCanvas"/>
+            </Grid>
+            <Grid x:Name="AdminStatistics_Table" Visibility="Collapsed">
+                <Rectangle Width="5" Height="500" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="ForestGreen"/>
+                <TextBlock x:Name="TextBlock_AdminStatistics_Table_LeftTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center" Width="700" Height="500" FontSize="25" Margin="50, 0" TextAlignment="Right"/>
+                <TextBlock x:Name="TextBlock_AdminStatistics_Table_RightTextBlock" HorizontalAlignment="Right" VerticalAlignment="Center" Width="700" Height="500" FontSize="25" Margin="50, 0" TextAlignment="Left"/>
+            </Grid>
+            <Grid x:Name="AdminStatistics_TimeTypeButtonsGrid" Margin="58,790,1382,60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="10px"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="10px"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="10px"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="10px"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="Button_AdminStatistics_TimeTypeButton_Day" Grid.Column="0" Content="D" Cursor="Hand" Click="AdminStatistics_TimeTypeButton_Day_Click"/>
+                <Button x:Name="Button_AdminStatistics_TimeTypeButton_Week" Grid.Column="2" Content="W" Cursor="Hand" Click="AdminStatistics_TimeTypeButton_Week_Click"/>
+                <Button x:Name="Button_AdminStatistics_TimeTypeButton_Month" Grid.Column="4" Content="M" Cursor="Hand" Click="AdminStatistics_TimeTypeButton_Month_Click"/>
+                <Button x:Name="Button_AdminStatistics_TimeTypeButton_Complete" Grid.Column="6" Content="G" Cursor="Hand" Click="AdminStatistics_TimeTypeButton_Complete_Click"/>
+            </Grid>
         </Grid>
         <Grid x:Name="DisabledScreen" Visibility="Collapsed">
             <Rectangle x:Name="Rectangle_DisableScreen_Background" Opacity="0.95" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>

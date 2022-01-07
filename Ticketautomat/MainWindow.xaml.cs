@@ -9,6 +9,8 @@ using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using Ticketautomat.Classes;
 using static Ticketautomat.Classes.EnumCollection;
+using System.Windows.Shapes;
+using System.Windows.Media;
 
 namespace Ticketautomat
 {
@@ -25,6 +27,9 @@ namespace Ticketautomat
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
         private EAgeType currentAdminChangePriceAgeType = EAgeType.ADULT;
         private ETariffLevel currentAdminChangePriceTariffLevel = ETariffLevel.TARIFF_A;
+        private EStatisticDisplay currentStatisticDisplayMode = EStatisticDisplay.GRAPH;
+        private EStatisticTimeType currentStatisticTimeType = EStatisticTimeType.COMPLETE;
+        private EStatisticTimespanType currentStatisticTimespanType = EStatisticTimespanType.TIMESPAN;
         private bool timerRuns = false;
         private bool ticketMapIsSelectingDestination = false;
         private Thickness ticketMapMarginStart = new Thickness(0f, -5f, 0f, 5f);
@@ -498,6 +503,9 @@ namespace Ticketautomat
             ShoppingCart.Visibility = Visibility.Collapsed;
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
+
+            //Modus-Auswahl
+            ShowStatisticsWithCurrentOptions();
         }
 
         private void GoTo_ShoppingCart()
@@ -1348,6 +1356,223 @@ namespace Ticketautomat
         {
             manager.FinalizeTransaction(currentProfile.ShoppingCart);
         }
+
+        private void ShowStatisticsWithCurrentOptions()
+        {
+            //Switch auf die Optionen
+            List<BarChartItem> chartItems = new List<BarChartItem>();
+            Dictionary<string, int> valuePairs = new Dictionary<string, int>();
+            DateTime now = DateTime.Now;
+
+            Button_AdminStatistics_TimeTypeButton_Day.IsEnabled = currentStatisticTimeType != EStatisticTimeType.DAY;
+            Button_AdminStatistics_TimeTypeButton_Week.IsEnabled = currentStatisticTimeType != EStatisticTimeType.WEEK;
+            Button_AdminStatistics_TimeTypeButton_Month.IsEnabled = currentStatisticTimeType != EStatisticTimeType.MONTH;
+            Button_AdminStatistics_TimeTypeButton_Complete.IsEnabled = currentStatisticTimeType != EStatisticTimeType.COMPLETE;
+            Button_AdminStatistics_TimespanButton.IsEnabled = currentStatisticTimespanType != EStatisticTimespanType.TIMESPAN;
+            Button_AdminStatistics_PerTimeOfDayButton.IsEnabled = currentStatisticTimespanType != EStatisticTimespanType.PER_TIME_OF_DAY;
+            Button_AdminStatistics_GraphButton.IsEnabled = currentStatisticDisplayMode != EStatisticDisplay.GRAPH;
+            Button_AdminStatistics_TableButton.IsEnabled = currentStatisticDisplayMode != EStatisticDisplay.TABLE;
+
+            string timeType = currentStatisticTimeType == EStatisticTimeType.DAY ? "Tag" : currentStatisticTimeType == EStatisticTimeType.WEEK ? "Woche" : currentStatisticTimeType == EStatisticTimeType.MONTH ? "Monat" : "Gesamt";
+            string timespanType = currentStatisticTimespanType == EStatisticTimespanType.TIMESPAN ? "Zeitraum" : "Pro Tageszeit";
+            string displayMode = currentStatisticDisplayMode == EStatisticDisplay.GRAPH ? "Graph" : "Tabelle";
+
+            Label_AdminStatistics_CurrentStatistics.Content = $"{timeType} / {timespanType} / {displayMode}";
+
+            //Auch leere Einträge anzeigen! Also Dictionary vorfertigen?
+
+            for (int i=0; i<manager.Statistics.Count; i++)
+            {
+                if (currentStatisticTimeType == EStatisticTimeType.COMPLETE
+                    || currentStatisticTimeType == EStatisticTimeType.MONTH && manager.Statistics[i].Month == now.Month
+                    || currentStatisticTimeType == EStatisticTimeType.WEEK && manager.Statistics[i].Day-now.Day < 7 
+                    && (manager.Statistics[i].DayOfWeek > 0 && manager.Statistics[i].DayOfWeek < now.DayOfWeek || manager.Statistics[i].DayOfWeek == 0 && now.DayOfWeek > 0)
+                    || currentStatisticTimeType == EStatisticTimeType.DAY && manager.Statistics[i].Day == now.Day)
+                {
+                    string usedKey = manager.Statistics[i].ToString(currentStatisticTimespanType == EStatisticTimespanType.TIMESPAN ? "d" : "HH:mm"); //richtiges Format
+
+                    if (valuePairs.ContainsKey(usedKey))
+                        valuePairs[usedKey]++;
+                    else
+                        valuePairs.Add(usedKey, 1);
+                }
+            }
+            
+            foreach(KeyValuePair<string, int> pair in valuePairs)
+                chartItems.Add(new BarChartItem(pair.Key, pair.Value));
+
+            if (currentStatisticDisplayMode == EStatisticDisplay.GRAPH)
+            {
+                AdminStatistics_BarChart.Visibility = Visibility.Visible;
+                AdminStatistics_Table.Visibility = Visibility.Collapsed;
+                PaintChart(chartItems);
+            }
+            else
+            {
+                AdminStatistics_BarChart.Visibility = Visibility.Collapsed;
+                AdminStatistics_Table.Visibility = Visibility.Visible;
+                TextBlock_AdminStatistics_Table_LeftTextBlock.Text = string.Empty;
+                TextBlock_AdminStatistics_Table_RightTextBlock.Text = string.Empty;
+
+                foreach (BarChartItem item in chartItems)
+                {
+                    TextBlock_AdminStatistics_Table_LeftTextBlock.Text += $"{item.header}\n";
+                    TextBlock_AdminStatistics_Table_RightTextBlock.Text += $"{item.value}\n";
+                }
+            }
+        }
+
+        //Danke an Kareem Sulthan: https://github.com/kareemsulthan07/Charts/tree/master/2DColumnChart
+        private void PaintChart(List<BarChartItem> chartItems)
+        {
+            Canvas_AdminStatistics_BarChartCanvas.Children.Clear();
+            try
+            {
+                float chartWidth = 1450, chartHeight = 700, axisMargin = 100, yAxisInterval = 100, blockMargin = 15f;
+                float blockWidth = (chartWidth - blockMargin * chartItems.Count) / (chartItems.Count * 1.2f);
+
+                float highestRoundedValue = -1f;
+
+                #region highestRoundedValue
+                foreach (BarChartItem item in chartItems)                
+                    if (highestRoundedValue < item.value)
+                        highestRoundedValue = item.value;
+
+                if (highestRoundedValue > 10f && highestRoundedValue < 100f)
+                    while (highestRoundedValue % 10f != 0)
+                        highestRoundedValue++;
+                else if (highestRoundedValue > 100f && highestRoundedValue < 1000f)
+                    while (highestRoundedValue % 100f != 0)
+                        highestRoundedValue++;
+                else if (highestRoundedValue > 1000f && highestRoundedValue < 10000f)
+                    while (highestRoundedValue % 1000f != 0)
+                        highestRoundedValue++;
+                else if (highestRoundedValue > 10000f && highestRoundedValue < 100000f)
+                    while (highestRoundedValue % 10000f != 0)
+                        highestRoundedValue++;
+                else if (highestRoundedValue > 100000f && highestRoundedValue < 1000000f)
+                    while (highestRoundedValue % 100000f != 0)
+                        highestRoundedValue++;
+                #endregion
+
+                Canvas_AdminStatistics_BarChartCanvas.Width = chartWidth;
+                Canvas_AdminStatistics_BarChartCanvas.Height = chartHeight;
+
+                Point yAxisEndPoint = new Point(axisMargin, axisMargin); //1PX = 1 Value {multiplier hinzufügen}
+                Point origin = new Point(axisMargin, chartHeight - axisMargin);
+                Point xAxisEndPoint = new Point(chartWidth - axisMargin, chartHeight - axisMargin);                
+
+                double yValue = 0;
+                var yAxisValue = origin.Y;
+                while (yAxisValue >= yAxisEndPoint.Y)
+                {                    
+                    Line yLine = new Line()
+                    {
+                        Stroke = Brushes.LightGray,
+                        StrokeThickness = 1,
+                        X1 = origin.X,
+                        Y1 = yAxisValue,
+                        X2 = xAxisEndPoint.X,
+                        Y2 = yAxisValue,
+                    };
+                    Canvas_AdminStatistics_BarChartCanvas.Children.Add(yLine);
+
+                    TextBlock yAxisTextBlock = new TextBlock()
+                    {
+                        Text = $"{yValue}",
+                        Foreground = Brushes.Black,
+                        FontSize = 16,
+                    };
+                    Canvas_AdminStatistics_BarChartCanvas.Children.Add(yAxisTextBlock);
+
+                    Canvas.SetLeft(yAxisTextBlock, origin.X - 35);
+                    Canvas.SetTop(yAxisTextBlock, yAxisValue - 12.5);
+
+                    yAxisValue -= yAxisInterval;
+                    yValue = Math.Ceiling(yValue + (yAxisInterval/500f) * highestRoundedValue);
+                }
+
+                var margin = origin.X + blockMargin;
+                for (int i = 0; i < chartItems.Count; i++)
+                {
+                    BarChartItem item = chartItems[i];
+                    Rectangle block = new Rectangle()
+                    {
+                        Fill = Brushes.ForestGreen,
+                        Width = blockWidth,
+                        Height = item.value * (500f / highestRoundedValue),
+                    };
+
+                    Canvas_AdminStatistics_BarChartCanvas.Children.Add(block);
+                    Canvas.SetLeft(block, margin);
+                    Canvas.SetTop(block, origin.Y - block.Height);
+
+                    TextBlock blockHeader = new TextBlock()
+                    {
+                        Text = item.header,
+                        FontSize = 16,
+                        Foreground = Brushes.Black,
+                        Width = blockWidth,
+                        TextAlignment = TextAlignment.Center,
+                    };
+
+                    Canvas_AdminStatistics_BarChartCanvas.Children.Add(blockHeader);
+                    Canvas.SetLeft(blockHeader, margin + 10);
+                    Canvas.SetTop(blockHeader, origin.Y + 5 + (i % 2 == 1 ? 20 : 0));
+
+                    margin += (blockWidth + blockMargin);
+                }
+            }
+            catch (Exception) { }
+        }
+
+        private void AdminStatistics_TimeTypeButton_Day_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticTimeType = EStatisticTimeType.DAY;
+            ShowStatisticsWithCurrentOptions();
+        }
+
+        private void AdminStatistics_TimeTypeButton_Week_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticTimeType = EStatisticTimeType.WEEK;
+            ShowStatisticsWithCurrentOptions();
+        }
+
+        private void AdminStatistics_TimeTypeButton_Month_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticTimeType = EStatisticTimeType.MONTH;
+            ShowStatisticsWithCurrentOptions();
+        }
+
+        private void AdminStatistics_TimeTypeButton_Complete_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticTimeType = EStatisticTimeType.COMPLETE;
+            ShowStatisticsWithCurrentOptions();
+        }
+
+        private void Button_AdminStatistics_TimespanButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticTimespanType = EStatisticTimespanType.TIMESPAN;
+            ShowStatisticsWithCurrentOptions();
+        }
+
+        private void Button_AdminStatistics_PerTimeOfDayButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticTimespanType = EStatisticTimespanType.PER_TIME_OF_DAY;
+            ShowStatisticsWithCurrentOptions();
+        }
+
+        private void Button_AdminStatistics_GraphButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticDisplayMode = EStatisticDisplay.GRAPH;
+            ShowStatisticsWithCurrentOptions();
+        }
+
+        private void Button_AdminStatistics_TableButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentStatisticDisplayMode = EStatisticDisplay.TABLE;
+            ShowStatisticsWithCurrentOptions();
+        }
     }
 
     public struct Version
@@ -1368,6 +1593,18 @@ namespace Ticketautomat
         public override string ToString()
         {
             return $"{major}.{minor}.{subMinor}";
+        }
+    }
+
+    public struct BarChartItem
+    {
+        public string header;
+        public int value;
+
+        public BarChartItem(string _header, int _value)
+        {
+            header = _header;
+            value = _value;
         }
     }
 }
