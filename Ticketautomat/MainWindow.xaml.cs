@@ -375,7 +375,7 @@ namespace Ticketautomat
             }
 
             //MoneyFillState
-            foreach(KeyValuePair<Money, int> valuePair in manager.MoneyManager.MoneyFillState)
+            foreach (KeyValuePair<Money, int> valuePair in manager.MoneyManager.MoneyFillState)
             {
                 result += $"<fillstate>{valuePair.Value}</fillstate>";
             }
@@ -397,8 +397,8 @@ namespace Ticketautomat
 
         private void AddLogEntry(string content)
         {
-            DateTime dateTime = DateTime.Now;           
-            string autor = manager.CurrentUser.Name;            
+            DateTime dateTime = DateTime.Now;
+            string autor = manager.CurrentUser.Name;
             manager.LogEntries.Add(new LogEntry(dateTime.ToString("G"), autor, content));
             dynamicLogs.Add(new LogEntry(dateTime.ToString("G"), autor, content));
             SaveFile();
@@ -798,7 +798,7 @@ namespace Ticketautomat
                 currentProfile = manager.CurrentUser;
                 TextBox_AdminLogin_AdminUsername.Text = string.Empty;
                 PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
-                AddLogEntry($"Erfolgreiche Anmeldung. Benutzer: {TextBox_AdminLogin_AdminUsername.Text}");
+                AddLogEntry($"Erfolgreiche Anmeldung");
             }
             else
             {
@@ -918,7 +918,20 @@ namespace Ticketautomat
         private void Button_ShoppingCart_PayNowButton_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            GoTo_PayMenu();
+            int amountOfTickets = 0;
+            foreach (var item in manager.CurrentUser.ShoppingCart)
+            {
+                amountOfTickets += item.Value;
+            }
+            if(manager.MoneyManager.TicketPaperLeft < amountOfTickets)
+            {
+                AddLogEntry("Nicht genug Tickets vorhanden um den Kauf abzuschließen");
+                Label_ShoppingCart_Sum.Content = "Der Ticketspeicher ist leer";                
+            }
+            else
+            {
+                GoTo_PayMenu();
+            }
         }
 
         private void Button_AddedTicket_CancelButton_Click(object sender, RoutedEventArgs e)
@@ -957,12 +970,34 @@ namespace Ticketautomat
             {
                 //Entferne Wechselgeld
                 //Reset();
-                for(int i=0; i<tempAddedMoney.Count; i++)
+                for (int i = 0; i < tempAddedMoney.Count; i++)
                 {
-                    Console.WriteLine(tempAddedMoney.Count);
                     manager.MoneyManager.InsertMoney(tempAddedMoney[i], 1);
                 }
-
+                int j = manager.MoneyManager.MoneyFillState.Count - 1;
+                while (manager.MoneyManager.SumLeft < 0f && j >= 0)
+                {
+                    double sumleft = Math.Round((double)manager.MoneyManager.SumLeft, 2);
+                    if (manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] > 0 && manager.MoneyManager.AllMoneyTypes[j].Value + sumleft <= 0.01f)
+                    {
+                        manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] = manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] - 1;
+                        manager.MoneyManager.SumLeft += manager.MoneyManager.AllMoneyTypes[j].Value;
+                    }
+                    else
+                    {
+                        if(manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] == 0)
+                        {
+                            AddLogEntry($"Der Geldspeicher von {manager.MoneyManager.AllMoneyTypes[j].Value}€ ist leer");
+                        }
+                        j--;
+                    }
+                }
+                if(Math.Round((double)manager.MoneyManager.SumLeft, 2) != 0)
+                {
+                    AddLogEntry($"Nicht genug Wechselgeld im Automat vorhanden. Restsumme: {Math.Round((double)manager.MoneyManager.SumLeft, 2)}");
+                }
+                Label_BuyMenu_TicketAmount_Cheapest.Content = 1;
+                Label_BuyMenu_TicketAmount_Fastest.Content = 1;
                 tempAddedMoney.Clear();
                 FinalizeTransaction();
                 GoTo_PDFExportMenu();
@@ -1335,7 +1370,7 @@ namespace Ticketautomat
                     Label_BuyMenu_TicketAmount_Cheapest.Content = amount - 1;
             }
         }
-        
+
         private void Button_BuyMenu_TicketAmount_Increase_Click(object sender, RoutedEventArgs e)
         {
             if (((Button)sender).Name == "Button_BuyMenu_TicketAmount_Fastest_Increase")
