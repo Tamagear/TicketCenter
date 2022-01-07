@@ -15,6 +15,7 @@ namespace Ticketautomat.Classes
         private StationGraph m_stationGraph = new StationGraph();
 
         private const float TIMEOUT_THRESHOLD = 180f;
+        private const int TICKET_PAPER_MAX = 1000;
 
         public Profile CurrentUser { get => m_currentUser; set => m_currentUser = value; }
         public bool Enabled { get => m_enabled; set => m_enabled = value; }
@@ -106,6 +107,30 @@ namespace Ticketautomat.Classes
             {
                 WriteDefaultPriceEntries();
             }
+
+            //Lade FillStates
+            List<string> fillentries = StringHelpers.XML_Get(p_input, "fillstate");
+            List<int> fillStates = new List<int>();
+            if (fillentries.Count > 0)
+            {
+                for (int i = 0; i < fillentries.Count; i++)
+                {
+                    string line = fillentries[i];
+                    if (!string.IsNullOrEmpty(line) && int.TryParse(line, out int fillState))
+                    {
+                        fillStates.Add(fillState);
+                    }
+                }
+            }
+
+            MoneyManager.SetFillStates(fillStates);
+
+            //Lade TicketPaperLeft
+            string ticketPapierInput = StringHelpers.XML_GetSingle(p_input, "ticketpaperleft");
+            if (StringHelpers.XML_IsValid(ticketPapierInput, "ticketpaperleft") && int.TryParse(ticketPapierInput, out int ticketPaperLeft))
+                MoneyManager.TicketPaperLeft = ticketPaperLeft;
+            else
+                MoneyManager.TicketPaperLeft = TICKET_PAPER_MAX;
         }
 
         /// <summary>

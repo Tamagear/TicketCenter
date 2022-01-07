@@ -369,13 +369,20 @@ namespace Ticketautomat
                 }
             }
 
+            foreach(KeyValuePair<Money, int> valuePair in manager.MoneyManager.MoneyFillState)
+            {
+                result += $"<fillstate>{valuePair.Value}</fillstate>";
+            }
+
+            result += $"<ticketpaperleft>{manager.MoneyManager.TicketPaperLeft}</ticketpaperleft>";
+
             return result;
         }
 
         private void AddLogEntry(string content)
         {
-            DateTime dateTime = DateTime.Now;
-            string autor = manager.CurrentUser.Name;
+            DateTime dateTime = DateTime.Now;           
+            string autor = manager.CurrentUser.Name;            
             manager.LogEntries.Add(new LogEntry(dateTime.ToString(), autor, content));
             dynamicLogs.Add(new LogEntry(dateTime.ToString(), autor, content));
             SaveFile();
