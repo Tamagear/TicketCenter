@@ -1296,6 +1296,7 @@ namespace Ticketautomat
                     Label_BuyMenu_TicketAmount_Cheapest.Content = amount - 1;
             }
         }
+        
         private void Button_BuyMenu_TicketAmount_Increase_Click(object sender, RoutedEventArgs e)
         {
             if (((Button)sender).Name == "Button_BuyMenu_TicketAmount_Fastest_Increase")
@@ -1312,6 +1313,7 @@ namespace Ticketautomat
             }
         }
     }
+
     public struct Version
     {
         public int major;
