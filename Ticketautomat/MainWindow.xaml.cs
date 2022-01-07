@@ -910,7 +910,20 @@ namespace Ticketautomat
         private void Button_ShoppingCart_PayNowButton_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            GoTo_PayMenu();
+            int amountOfTickets = 0;
+            foreach (var item in manager.CurrentUser.ShoppingCart)
+            {
+                amountOfTickets += item.Value;
+            }
+            if(manager.MoneyManager.TicketPaperLeft < amountOfTickets)
+            {
+                AddLogEntry("Nicht genug Tickets vorhanden um den Kauf abzuschließen");
+                Label_ShoppingCart_Sum.Content = "Der Ticketspeicher ist leer";                
+            }
+            else
+            {
+                GoTo_PayMenu();
+            }
         }
 
         private void Button_AddedTicket_CancelButton_Click(object sender, RoutedEventArgs e)
@@ -964,10 +977,17 @@ namespace Ticketautomat
                     }
                     else
                     {
+                        if(manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] == 0)
+                        {
+                            AddLogEntry($"Der Geldspeicher von {manager.MoneyManager.AllMoneyTypes[j].Value}€ ist leer");
+                        }
                         j--;
                     }
                 }
-
+                if(Math.Round((double)manager.MoneyManager.SumLeft, 2) != 0)
+                {
+                    AddLogEntry($"Nicht genug Wechselgeld im Automat vorhanden. Restsumme: {Math.Round((double)manager.MoneyManager.SumLeft, 2)}");
+                }
                 Label_BuyMenu_TicketAmount_Cheapest.Content = 1;
                 Label_BuyMenu_TicketAmount_Fastest.Content = 1;
                 tempAddedMoney.Clear();
