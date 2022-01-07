@@ -276,7 +276,7 @@ namespace Ticketautomat
             Dictionary<Money, int> fillstate = manager.MoneyManager.MoneyFillState;
             for (int i = 0; i < fillstate.Count; i++)
             {
-                labelText += $"\n{moneyTypes[i].Value}€: {fillstate[moneyTypes[i]]} Stück";
+                labelText += $"\n{moneyTypes[i].Value:F2}€: {fillstate[moneyTypes[i]]} Stück";
             }
             Label_AdminSavingsManagement_CurrentFillState.Content = labelText;
         }
@@ -452,7 +452,6 @@ namespace Ticketautomat
             PDFExportMenu.Visibility = Visibility.Collapsed;
             UpdateSavingsManagement();
         }
-
 
         private void GoTo_AdminChangePricesMenu()
         {
