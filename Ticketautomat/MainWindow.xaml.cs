@@ -369,7 +369,7 @@ namespace Ticketautomat
                 }
             }
 
-            foreach(KeyValuePair<Money, int> valuePair in manager.MoneyManager.MoneyFillState)
+            foreach (KeyValuePair<Money, int> valuePair in manager.MoneyManager.MoneyFillState)
             {
                 result += $"<fillstate>{valuePair.Value}</fillstate>";
             }
@@ -381,8 +381,8 @@ namespace Ticketautomat
 
         private void AddLogEntry(string content)
         {
-            DateTime dateTime = DateTime.Now;           
-            string autor = manager.CurrentUser.Name;            
+            DateTime dateTime = DateTime.Now;
+            string autor = manager.CurrentUser.Name;
             manager.LogEntries.Add(new LogEntry(dateTime.ToString("G"), autor, content));
             dynamicLogs.Add(new LogEntry(dateTime.ToString("G"), autor, content));
             SaveFile();
@@ -938,10 +938,23 @@ namespace Ticketautomat
             {
                 //Entferne Wechselgeld
                 //Reset();
-                for(int i=0; i<tempAddedMoney.Count; i++)
+                for (int i = 0; i < tempAddedMoney.Count; i++)
                 {
-                    Console.WriteLine(tempAddedMoney.Count);
                     manager.MoneyManager.InsertMoney(tempAddedMoney[i], 1);
+                }
+                int j = manager.MoneyManager.MoneyFillState.Count-1;
+                while (manager.MoneyManager.SumLeft < 0f && j >= 0)
+                {
+                    double sumleft = Math.Round((double)manager.MoneyManager.SumLeft, 2);
+                    if (manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] > 0 && manager.MoneyManager.AllMoneyTypes[j].Value + sumleft <= 0.01f)
+                    {
+                        manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] = manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] - 1;
+                        manager.MoneyManager.SumLeft += manager.MoneyManager.AllMoneyTypes[j].Value;
+                    }
+                    else
+                    {
+                        j--;
+                    }
                 }
                 tempAddedMoney.Clear();
                 GoTo_PDFExportMenu();
@@ -1314,7 +1327,7 @@ namespace Ticketautomat
                     Label_BuyMenu_TicketAmount_Cheapest.Content = amount - 1;
             }
         }
-        
+
         private void Button_BuyMenu_TicketAmount_Increase_Click(object sender, RoutedEventArgs e)
         {
             if (((Button)sender).Name == "Button_BuyMenu_TicketAmount_Fastest_Increase")
