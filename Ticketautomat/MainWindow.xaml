@@ -459,8 +459,8 @@
             </Grid>
             <Grid x:Name="AdminStatistics_Table" Visibility="Collapsed">
                 <Rectangle Width="5" Height="500" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="ForestGreen"/>
-                <TextBlock x:Name="TextBlock_AdminStatistics_Table_LeftTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center" Width="700" Height="500" FontSize="25" Margin="50, 0" TextAlignment="Right"/>
-                <TextBlock x:Name="TextBlock_AdminStatistics_Table_RightTextBlock" HorizontalAlignment="Right" VerticalAlignment="Center" Width="700" Height="500" FontSize="25" Margin="50, 0" TextAlignment="Left"/>
+                <TextBlock x:Name="TextBlock_AdminStatistics_Table_LeftTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center" Width="700" Height="500" FontSize="15" Margin="50, 0" TextAlignment="Right"/>
+                <TextBlock x:Name="TextBlock_AdminStatistics_Table_RightTextBlock" HorizontalAlignment="Right" VerticalAlignment="Center" Width="700" Height="500" FontSize="15" Margin="50, 0" TextAlignment="Left"/>
             </Grid>
             <Grid x:Name="AdminStatistics_TimeTypeButtonsGrid" Margin="58,790,1382,60">
                 <Grid.ColumnDefinitions>
