@@ -1034,6 +1034,7 @@ namespace Ticketautomat
                     ShowError($"Nicht genug Wechselgeld im Automat vorhanden");
                     AddLogEntry($"Nicht genug Wechselgeld im Automat vorhanden. Fehlende Summe: {Math.Round((double)manager.MoneyManager.SumLeft, 2)}€");
                     clearTempMoney();
+                    Reset();
                     GoTo_MainMenu();
                     return;
                 }
