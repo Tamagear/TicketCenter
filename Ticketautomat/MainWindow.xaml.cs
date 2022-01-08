@@ -20,8 +20,7 @@ namespace Ticketautomat
     public partial class MainWindow : Window
     {
         private Version version = new Version(0, 0, 3);
-
-        List<Money> tempAddedMoney = new List<Money>();
+        
         private Profile currentProfile = null;
         private Manager manager = null;
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
@@ -39,6 +38,9 @@ namespace Ticketautomat
 
         private ObservableCollection<Tuple<Ticket, int, string>> tickets = new ObservableCollection<Tuple<Ticket, int, string>>();
         private ObservableCollection<LogEntry> dynamicLogs = new ObservableCollection<LogEntry>();
+        private ObservableCollection<int> maxRefill = new ObservableCollection<int>();
+        Dictionary<Money, int> tempAddedMoney = new Dictionary<Money, int>();
+
 
         private object currentTicket { get; set; }
 
@@ -68,6 +70,21 @@ namespace Ticketautomat
             liveTimer.Interval = TimeSpan.FromSeconds(1);
             liveTimer.Tick += LiveTimer_Tick;
             liveTimer.Start();
+
+            for(int i=0; i<manager.MoneyManager.AllMoneyTypes.Count; i++)
+            {
+                tempAddedMoney.Add(manager.MoneyManager.AllMoneyTypes[i], 0);
+            }
+
+            maxRefill.Add(0);
+            maxRefill.Add(200);
+            maxRefill.Add(0);
+            maxRefill.Add(150);
+
+            slValue_bill.Minimum = maxRefill[0];
+            slValue_bill.Maximum = maxRefill[1];
+            slValue_coin.Minimum = maxRefill[2];
+            slValue_coin.Maximum = maxRefill[3];
 
             List_Logs.ItemsSource = dynamicLogs;
             List_ShoppingCart.ItemsSource = tickets;
@@ -136,7 +153,7 @@ namespace Ticketautomat
             DecryptFile(saveFilePath, tempFilePath);
             manager.LoadSavedData(File.ReadAllText(tempFilePath));
             File.Delete(tempFilePath);
-            for (int i = manager.LogEntries.Count-1; i >= 0; i--)
+            for (int i = manager.LogEntries.Count - 1; i >= 0; i--)
             {
                 dynamicLogs.Add(manager.LogEntries[i]);
             }
@@ -579,7 +596,7 @@ namespace Ticketautomat
             }
             Label_ShoppingCart_Sum.Content = $"Preis insgesamt: {finalPrice:F2}€";
             Label_PayMenu_PaySum.Content = $"{manager.MoneyManager.SumLeft:F2}€";
-            if(manager.CurrentUser.ShoppingCart.Count == 0)
+            if (manager.CurrentUser.ShoppingCart.Count == 0)
             {
                 timerRuns = false;
             }
@@ -852,18 +869,34 @@ namespace Ticketautomat
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            manager.MoneyManager.Refill(EMoneyType.COIN, out _);
+            int value = (int)slValue_coin.Value;
+
+            for (int i = 0; i < manager.MoneyManager.AllMoneyTypes.Count; i++)
+            {
+                if (manager.MoneyManager.AllMoneyTypes[i].MoneyType == EMoneyType.COIN)
+                {
+                    manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[i]] = value;
+                }
+            }
             //Bestätigungsfenster? Ausschuss anzeigen
-            AddLogEntry("Maschine mit Münzen aufgefüllt");
+            AddLogEntry($"Münzspeicher auf {value} aufgefüllt");
             UpdateSavingsManagement();
         }
 
         private void Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click(object sender, RoutedEventArgs e)
         {
             manager.ResetTimeUntilTimeout();
-            manager.MoneyManager.Refill(EMoneyType.BILL, out _);
+            int value = (int)slValue_bill.Value;
+
+            for (int i=0; i<manager.MoneyManager.AllMoneyTypes.Count; i++)
+            {
+                if (manager.MoneyManager.AllMoneyTypes[i].MoneyType == EMoneyType.BILL)
+                {
+                    manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[i]] = value;
+                }
+            }
             //Bestätigungsfenster? Ausschuss anzeigen
-            AddLogEntry("Maschine mit Scheinen aufgefüllt");
+            AddLogEntry($"Scheinespeicher auf {value} aufgefüllt");
             UpdateSavingsManagement();
         }
 
@@ -927,7 +960,7 @@ namespace Ticketautomat
             {
                 amountOfTickets += item.Value;
             }
-            if(manager.MoneyManager.TicketPaperLeft < amountOfTickets)
+            if (manager.MoneyManager.TicketPaperLeft < amountOfTickets)
             {
                 AddLogEntry("Nicht genug Tickets vorhanden um den Kauf abzuschließen");
                 ShowError($"Es sind nicht genug Tickets im Ticketspeicher vorhanden\nTicketspeicher: {manager.MoneyManager.TicketPaperLeft} Stück übrig");
@@ -966,7 +999,10 @@ namespace Ticketautomat
 
             float addedMoney = int.Parse(moneyValue) / 100f;
             //Auf OverflowFehler achten!
-            tempAddedMoney.Add(manager.MoneyManager.GetMoneyFromValue(addedMoney));
+
+            tempAddedMoney[manager.MoneyManager.GetMoneyFromValue(addedMoney)]++;
+
+
             manager.MoneyManager.SumLeft -= addedMoney;
             UpdateTicketSpecifics();
 
@@ -974,37 +1010,52 @@ namespace Ticketautomat
             {
                 //Entferne Wechselgeld
                 //Reset();
-                for (int i = 0; i < tempAddedMoney.Count; i++)
-                {
-                    manager.MoneyManager.InsertMoney(tempAddedMoney[i], 1);
-                }
-                int j = manager.MoneyManager.MoneyFillState.Count - 1;
+                int j = tempAddedMoney.Count - 1;
                 while (manager.MoneyManager.SumLeft < 0f && j >= 0)
                 {
                     double sumleft = Math.Round((double)manager.MoneyManager.SumLeft, 2);
-                    if (manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] > 0 && manager.MoneyManager.AllMoneyTypes[j].Value + sumleft <= 0.01f)
+                    Money currentMoney = manager.MoneyManager.AllMoneyTypes[j];
+                    if ((manager.MoneyManager.MoneyFillState[currentMoney] + tempAddedMoney[currentMoney]) > 0 && currentMoney.Value + sumleft <= 0.01f)
                     {
-                        manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] = manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] - 1;
-                        manager.MoneyManager.SumLeft += manager.MoneyManager.AllMoneyTypes[j].Value;
+                        tempAddedMoney[currentMoney]--;
+                        manager.MoneyManager.SumLeft += currentMoney.Value;
                     }
                     else
                     {
-                        if(manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[j]] == 0)
-                        {
-                            AddLogEntry($"Der Geldspeicher von {manager.MoneyManager.AllMoneyTypes[j].Value}€ ist leer");
-                        }
                         j--;
                     }
                 }
-                if(Math.Round((double)manager.MoneyManager.SumLeft, 2) != 0)
-                {
-                    AddLogEntry($"Nicht genug Wechselgeld im Automat vorhanden. Restsumme: {Math.Round((double)manager.MoneyManager.SumLeft, 2)}");
-                }
+
                 Label_BuyMenu_TicketAmount_Cheapest.Content = 1;
                 Label_BuyMenu_TicketAmount_Fastest.Content = 1;
-                tempAddedMoney.Clear();
+
+                if (Math.Round((double)manager.MoneyManager.SumLeft, 2) != 0)
+                {
+                    ShowError($"Nicht genug Wechselgeld im Automat vorhanden");
+                    AddLogEntry($"Nicht genug Wechselgeld im Automat vorhanden. Restsumme: {Math.Round((double)manager.MoneyManager.SumLeft, 2)}");
+                    clearTempMoney();
+                    GoTo_MainMenu();
+                    return;
+                }
+                for (int k = 0; k < tempAddedMoney.Count; k++)
+                {
+                    manager.MoneyManager.InsertMoney(manager.MoneyManager.AllMoneyTypes[k], tempAddedMoney[manager.MoneyManager.AllMoneyTypes[k]]);
+                    if (manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[k]] == 0)
+                    {
+                        AddLogEntry($"Der Geldspeicher von {manager.MoneyManager.AllMoneyTypes[j].Value}€ ist leer");
+                    }
+                }
+                clearTempMoney();
                 FinalizeTransaction();
                 GoTo_PDFExportMenu();
+            }
+        }
+
+        private void clearTempMoney()
+        {
+            for (int i = 0; i < manager.MoneyManager.AllMoneyTypes.Count; i++)
+            {
+                tempAddedMoney[manager.MoneyManager.AllMoneyTypes[i]] = 0;
             }
         }
 
@@ -1420,11 +1471,11 @@ namespace Ticketautomat
 
             //Auch leere Einträge anzeigen! Also Dictionary vorfertigen?
 
-            for (int i=0; i<manager.Statistics.Count; i++)
+            for (int i = 0; i < manager.Statistics.Count; i++)
             {
                 if (currentStatisticTimeType == EStatisticTimeType.COMPLETE
                     || currentStatisticTimeType == EStatisticTimeType.MONTH && manager.Statistics[i].Month == now.Month
-                    || currentStatisticTimeType == EStatisticTimeType.WEEK && manager.Statistics[i].Day-now.Day < 7 
+                    || currentStatisticTimeType == EStatisticTimeType.WEEK && manager.Statistics[i].Day - now.Day < 7
                     && (manager.Statistics[i].DayOfWeek > 0 && manager.Statistics[i].DayOfWeek < now.DayOfWeek || manager.Statistics[i].DayOfWeek == 0 && now.DayOfWeek > 0)
                     || currentStatisticTimeType == EStatisticTimeType.DAY && manager.Statistics[i].Day == now.Day)
                 {
@@ -1436,8 +1487,8 @@ namespace Ticketautomat
                         valuePairs.Add(usedKey, 1);
                 }
             }
-            
-            foreach(KeyValuePair<string, int> pair in valuePairs)
+
+            foreach (KeyValuePair<string, int> pair in valuePairs)
                 chartItems.Add(new BarChartItem(pair.Key, pair.Value));
 
             if (currentStatisticDisplayMode == EStatisticDisplay.GRAPH)
@@ -1473,7 +1524,7 @@ namespace Ticketautomat
                 float highestRoundedValue = -1f;
 
                 #region highestRoundedValue
-                foreach (BarChartItem item in chartItems)                
+                foreach (BarChartItem item in chartItems)
                     if (highestRoundedValue < item.value)
                         highestRoundedValue = item.value;
 
@@ -1499,12 +1550,12 @@ namespace Ticketautomat
 
                 Point yAxisEndPoint = new Point(axisMargin, axisMargin); //1PX = 1 Value {multiplier hinzufügen}
                 Point origin = new Point(axisMargin, chartHeight - axisMargin);
-                Point xAxisEndPoint = new Point(chartWidth - axisMargin, chartHeight - axisMargin);                
+                Point xAxisEndPoint = new Point(chartWidth - axisMargin, chartHeight - axisMargin);
 
                 double yValue = 0;
                 var yAxisValue = origin.Y;
                 while (yAxisValue >= yAxisEndPoint.Y)
-                {                    
+                {
                     Line yLine = new Line()
                     {
                         Stroke = Brushes.LightGray,
@@ -1528,7 +1579,7 @@ namespace Ticketautomat
                     Canvas.SetTop(yAxisTextBlock, yAxisValue - 12.5);
 
                     yAxisValue -= yAxisInterval;
-                    yValue = Math.Ceiling(yValue + (yAxisInterval/500f) * highestRoundedValue);
+                    yValue = Math.Ceiling(yValue + (yAxisInterval / 500f) * highestRoundedValue);
                 }
 
                 var margin = origin.X + blockMargin;

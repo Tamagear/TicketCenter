@@ -22,6 +22,10 @@ namespace Ticketautomat.Classes
         public float SumLeft { get => m_sumLeft; set => m_sumLeft = value; }
         public List<Money> AllMoneyTypes { get => m_allMoneyTypes; set => m_allMoneyTypes = value; }
 
+        public static int MONEY_FILL_DEFAULT_COIN1 => MONEY_FILL_DEFAULT_COIN;
+
+        public static int MONEY_FILL_DEFAULT_BILL1 => MONEY_FILL_DEFAULT_BILL;
+
         public MoneyManager()
         {
             m_allMoneyTypes.Add(new Money(0.05f, EnumCollection.EMoneyType.COIN));

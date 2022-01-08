@@ -355,9 +355,17 @@
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper" Content="Papierspeicher auffüllen" FontSize="50" Grid.Row="0" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click"/>
-                <Button x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins" Content="Münzen auffüllen" FontSize="50" Grid.Row="1" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click"/>
-                <Button x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillBills" Content="Scheine auffüllen" FontSize="50" Grid.Row="2" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click"/>
+                <Button x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper" Margin="0,20,0,20" Content="Papierspeicher auffüllen" FontSize="50" Grid.Row="0" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillTicketPaper_Click"/>
+                <DockPanel VerticalAlignment="Center" Margin="0" Grid.Row="1">
+                    <Button Margin="0,5,0,10" x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins" Content="Münzen auffüllen" FontSize="50" Grid.Row="2" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click" DockPanel.Dock="Top"/>
+                    <Label  Margin="20,0,0,20"  Content="{Binding ElementName=slValue_coin, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" VerticalContentAlignment="Top" HorizontalContentAlignment="Right" Width="40" Height="60"/>
+                    <Slider Maximum="150" TickPlacement="BottomRight" TickFrequency="25" IsSnapToTickEnabled="True" Name="slValue_coin" />
+                </DockPanel>
+                <DockPanel VerticalAlignment="Center" Margin="0" Grid.Row="2">
+                    <Button Margin="0,5,0,10" x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillBills" Content="Scheine auffüllen" FontSize="50" Grid.Row="2" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click" DockPanel.Dock="Top"/>
+                    <Label  Margin="20,0,0,20"  Content="{Binding ElementName=slValue_bill, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" VerticalContentAlignment="Top" HorizontalContentAlignment="Right" Width="40" Height="60"/>
+                    <Slider Maximum="200" TickPlacement="BottomRight" TickFrequency="25" IsSnapToTickEnabled="True" Name="slValue_bill" Value="75"/>
+                </DockPanel>
             </Grid>
         </Grid>
         <Grid x:Name="AdminChangePricesMenu" Visibility="Collapsed">
