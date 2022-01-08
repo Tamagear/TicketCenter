@@ -1500,8 +1500,7 @@ namespace Ticketautomat
             {
                 if ((currentStatisticTimeType == EStatisticTimeType.COMPLETE)
                     || (currentStatisticTimeType == EStatisticTimeType.MONTH && manager.Statistics[i].Month == now.Month)
-                    || (currentStatisticTimeType == EStatisticTimeType.WEEK && manager.Statistics[i].Day - now.Day < 7
-                    && (manager.Statistics[i].DayOfWeek > 0 && manager.Statistics[i].DayOfWeek < now.DayOfWeek || manager.Statistics[i].DayOfWeek == 0 && now.DayOfWeek > 0) || manager.Statistics[i].Day == now.Day)
+                    || currentStatisticTimeType == EStatisticTimeType.WEEK && now > manager.Statistics[i] && manager.Statistics[i].AddDays(7) > now && now.Day-7 < manager.Statistics[i].Day
                     || (currentStatisticTimeType == EStatisticTimeType.DAY && manager.Statistics[i].Day == now.Day))
                 {
                     string usedKey = manager.Statistics[i].ToString(currentStatisticTimespanType == EStatisticTimespanType.TIMESPAN ? "d" : "HH" + ":00"); //richtiges Format
