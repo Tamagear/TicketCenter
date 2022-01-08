@@ -1000,10 +1000,33 @@ namespace Ticketautomat
             float addedMoney = int.Parse(moneyValue) / 100f;
             //Auf OverflowFehler achten!
 
-            tempAddedMoney[manager.MoneyManager.GetMoneyFromValue(addedMoney)]++;
+            if (manager.MoneyManager.GetMoneyFromValue(addedMoney).MoneyType == EMoneyType.COIN)
+            {
+                if (manager.MoneyManager.MoneyFillState[manager.MoneyManager.GetMoneyFromValue(addedMoney)] + tempAddedMoney[manager.MoneyManager.GetMoneyFromValue(addedMoney)] >= 150)
+                {
+                    ShowError("Speicher dieser Münze ist voll.");
+                    AddLogEntry($"Der Münzspeicher von {addedMoney:F2}€ ist voll");
+                }
+                else
+                {
+                    tempAddedMoney[manager.MoneyManager.GetMoneyFromValue(addedMoney)]++;
+                    manager.MoneyManager.SumLeft -= addedMoney;
+                }
+            }
+            else if (manager.MoneyManager.GetMoneyFromValue(addedMoney).MoneyType == EMoneyType.BILL)
+            {
+                if (manager.MoneyManager.MoneyFillState[manager.MoneyManager.GetMoneyFromValue(addedMoney)] + tempAddedMoney[manager.MoneyManager.GetMoneyFromValue(addedMoney)] >= 150)
+                {
+                    ShowError("Speicher dieses Scheines ist voll.");
+                    AddLogEntry($"Der Scheinespeicher von {addedMoney:F2}€ ist voll");
+                }
+                else
+                {
+                    tempAddedMoney[manager.MoneyManager.GetMoneyFromValue(addedMoney)]++;
+                    manager.MoneyManager.SumLeft -= addedMoney;
+                }
+            }
 
-
-            manager.MoneyManager.SumLeft -= addedMoney;
             UpdateTicketSpecifics();
 
             if (manager.MoneyManager.SumLeft <= 0f)
@@ -1021,9 +1044,7 @@ namespace Ticketautomat
                         manager.MoneyManager.SumLeft += currentMoney.Value;
                     }
                     else
-                    {
                         j--;
-                    }
                 }
 
                 Label_BuyMenu_TicketAmount_Cheapest.Content = 1;
