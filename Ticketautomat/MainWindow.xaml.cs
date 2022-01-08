@@ -257,7 +257,7 @@ namespace Ticketautomat
 
             Image_AdminLogin_NotAllBoxesFilledOut.Visibility = Visibility.Collapsed;
             Image_AdminLogin_WrongData.Visibility = Visibility.Collapsed;
-            TextBox_AdminLogin_AdminUsername.Text = string.Empty;            
+            TextBox_AdminLogin_AdminUsername.Text = string.Empty;
             PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
 
             AdminLogin.Visibility = Visibility.Visible;
@@ -1494,6 +1494,7 @@ namespace Ticketautomat
             Label_AdminStatistics_CurrentStatistics.Content = $"{timeType} / {timespanType} / {displayMode}";
 
             //Auch leere Einträge anzeigen! Also Dictionary vorfertigen?
+            bool inserted = false;
 
             for (int i = 0; i < manager.Statistics.Count; i++)
             {
@@ -1503,7 +1504,11 @@ namespace Ticketautomat
                     && (manager.Statistics[i].DayOfWeek > 0 && manager.Statistics[i].DayOfWeek < now.DayOfWeek || manager.Statistics[i].DayOfWeek == 0 && now.DayOfWeek > 0)
                     || currentStatisticTimeType == EStatisticTimeType.DAY && manager.Statistics[i].Day == now.Day)
                 {
-                    string usedKey = manager.Statistics[i].ToString(currentStatisticTimespanType == EStatisticTimespanType.TIMESPAN ? "d" : "HH:mm"); //richtiges Format
+                    string usedKey = manager.Statistics[i].ToString(currentStatisticTimespanType == EStatisticTimespanType.TIMESPAN ? "d" : "HH" + ":00"); //richtiges Format
+                    if (usedKey.Length == 5)
+                    {
+                        inserted = true;
+                    }
 
                     if (valuePairs.ContainsKey(usedKey))
                         valuePairs[usedKey]++;
@@ -1511,9 +1516,23 @@ namespace Ticketautomat
                         valuePairs.Add(usedKey, 1);
                 }
             }
+            if (inserted == false)
+            {
+                foreach (KeyValuePair<string, int> pair in valuePairs)
+                    chartItems.Add(new BarChartItem(pair.Key + "", pair.Value));
+            }
+            else
+            {
+                for (int i = 0; i < 24; i++)
+                {
+                    string key = (i < 10 ? "0" : "") + i + ":00";
+                    if (valuePairs.ContainsKey(key))
+                    {
+                        chartItems.Add(new BarChartItem(key + "", valuePairs[key]));
+                    }
+                }
+            }
 
-            foreach (KeyValuePair<string, int> pair in valuePairs)
-                chartItems.Add(new BarChartItem(pair.Key, pair.Value));
 
             if (currentStatisticDisplayMode == EStatisticDisplay.GRAPH)
             {
