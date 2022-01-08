@@ -257,10 +257,11 @@ namespace Ticketautomat
 
             Image_AdminLogin_NotAllBoxesFilledOut.Visibility = Visibility.Collapsed;
             Image_AdminLogin_WrongData.Visibility = Visibility.Collapsed;
-            TextBox_AdminLogin_AdminUsername.Text = string.Empty;
+            TextBox_AdminLogin_AdminUsername.Text = string.Empty;            
             PasswordBox_AdminLogin_AdminPassword.Password = string.Empty;
 
             AdminLogin.Visibility = Visibility.Visible;
+            TextBox_AdminLogin_AdminUsername.Focus();
         }
 
         private void Button_PriceTable_GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -918,6 +919,7 @@ namespace Ticketautomat
             Reset();
             AdminDisableMachine.Visibility = Visibility.Collapsed;
             DisabledScreen.Visibility = Visibility.Visible;
+            TextBox_DisableScreen_AdminUsername.Focus();
             AddLogEntry("Maschine deaktiviert");
         }
 

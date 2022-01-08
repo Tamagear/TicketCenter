@@ -487,7 +487,7 @@
             <Label x:Name="Label_DisableScreen_Title" Content="Der Automat ist aktuell gesperrt.&#x0a;Bitte wenden Sie sich an einen unserer Mitarbeiter." Foreground="White" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="45" Margin="0, 250"/>
             <Label x:Name="Label_DisableScreen_Username" Content="Benutzername" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="372,680,0,0"/>
             <Label x:Name="Label_DisableScreen_Password" Content="Passwort" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="411,710,0,0"/>
-            <Button x:Name="Button_DisableScreen_LoginButton" Content="Entsperren" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,500,123" Height="32" Width="97" FontSize="20" Cursor="Hand" Click="Button_DisableScreen_LoginButton_Click"/>
+            <Button x:Name="Button_DisableScreen_LoginButton" Content="Entsperren" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,500,123" Height="32" Width="97" FontSize="20" Cursor="Hand" Click="Button_DisableScreen_LoginButton_Click" IsDefault="True"/>
             <TextBox x:Name="TextBox_DisableScreen_AdminUsername" Width="600" Height="28" FontSize="14" VerticalContentAlignment="Center" Margin="500,682,500,190"/>
             <PasswordBox x:Name="PasswordBox_DisableScreen_AdminPassword" Width="600" Height="28" FontSize="14" VerticalContentAlignment="Center" Margin="500,712,500,160"/>
         </Grid>
