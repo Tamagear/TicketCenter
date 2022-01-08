@@ -1498,11 +1498,11 @@ namespace Ticketautomat
 
             for (int i = 0; i < manager.Statistics.Count; i++)
             {
-                if (currentStatisticTimeType == EStatisticTimeType.COMPLETE
-                    || currentStatisticTimeType == EStatisticTimeType.MONTH && manager.Statistics[i].Month == now.Month
-                    || currentStatisticTimeType == EStatisticTimeType.WEEK && manager.Statistics[i].Day - now.Day < 7
-                    && (manager.Statistics[i].DayOfWeek > 0 && manager.Statistics[i].DayOfWeek < now.DayOfWeek || manager.Statistics[i].DayOfWeek == 0 && now.DayOfWeek > 0)
-                    || currentStatisticTimeType == EStatisticTimeType.DAY && manager.Statistics[i].Day == now.Day)
+                if ((currentStatisticTimeType == EStatisticTimeType.COMPLETE)
+                    || (currentStatisticTimeType == EStatisticTimeType.MONTH && manager.Statistics[i].Month == now.Month)
+                    || (currentStatisticTimeType == EStatisticTimeType.WEEK && manager.Statistics[i].Day - now.Day < 7
+                    && (manager.Statistics[i].DayOfWeek > 0 && manager.Statistics[i].DayOfWeek < now.DayOfWeek || manager.Statistics[i].DayOfWeek == 0 && now.DayOfWeek > 0) || manager.Statistics[i].Day == now.Day)
+                    || (currentStatisticTimeType == EStatisticTimeType.DAY && manager.Statistics[i].Day == now.Day))
                 {
                     string usedKey = manager.Statistics[i].ToString(currentStatisticTimespanType == EStatisticTimespanType.TIMESPAN ? "d" : "HH" + ":00"); //richtiges Format
                     if (usedKey.Length == 5)
