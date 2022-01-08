@@ -20,7 +20,7 @@ namespace Ticketautomat
     public partial class MainWindow : Window
     {
         private Version version = new Version(0, 0, 3);
-        
+
         private Profile currentProfile = null;
         private Manager manager = null;
         private EAgeType currentSelectedAgeType = EAgeType.ADULT;
@@ -71,7 +71,7 @@ namespace Ticketautomat
             liveTimer.Tick += LiveTimer_Tick;
             liveTimer.Start();
 
-            for(int i=0; i<manager.MoneyManager.AllMoneyTypes.Count; i++)
+            for (int i = 0; i < manager.MoneyManager.AllMoneyTypes.Count; i++)
             {
                 tempAddedMoney.Add(manager.MoneyManager.AllMoneyTypes[i], 0);
             }
@@ -879,7 +879,7 @@ namespace Ticketautomat
                 }
             }
             //Bestätigungsfenster? Ausschuss anzeigen
-            AddLogEntry($"Münzspeicher auf {value} aufgefüllt");
+            AddLogEntry($"Münzspeicher auf {value} gesetzt");
             UpdateSavingsManagement();
         }
 
@@ -888,7 +888,7 @@ namespace Ticketautomat
             manager.ResetTimeUntilTimeout();
             int value = (int)slValue_bill.Value;
 
-            for (int i=0; i<manager.MoneyManager.AllMoneyTypes.Count; i++)
+            for (int i = 0; i < manager.MoneyManager.AllMoneyTypes.Count; i++)
             {
                 if (manager.MoneyManager.AllMoneyTypes[i].MoneyType == EMoneyType.BILL)
                 {
@@ -896,7 +896,7 @@ namespace Ticketautomat
                 }
             }
             //Bestätigungsfenster? Ausschuss anzeigen
-            AddLogEntry($"Scheinespeicher auf {value} aufgefüllt");
+            AddLogEntry($"Scheinespeicher auf {value} gesetzt");
             UpdateSavingsManagement();
         }
 
@@ -1032,7 +1032,7 @@ namespace Ticketautomat
                 if (Math.Round((double)manager.MoneyManager.SumLeft, 2) != 0)
                 {
                     ShowError($"Nicht genug Wechselgeld im Automat vorhanden");
-                    AddLogEntry($"Nicht genug Wechselgeld im Automat vorhanden. Restsumme: {Math.Round((double)manager.MoneyManager.SumLeft, 2)}");
+                    AddLogEntry($"Nicht genug Wechselgeld im Automat vorhanden. Fehlende Summe: {Math.Round((double)manager.MoneyManager.SumLeft, 2)}€");
                     clearTempMoney();
                     GoTo_MainMenu();
                     return;
@@ -1042,7 +1042,7 @@ namespace Ticketautomat
                     manager.MoneyManager.InsertMoney(manager.MoneyManager.AllMoneyTypes[k], tempAddedMoney[manager.MoneyManager.AllMoneyTypes[k]]);
                     if (manager.MoneyManager.MoneyFillState[manager.MoneyManager.AllMoneyTypes[k]] == 0)
                     {
-                        AddLogEntry($"Der Geldspeicher von {manager.MoneyManager.AllMoneyTypes[j].Value}€ ist leer");
+                        AddLogEntry($"Der Geldspeicher von {manager.MoneyManager.AllMoneyTypes[k].Value:F2}€ ist leer");
                     }
                 }
                 clearTempMoney();
