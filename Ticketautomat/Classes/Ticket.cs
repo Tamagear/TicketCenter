@@ -69,10 +69,6 @@ namespace Ticketautomat.Classes
             page.Elements.Add(Ticketcenter);
             Image image = new Image("Resources/softwareIcon.png", 0, 0, 0.2f);
             page.Elements.Add(image);
-
-            QrCode qrCode = new QrCode("Datum: " + Date + "\nName: " + Customer.Name + "\nStartstation: " + StartStation.StationName + "\nEndstation: " + TargetDestination.StationName + "\nPreisstufe: " + PriceEntry, 400, 0);
-            //QrCode qrCode = new QrCode("https://www.youtube.com/watch?v=dQw4w9WgXcQ", 400, 0);
-            page.Elements.Add(qrCode);
             document.Draw(p_Text);
         }
 

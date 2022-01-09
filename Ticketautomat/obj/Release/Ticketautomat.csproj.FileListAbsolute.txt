@@ -34,3 +34,4 @@ C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat
 C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat\obj\Release\Ticketautomat.csproj.CopyComplete
 C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat\obj\Release\Ticketautomat.exe
 C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat\obj\Release\Ticketautomat.pdb
+C:\Users\Michael Reiter\Desktop\SWE_PraktikumsProjekt\ticketcenter\Ticketautomat\obj\Release\Ticketautomat.csprojAssemblyReference.cache

@@ -129,7 +129,6 @@ namespace Ticketautomat.Classes
         public void ExportToPDF(String p_text)
         {
             MergeDocument mergeDocument = new MergeDocument();
-
             foreach (KeyValuePair<Ticket, int> item in ShoppingCart)
             {
                 for (int i = 0; i < item.Value; i++)
@@ -137,8 +136,9 @@ namespace Ticketautomat.Classes
                     item.Key.ToPDF("CreatePdf.pdf");
                     mergeDocument.Append("CreatePdf.pdf");
                 }
+
+                mergeDocument.Draw(p_text);
             }
-            mergeDocument.Draw(p_text);
         }
     }
 }
