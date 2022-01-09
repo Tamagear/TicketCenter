@@ -26,14 +26,14 @@ namespace Ticketautomat.Classes
             switch (m_stationZone)
             {
                 case EStationZone.ZONE_A:
-                    return Brushes.YellowGreen;
+                    return new SolidColorBrush(Color.FromRgb(104, 180, 45));
                 case EStationZone.ZONE_B:
-                    return Brushes.CornflowerBlue;
+                    return new SolidColorBrush(Color.FromRgb(0, 177, 178));
                 case EStationZone.ZONE_C:
-                    return Brushes.Yellow;
+                    return new SolidColorBrush(Color.FromRgb(250, 187, 22));
             }
 
-            return Brushes.Red;
+            return new SolidColorBrush(Color.FromRgb(180, 45, 45));
         }
     }
 }

@@ -52,7 +52,6 @@ namespace Ticketautomat.Classes
         private void Initialize()
         {
             CurrentUser.Name = "Kunde";
-            m_maintenanceProfiles.Add(new MaintenanceProfile("test", "test")); //ENTFERNEN!
             m_maintenanceProfiles.Add(new MaintenanceProfile("Niederhaeuser", "BAHNFAHRENISTTOLL"));
             m_maintenanceProfiles.Add(new MaintenanceProfile("Kueppers", "BAHNFAHRENISTSUPER"));
             m_maintenanceProfiles.Add(new MaintenanceProfile("Ochsendorf", "BAHNFAHRENISTMEGA"));

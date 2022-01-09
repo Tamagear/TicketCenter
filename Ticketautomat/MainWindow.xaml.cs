@@ -19,7 +19,7 @@ namespace Ticketautomat
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Version version = new Version(0, 0, 3);
+        private Version version = new Version(1, 0, 0);
 
         private Profile currentProfile = null;
         private Manager manager = null;
@@ -48,7 +48,7 @@ namespace Ticketautomat
 
         private const string ENCRYPTION_KEY = "DSXFCGBGFDVHGSVBNFHRRVGF";
         private const string SOFTWARE_NAME = "TicketCenter";
-        private const string VERSION_STATUS = "SNAPSHOT";  //Später: RELEASE
+        private const string VERSION_STATUS = "RELEASE";
         private const string VERSION_HINTS = "Ticketcenter: Versionshinweise\n\n(c)Software-Engineering Gruppe C2\nFH Aachen";
         private const string WELCOME_MESSAGE = "Willkommen beim TicketCenter! Systemdaten wurden erstellt. Ändern Sie die Textdateien im Unterverzeichnis '/data', um den Text in der Software anzupassen. Für den Inhalt der Textdateien übernimmt der Entwickler keine Garantie.";
         private const string dir_savedata = "data";
@@ -71,10 +71,8 @@ namespace Ticketautomat
             liveTimer.Tick += LiveTimer_Tick;
             liveTimer.Start();
 
-            for (int i = 0; i < manager.MoneyManager.AllMoneyTypes.Count; i++)
-            {
-                tempAddedMoney.Add(manager.MoneyManager.AllMoneyTypes[i], 0);
-            }
+            for (int i = 0; i < manager.MoneyManager.AllMoneyTypes.Count; i++)            
+                tempAddedMoney.Add(manager.MoneyManager.AllMoneyTypes[i], 0);            
 
             maxRefill.Add(0);
             maxRefill.Add(200);
@@ -523,7 +521,6 @@ namespace Ticketautomat
             PayMenu.Visibility = Visibility.Collapsed;
             PDFExportMenu.Visibility = Visibility.Collapsed;
 
-            //Modus-Auswahl
             ShowStatisticsWithCurrentOptions();
         }
 
@@ -1630,7 +1627,7 @@ namespace Ticketautomat
                     BarChartItem item = chartItems[i];
                     Rectangle block = new Rectangle()
                     {
-                        Fill = Brushes.ForestGreen,
+                        Fill = new SolidColorBrush(Color.FromRgb(77, 122, 108)),
                         Width = blockWidth,
                         Height = item.value * (500f / highestRoundedValue),
                     };

@@ -11,9 +11,9 @@
         ResizeMode="NoResize"
         Title="TicketCenter" Height="900" Width="1600">
     <Grid x:Name="ParentGrid">
+        <Image Source="Resources/Images/background.png" Width="1600" Height="875" Margin="0,25,0,0"/>
         <Grid x:Name="Overlay">
-            <Rectangle x:Name="Rectangle_TopBarBackground" Fill="ForestGreen" Height="25" Width="1600" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <!--Wird später mit einer Grafik ersetzt-->
+            <Rectangle x:Name="Rectangle_TopBarBackground" Fill="#d1ff51" Height="25" Width="1600" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Button x:Name="Button_Close" Content="X" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="25, 0" Click="Button_Close_Click" Cursor="Hand"/>
             <Button x:Name="Button_Version" Content="i" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="75, 0" Click="Button_Version_Click" Cursor="Hand"/>
             <Button x:Name="Button_MaintenanceLogin" Content="Mitarbeiterlogin" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0" Click="Button_MaintenanceLogin_Click" Cursor="Hand"/>
@@ -22,7 +22,6 @@
             <Label x:Name="Label_DateTime" Content="Lädt..." Height="25" Width="Auto" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0"/>
         </Grid>
         <Grid x:Name="MainMenu" Visibility="Visible">
-            <!--Später: Fester Background; spart Performance und viel Code-->
             <Image x:Name="Image_MainMenu_Map" Source="Resources/Images/map_full.jpg" Height="500" Width="500" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,-30"/>
             <Label x:Name="Label_MainMenu_MOTD" Content="LÄDT..." Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_MainMenu_TicketSpotlight" Content="Lädt..." Height="60" Width="500" FontSize="36" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,715,20,0"/>
@@ -45,7 +44,7 @@
         </Grid>
         <Grid x:Name="PriceTable" Visibility="Collapsed">
             <Image Source="Resources/Images/background_table.png"/>
-            <Rectangle x:Name="Rectangle_PriceTable_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_PriceTable_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Label x:Name="Label_PriceTable_Title" Content="AKTUELLE TICKETPREISE" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_PriceTable_Hint" Content="Die Ticketpreise können sich innerhalb eines Tages mehrfach ändern.&#x0a;Kontaktieren Sie bei weiteren Fragen unseren Kundenservice." HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 135" FontSize="20"/>
             <Label x:Name="Label_PriceTable_AsOfToday" Content="Stand: Lädt..." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100, 155" FontSize="20"/>
@@ -94,8 +93,8 @@
             </Grid>
         </Grid>
         <Grid x:Name="BuyMenu" Visibility="Collapsed">
-            <Rectangle x:Name="Rectangle_BuyMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
-            <Rectangle x:Name="Rectangle_BuyMenu_BelowTicketOptions" Fill="ForestGreen" Height="7" Width="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0"/>
+            <Rectangle x:Name="Rectangle_BuyMenu_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_BuyMenu_BelowTicketOptions" Fill="#d1ff51" Height="7" Width="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0"/>
             <Label x:Name="Label_BuyMenu_Title" Content="TICKET KAUFEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_BuyMenu_TicketSelection_CheapestTitle" Content="GÜNSTIGSTE OPTION" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="100,0,0,360"/>
             <Label x:Name="Label_BuyMenu_TicketSelection_FastestTitle" Content="WENIGSTE STATIONEN" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="100,0,100,360"/>
@@ -218,7 +217,7 @@
             </Grid>
         </Grid>
         <Grid x:Name="ShoppingCart" Visibility="Collapsed">
-            <Rectangle x:Name="Rectangle_ShoppingCart_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_ShoppingCart_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Label x:Name="Label_ShoppingCart_Title" Content="WARENKORB" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_ShoppingCart_Sum" Content="Preis insgesamt: Lädt..." FontWeight="Bold" FontSize="50" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,538,75,0"/>
             <Button x:Name="Button_ShoppingCart_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_BuyMenu_GoBackButton_Click" Cursor="Hand"/>
@@ -266,7 +265,7 @@
             <Button x:Name="Button_AddedTicket_ContinueButton" Content="Weiter Einkaufen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="480" Height="70" FontSize="40" Margin="0,0,30,98" Cursor="Hand" Click="Button_AddedTicket_ContinueButton_Click"/>
         </Grid>
         <Grid x:Name="PayMenu" Visibility="Collapsed">
-            <Rectangle x:Name="Rectangle_PayMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_PayMenu_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Rectangle x:Name="Rectangle_PayMenu_BelowPaySum" Fill="Black" Height="7" Width="1050" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,512,0,0"/>
             <Label x:Name="Label_PayMenu_Title" Content="BEZAHLEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_PayMenu_PayTitle" Content="NOCH ZU ZAHLEN:" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,252,0,0"/>
@@ -300,7 +299,7 @@
             </Grid>
         </Grid>
         <Grid x:Name="PDFExportMenu" Visibility="Collapsed">
-            <Rectangle x:Name="Rectangle_PDFExportMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_PDFExportMenu_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Rectangle x:Name="Rectangle_PDFExportMenu_BelowExportDialog" Fill="Black" Height="7" Width="1050" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,410,0,0"/>
             <Label x:Name="Label_PDFExportMenu_Title" Content="VIELEN DANK FÜR IHREN EINKAUF" Height="130" Width="1325" FontSize="70" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,56,0,0"/>
             <Label x:Name="Label_PDFExportMenu_PleaseWaitText" Content="Bitte warten Sie, während ihr Ticket gedruckt wird." FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,252,0,0"/>
@@ -309,7 +308,7 @@
             <Button x:Name="Button_PDFExportMenu_ExportButton" Content="Exportieren" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Width="400" Height="70" Margin="0,496,0,0" Cursor="Hand" Click="Button_PDFExportMenu_ExportButton_Click"/>
         </Grid>
         <Grid x:Name="AdminDashboard" Visibility="Collapsed">
-            <Rectangle x:Name="Rectangle_AdminDashboard_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_AdminDashboard_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Rectangle x:Name="Rectangle_AdminDashboard_BehindScrollView" Fill="LightGray" Height="725" Width="700" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
             <Label x:Name="Label_AdminDashboard_Title" Content="MITARBEITER-DASHBOARD" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_AdminDashboard_LogTitle" Content="LOG" FontSize="50" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="792,162,0,0"/>
@@ -343,7 +342,7 @@
             </ScrollViewer>
         </Grid>
         <Grid x:Name="AdminSavingsManagement" Visibility="Collapsed">
-            <Rectangle x:Name="Rectangle_AdminSavingsManagement_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_AdminSavingsManagement_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Rectangle x:Name="Rectangle_AdminSavingsManagement_BehindCurrentFillState" Fill="LightGray" Height="725" Width="700" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
             <Label x:Name="Label_AdminSavingsManagement_Title" Content="SPEICHERVERWALTUNG" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_AdminSavingsManagement_CurrentFillState" Width="700" Height="725" Content="Tickets übrig: 1000 Stück&#x0a;0,05€: 76 Stück&#x0a;0,10€: 35 Stück&#x0a;..." FontSize="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
@@ -359,18 +358,18 @@
                 <DockPanel VerticalAlignment="Center" Margin="0" Grid.Row="1">
                     <Button Margin="0,5,0,10" x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins" Content="Münzen auffüllen" FontSize="50" Grid.Row="2" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillCoins_Click" DockPanel.Dock="Top"/>
                     <Label  Margin="20,0,0,20"  Content="{Binding ElementName=slValue_coin, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" VerticalContentAlignment="Top" HorizontalContentAlignment="Right" Width="40" Height="60"/>
-                    <Slider Maximum="150" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="slValue_coin" Value="75"/>
+                    <Slider Maximum="150" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue_coin" Value="75"/>
                 </DockPanel>
                 <DockPanel VerticalAlignment="Center" Margin="0" Grid.Row="2">
                     <Button Margin="0,5,0,10" x:Name="Button_AdminSavingsManagement_AdminButtonOptions_FillBills" Content="Scheine auffüllen" FontSize="50" Grid.Row="2" Click="Button_AdminSavingsManagement_AdminButtonOptions_FillBills_Click" DockPanel.Dock="Top"/>
                     <Label  Margin="20,0,0,20"  Content="{Binding ElementName=slValue_bill, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" VerticalContentAlignment="Top" HorizontalContentAlignment="Right" Width="40" Height="60"/>
-                    <Slider Maximum="200" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="slValue_bill" Value="75"/>
+                    <Slider Maximum="200" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue_bill" Value="75"/>
                 </DockPanel>
             </Grid>
         </Grid>
         <Grid x:Name="AdminChangePricesMenu" Visibility="Collapsed" Margin="0, 25, 0, 0">
             <Image Source="Resources/Images/background_table.png" Margin="0, 0, 25, 0"/>
-            <Rectangle x:Name="Rectangle_AdminChangePricesMenu_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_AdminChangePricesMenu_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Label x:Name="Label_AdminChangePricesMenu_Title" Content="TICKETPREISE ANPASSEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Button x:Name="Button_AdminChangePricesMenu_SaveAndGoBackButton" Content="Speichern und zurück" FontSize="40" Height="80" Width="400" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30" Click="Button_AdminChangePricesMenu_SaveAndGoBackButton_Click" Cursor="Hand"/>
             <Grid x:Name="AdminChangePricesMenu_Table" Margin="25,0,25,0">
@@ -446,7 +445,7 @@
             <Button x:Name="Button_AdminDisableMachine_CancelButton" Content="Zurück" Width="250" Height="40" VerticalAlignment="Top" Margin="675,514,675,0" FontSize="20" Cursor="Hand" Click="Button_AdminDisableMachine_CancelButton_Click"/>
         </Grid>
         <Grid x:Name="AdminStatistics" Visibility="Collapsed">
-            <Rectangle x:Name="Rectangle_AdminStatistics_BelowTitle" Fill="ForestGreen" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
+            <Rectangle x:Name="Rectangle_AdminStatistics_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Label x:Name="Label_AdminStatistics_Title" Content="STATISTIKEN" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_AdminStatistics_CurrentStatistics" Content="Alle / Zeitspanne" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,722,0,0"/>
             <Button x:Name="Button_AdminStatistics_GoBackButton" Content="Zurück" Height="30" Width="200" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,30,0" Click="Button_AdminSavingsManagement_GoBackButton_Click" Cursor="Hand"/>
@@ -492,7 +491,6 @@
             <PasswordBox x:Name="PasswordBox_DisableScreen_AdminPassword" Width="600" Height="28" FontSize="14" VerticalContentAlignment="Center" Margin="500,712,500,160"/>
         </Grid>
         <Grid x:Name="ErrorWindow" Visibility="Collapsed">
-            <!--Fester Hintergrund-->
             <Rectangle x:Name="Rectangle_ErrorWindow_Background" Opacity="0.95" Fill="Black" Height="875" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0"/>
             <Rectangle x:Name="Rectangle_ErrorWindow_Foreground" Fill="White" Height="675" Width="1300"/>
             <Rectangle x:Name="Rectangle_ErrorWindow_BelowTitle" Fill="DarkSlateGray" Height="7" Width="1250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 200"/>
