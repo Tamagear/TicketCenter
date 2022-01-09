@@ -42,14 +42,14 @@
                 <Button x:Name="Button_MainMenu_BuyButton_Reduced" Content="Ermäßigt&#x0a;Lädt..." Width="300" Height="200" FontSize="40" Grid.Column="1" Grid.Row="1" Margin="0" Click="MainMenu_BuyButton_Reduced_Click" Cursor="Hand"/>
             </Grid>
         </Grid>
-        <Grid x:Name="PriceTable" Visibility="Collapsed">
-            <Image Source="Resources/Images/background_table.png"/>
+        <Grid x:Name="PriceTable" Visibility="Collapsed" Margin="0,25,0,0">
+            <Image Source="Resources/Images/background_table.png" Margin="0,0,25,0"/>
             <Rectangle x:Name="Rectangle_PriceTable_BelowTitle" Fill="#d1ff51" Height="7" Width="1450" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 150"/>
             <Label x:Name="Label_PriceTable_Title" Content="AKTUELLE TICKETPREISE" Height="130" Width="1325" FontSize="90" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"/>
             <Label x:Name="Label_PriceTable_Hint" Content="Die Ticketpreise können sich innerhalb eines Tages mehrfach ändern.&#x0a;Kontaktieren Sie bei weiteren Fragen unseren Kundenservice." HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 135" FontSize="20"/>
             <Label x:Name="Label_PriceTable_AsOfToday" Content="Stand: Lädt..." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100, 155" FontSize="20"/>
             <Button x:Name="Button_PriceTable_GoBackButton" Content="Zurück" FontSize="50" Height="80" Width="400" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30" Click="Button_PriceTable_GoBackButton_Click" Cursor="Hand"/>
-            <Grid x:Name="PriceTable_Table">
+            <Grid x:Name="PriceTable_Table" Margin="25,0,25,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*"/>
                     <ColumnDefinition Width="7*"/>
