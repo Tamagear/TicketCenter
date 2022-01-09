@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Debug\
+D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\obj\Release\
 Ticketautomat
 none
 false
-DEBUG;TRACE
+TRACE
 D:\FH Aachen\SWE\Repos\Ticketautomat\ticketcenter\Ticketautomat\App.xaml
 1219584333
 
-17458224576
+182013959564
 15767892560
 MainWindow.xaml;
 
